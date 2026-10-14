@@ -1,0 +1,22 @@
+{
+  "name": "nashik-kumbhmela-portal",
+  "version": "1.0.0",
+  "description": "Mesmerizing frontend web portal for Nashik City & Simhastha Kumbh Mela",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "nashik",
+    "kumbh-mela",
+    "simhastha",
+    "trimbakeshwar",
+    "godavari",
+    "panchavati",
+    "tourism",
+    "vercel"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}

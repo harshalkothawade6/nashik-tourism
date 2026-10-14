@@ -1,0 +1,200 @@
+﻿:root,
+[data-theme="dark"] {
+  /* --- Dark Theme: Ratri Prakash (Sacred Midnight & Temple Gold) --- */
+  --bg-deep: #050912;
+  --bg-primary: #080e1b;
+  --bg-secondary: #0e172a;
+  --bg-surface: #142038;
+  --bg-surface-elevated: #1a2948;
+  --bg-glass: rgba(14, 23, 42, 0.72);
+  --bg-glass-strong: rgba(10, 17, 33, 0.9);
+  --bg-glass-card: rgba(18, 29, 52, 0.65);
+  --bg-footer: #04070d;
+  --bg-body-radial: radial-gradient(circle at 50% 0%, #15223e 0%, #080e1b 45%, #050912 100%);
+  --bg-ambient-1: rgba(245, 158, 11, 0.04);
+  --bg-ambient-2: rgba(255, 111, 0, 0.04);
+  --hero-overlay-gradient: linear-gradient(180deg, rgba(5, 9, 18, 0.55) 0%, rgba(8, 14, 27, 0.75) 45%, rgba(5, 9, 18, 0.95) 90%, #050912 100%);
+
+  /* Gold & Brass Temple Radiance */
+  --gold-100: #fef3c7;
+  --gold-200: #fde68a;
+  --gold-300: #fcd34d;
+  --gold-400: #fbbf24;
+  --gold-500: #f59e0b;
+  --gold-600: #d97706;
+  --gold-gradient: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(254, 240, 138, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
+
+  /* Sacred Saffron & Vermilion */
+  --saffron-500: #ff6f00;
+  --saffron-600: #e65100;
+  --saffron-gradient: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  --vermilion: #dc2626;
+  --marigold: #f59e0b;
+  --river-blue: #0284c7;
+  --river-glow: #38bdf8;
+  --river-bg: #040914;
+
+  /* Text & Typography */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-gold: #fde68a;
+  --text-inverse: #080e1b;
+  
+  /* Borders & Shadows */
+  --border-gold-subtle: rgba(245, 158, 11, 0.22);
+  --border-gold-medium: rgba(245, 158, 11, 0.45);
+  --border-gold-bright: rgba(253, 230, 138, 0.85);
+  --border-glass: rgba(255, 255, 255, 0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 0 28px rgba(245, 158, 11, 0.25);
+  --shadow-gold-strong: 0 0 45px rgba(245, 158, 11, 0.4);
+
+  --chip-bg: rgba(255, 255, 255, 0.06);
+  --card-hover-bg: rgba(24, 38, 68, 0.8);
+  --input-bg: rgba(10, 16, 30, 0.7);
+  --input-border: rgba(245, 158, 11, 0.25);
+
+  /* Typography */
+  --font-serif: 'Cinzel', 'Rozha One', 'Georgia', serif;
+  --font-heading: 'Cinzel Decorative', 'Cinzel', 'Rozha One', serif;
+  --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-devanagari: 'Rozha One', 'Yatra One', 'Noto Serif Devanagari', serif;
+
+  /* Transitions & Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Light Theme: Divya Prakash (Temple Ivory, Sacred Dawn & Radiant Brass) --- */
+[data-theme="light"] {
+  --bg-deep: #f6f1e8;
+  --bg-primary: #fbf8f2;
+  --bg-secondary: #f0e7d8;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  --bg-glass-strong: rgba(251, 248, 242, 0.96);
+  --bg-glass-card: rgba(255, 255, 255, 0.94);
+  --bg-footer: #ede3d2;
+  --bg-body-radial: radial-gradient(circle at 50% 0%, #fffdf8 0%, #fbf8f2 50%, #f4ece0 100%);
+  --bg-ambient-1: rgba(217, 119, 6, 0.08);
+  --bg-ambient-2: rgba(234, 88, 12, 0.06);
+  --hero-overlay-gradient: linear-gradient(180deg, rgba(251, 248, 242, 0.42) 0%, rgba(251, 248, 242, 0.82) 55%, #f6f1e8 100%);
+
+  /* Gold & Brass for Light Theme (Refined High Contrast) */
+  --gold-100: #78350f;
+  --gold-200: #92400e;
+  --gold-300: #b45309;
+  --gold-400: #d97706;
+  --gold-500: #b45309;
+  --gold-600: #92400e;
+  --gold-gradient: linear-gradient(135deg, #b45309 0%, #d97706 60%, #78350f 100%);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(217, 119, 6, 0.12) 0%, rgba(180, 83, 9, 0.06) 100%);
+
+  /* Sacred Saffron & Vermilion */
+  --saffron-500: #ea580c;
+  --saffron-600: #c2410c;
+  --saffron-gradient: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+  --vermilion: #b91c1c;
+  --marigold: #d97706;
+  --river-blue: #0284c7;
+  --river-glow: #0ea5e9;
+  --river-bg: #071529;
+
+  /* Text & Typography - Deep Crisp Charcoal Temple Tone */
+  --text-primary: #1e1b18;
+  --text-secondary: #4a453e;
+  --text-muted: #78716c;
+  --text-gold: #92400e;
+  --text-inverse: #ffffff;
+  
+  /* Borders & Shadows */
+  --border-gold-subtle: rgba(180, 83, 9, 0.22);
+  --border-gold-medium: rgba(180, 83, 9, 0.45);
+  --border-gold-bright: rgba(180, 83, 9, 0.85);
+  --border-glass: rgba(180, 83, 9, 0.14);
+
+  --shadow-sm: 0 2px 8px rgba(120, 53, 15, 0.06);
+  --shadow-md: 0 8px 24px rgba(120, 53, 15, 0.09);
+  --shadow-lg: 0 16px 36px rgba(120, 53, 15, 0.12);
+  --shadow-gold: 0 4px 22px rgba(217, 119, 6, 0.18);
+  --shadow-gold-strong: 0 8px 32px rgba(217, 119, 6, 0.28);
+
+  --chip-bg: rgba(180, 83, 9, 0.08);
+  --card-hover-bg: #ffffff;
+  --input-bg: rgba(255, 255, 255, 0.98);
+  --input-border: rgba(180, 83, 9, 0.32);
+}
+
+/* --- Heritage Theme: Vedic Parampara (Deep Sandalwood, Sacred Saffron & Vermilion) --- */
+[data-theme="heritage"] {
+  --bg-deep: #130702;
+  --bg-primary: #1f0b03;
+  --bg-secondary: #2c1105;
+  --bg-surface: #381607;
+  --bg-surface-elevated: #471c0a;
+  --bg-glass: rgba(44, 17, 5, 0.84);
+  --bg-glass-strong: rgba(31, 11, 3, 0.95);
+  --bg-glass-card: rgba(52, 21, 6, 0.78);
+  --bg-footer: #100501;
+  --bg-body-radial: radial-gradient(circle at 50% 0%, #481907 0%, #220c03 50%, #130702 100%);
+  --bg-ambient-1: rgba(255, 107, 0, 0.1);
+  --bg-ambient-2: rgba(225, 29, 72, 0.08);
+  --hero-overlay-gradient: linear-gradient(180deg, rgba(31, 11, 3, 0.48) 0%, rgba(31, 11, 3, 0.85) 60%, #130702 100%);
+
+  /* Gold & Ochre for Heritage */
+  --gold-100: #fffbeb;
+  --gold-200: #fef3c7;
+  --gold-300: #fde68a;
+  --gold-400: #fbbf24;
+  --gold-500: #f59e0b;
+  --gold-600: #d97706;
+  --gold-gradient: linear-gradient(135deg, #fde047 0%, #ea580c 60%, #b91c1c 100%);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(251, 191, 36, 0.22) 0%, rgba(234, 88, 12, 0.12) 100%);
+
+  /* Sacred Saffron & Vermilion */
+  --saffron-500: #ff6600;
+  --saffron-600: #ea580c;
+  --saffron-gradient: linear-gradient(135deg, #ff7800 0%, #dc2626 100%);
+  --vermilion: #e11d48;
+  --marigold: #fbbf24;
+  --river-blue: #0284c7;
+  --river-glow: #38bdf8;
+  --river-bg: #0e0508;
+
+  /* Text & Typography - Warm Saffron & Cream */
+  --text-primary: #fff7ed;
+  --text-secondary: #fed7aa;
+  --text-muted: #fdba74;
+  --text-gold: #fef08a;
+  --text-inverse: #1f0b03;
+  
+  /* Borders & Shadows */
+  --border-gold-subtle: rgba(255, 138, 0, 0.28);
+  --border-gold-medium: rgba(255, 138, 0, 0.55);
+  --border-gold-bright: rgba(254, 240, 138, 0.9);
+  --border-glass: rgba(255, 138, 0, 0.2);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.7);
+  --shadow-gold: 0 0 30px rgba(255, 102, 0, 0.38);
+  --shadow-gold-strong: 0 0 55px rgba(255, 102, 0, 0.58);
+
+  --chip-bg: rgba(255, 102, 0, 0.14);
+  --card-hover-bg: rgba(68, 28, 8, 0.85);
+  --input-bg: rgba(28, 10, 3, 0.85);
+  --input-border: rgba(255, 138, 0, 0.38);
+}
