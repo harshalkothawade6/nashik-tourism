@@ -20,11 +20,14 @@
     if (!preloader) return;
 
     // 5-second loading duration as requested
-    const delayTime = 10000;
+    const delayTime = 5000;
 
-    // Update progress bar over 5 seconds
+    // Update progress bar smoothly over 5 seconds
     const bar = document.getElementById('preloaderBar');
     if (bar) {
+      bar.style.width = '0%';
+      // Force layout reflow so the 0% start state is guaranteed to animate
+      void bar.offsetWidth;
       bar.style.transition = `width ${delayTime}ms linear`;
       requestAnimationFrame(() => {
         bar.style.width = '100%';

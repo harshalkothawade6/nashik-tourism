@@ -160,6 +160,15 @@ img {
   box-shadow: 0 0 16px rgba(245, 158, 11, 0.5), inset 0 0 8px rgba(254, 240, 138, 0.6);
   position: relative;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-full);
+  display: block;
 }
 
 .logo-symbol::after {
@@ -169,6 +178,7 @@ img {
   border-radius: var(--radius-full);
   border: 1px dashed var(--gold-300);
   animation: rotateSlow 20s linear infinite;
+  pointer-events: none;
 }
 
 .logo-symbol svg {
@@ -909,5 +919,145 @@ img {
   .lang-btn {
     padding: 0.3rem 0.45rem;
     font-size: 0.72rem;
+  }
+}
+
+/* ==========================================================================
+   MOBILE BOTTOM APP DOCK (< 768px)
+   ========================================================================== */
+.mobile-bottom-dock {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9990;
+  background: var(--bg-glass-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-gold-subtle);
+  padding: 0.4rem 0.5rem calc(0.4rem + env(safe-area-inset-bottom, 8px)) 0.5rem;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 8px)) !important;
+  }
+  .mobile-bottom-dock {
+    display: flex;
+  }
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  min-width: 58px;
+  min-height: 48px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dock-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform var(--transition-fast);
+}
+
+.dock-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.dock-item:hover,
+.dock-item:active {
+  color: var(--gold-300);
+}
+
+.dock-item.active {
+  color: var(--gold-300);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.dock-item.active .dock-icon {
+  transform: translateY(-2px) scale(1.15);
+}
+
+/* Mobile Drawer Preferences Strip */
+.nav-mobile-drawer-box {
+  display: none;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-gold-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .nav-mobile-drawer-box {
+    display: flex;
+  }
+}
+
+.mobile-drawer-sec-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-300);
+  margin-bottom: 0.5rem;
+}
+
+.drawer-lang-pills,
+.drawer-theme-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.drawer-lang-btn,
+.drawer-theme-btn {
+  flex: 1;
+  min-height: 42px;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--chip-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-glass);
+  text-align: center;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.drawer-lang-btn.active,
+.drawer-theme-btn.active {
+  background: var(--gold-gradient);
+  color: var(--text-inverse);
+  font-weight: 700;
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+}
+
+/* Touch Input Sizing to Prevent iOS Auto-Zoom */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="search"],
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }

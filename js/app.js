@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
    1. THEME CONTROLLER (Default: Heritage)
    ========================================================================== */
 function initThemeSwitcher() {
-  const themeBtns = document.querySelectorAll('.theme-btn');
+  const themeBtns = document.querySelectorAll('.theme-btn, .drawer-theme-btn');
   // Default to 'heritage' as requested by user
   const savedTheme = localStorage.getItem('kumbh_theme') || 'heritage';
 
@@ -66,7 +66,8 @@ function initThemeSwitcher() {
 
   themeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const selectedTheme = btn.getAttribute('data-theme-set');
+      const selectedTheme = btn.getAttribute('data-theme-set') || btn.getAttribute('data-theme');
+      if (!selectedTheme) return;
       applyTheme(selectedTheme);
       try {
         localStorage.setItem('kumbh_theme', selectedTheme);
@@ -89,11 +90,16 @@ function applyTheme(theme) {
     else metaThemeColor.setAttribute('content', '#050912');
   }
 
-  // Update active states
+  // Update active states on both desktop and mobile drawer buttons
   document.querySelectorAll('.theme-btn').forEach(btn => {
     const isTarget = btn.getAttribute('data-theme-set') === theme;
     btn.classList.toggle('active', isTarget);
     btn.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+  });
+
+  document.querySelectorAll('.drawer-theme-btn').forEach(btn => {
+    const isTarget = btn.getAttribute('data-theme') === theme;
+    btn.classList.toggle('active', isTarget);
   });
 }
 
@@ -109,6 +115,11 @@ const TRANSLATIONS = {
     navSpots: '📍 Spots to Visit',
     navTravel: '🚆 Travel Guide',
     navAmenities: '🚨 Pilgrim Helpline',
+    dockHome: 'Home',
+    dockDates: 'Dates',
+    dockDiya: 'Diya',
+    dockSpots: 'Spots',
+    dockAmenities: 'Help',
     audioLabel: 'Temple Sound',
     audioLabelPlaying: 'Sounding (Mute)',
     
@@ -261,6 +272,11 @@ const TRANSLATIONS = {
     navSpots: '📍 दर्शनीय स्थळे',
     navTravel: '🚆 प्रवास मार्गदर्शक',
     navAmenities: '🚨 भाविक मदत कक्ष',
+    dockHome: 'होम',
+    dockDates: 'शाही स्नान',
+    dockDiya: 'दीपदान',
+    dockSpots: 'दर्शनीय स्थळे',
+    dockAmenities: 'मदत कक्ष',
     audioLabel: 'मंदिराची घंटा',
     audioLabelPlaying: 'ध्वनी सुरू (म्यूट)',
 
@@ -413,6 +429,11 @@ const TRANSLATIONS = {
     navSpots: '📍 दर्शनीय स्थल',
     navTravel: '🚆 यात्रा गाइड',
     navAmenities: '🚨 तीर्थयात्री हेल्पलाइन',
+    dockHome: 'होम',
+    dockDates: 'शाही स्नान',
+    dockDiya: 'दीपदान',
+    dockSpots: 'दर्शनीय स्थल',
+    dockAmenities: 'मदद केंद्र',
     audioLabel: 'मंदिर की घंटी',
     audioLabelPlaying: 'ध्वनि सक्रिय (म्यूट)',
 
@@ -567,6 +588,14 @@ function initLanguageEngine() {
   if (mrBtn) mrBtn.addEventListener('click', () => switchLanguage('mr', true));
   if (hiBtn) hiBtn.addEventListener('click', () => switchLanguage('hi', true));
 
+  // Sync mobile drawer language buttons
+  document.querySelectorAll('.drawer-lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const l = btn.getAttribute('data-lang');
+      if (l) switchLanguage(l, true);
+    });
+  });
+
   // Determine language priority:
   // 1. Manually saved language in LocalStorage
   const savedLang = localStorage.getItem('kumbh_lang');
@@ -694,6 +723,11 @@ function switchLanguage(lang, userExplicit = false) {
                      (id === 'langHi' && lang === 'hi');
     el.classList.toggle('active', isTarget);
     el.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+  });
+
+  // Sync mobile drawer language buttons
+  document.querySelectorAll('.drawer-lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
   });
 
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
@@ -1364,5 +1398,37 @@ function initNavigation() {
         }
       }
     });
+  }
+
+  // Mobile Bottom App Dock Active Scroll Spy
+  const dockItems = document.querySelectorAll('.mobile-bottom-dock .dock-item');
+  if (dockItems.length > 0) {
+    const sections = [
+      { id: 'hero', dockId: 'dockHome' },
+      { id: 'dates', dockId: 'dockDates' },
+      { id: 'diya-arpan', dockId: 'dockDiya' },
+      { id: 'spots', dockId: 'dockSpots' },
+      { id: 'amenities', dockId: 'dockAmenities' }
+    ];
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth > 768) return;
+      const scrollPos = window.scrollY + 200;
+      let activeSection = 'hero';
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const secEl = document.getElementById(sections[i].id);
+        if (secEl && secEl.offsetTop <= scrollPos) {
+          activeSection = sections[i].id;
+          break;
+        }
+      }
+
+      dockItems.forEach(item => {
+        const href = item.getAttribute('href');
+        const isMatch = href === `#${activeSection}`;
+        item.classList.toggle('active', isMatch);
+      });
+    }, { passive: true });
   }
 }

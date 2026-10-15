@@ -41,7 +41,7 @@
 
 .dates-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 2rem;
 }
 
@@ -468,7 +468,7 @@
 
 .spots-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 2rem;
 }
 
@@ -1181,15 +1181,156 @@
   }
 }
 
+@media (max-width: 768px) {
+  /* Touch-friendly horizontal swipe for all tab lists */
+  .filter-tabs,
+  .transit-mode-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 0.25rem 0.25rem 0.75rem 0.25rem !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .filter-tabs::-webkit-scrollbar,
+  .transit-mode-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-tab-btn,
+  .transit-tab-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    scroll-snap-align: start;
+    min-height: 44px;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+  }
+}
+
 @media (max-width: 640px) {
-  .dates-grid, .spots-grid {
-    grid-template-columns: 1fr;
+  .section-pad {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+  .dates-grid, .spots-grid, .amenities-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
   }
   .footer-top-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   .card-top {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .date-card,
+  .spot-card,
+  .amenity-card {
+    padding: 1.25rem 1rem !important;
+  }
+  .date-calendar-box {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .date-calendar-box .cal-date {
+    font-size: 1.35rem !important;
+  }
+  .date-actions-row {
+    flex-direction: column !important;
+    gap: 0.6rem !important;
+  }
+  .date-actions-row .btn-calendar-add,
+  .date-actions-row .btn-whatsapp-share {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 44px;
+  }
+  .diya-canvas-container {
+    height: 290px !important;
+    touch-action: pan-y;
+  }
+  .diya-types-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem;
+  }
+  .modal-content {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin: 1.5rem auto !important;
+    max-height: 88vh !important;
+    padding: 1.25rem !important;
+    border-radius: var(--radius-lg) !important;
+  }
+  .emergency-banner {
+    padding: 1.5rem 1rem !important;
+  }
+  .emergency-numbers-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+  .emergency-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+  }
+  /* Preloader Stage Responsive */
+  .preloader-eagle-stage {
+    width: min(340px, 92vw) !important;
+    height: 200px !important;
+  }
+  .preloader-chant {
+    font-size: 1.1rem !important;
+    padding: 0 0.5rem;
+  }
+  .preloader-subtext {
+    font-size: 0.78rem !important;
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem !important;
+  }
+  .preloader-enter-btn {
+    width: 90% !important;
+    max-width: 270px !important;
+    font-size: 0.88rem !important;
+    padding: 0.7rem 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .audience-intent-toggle {
+    width: 100% !important;
+    border-radius: var(--radius-md) !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+  }
+  .intent-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    border-radius: var(--radius-md) !important;
+    min-height: 44px;
+  }
+  .countdown-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.3rem !important;
+  }
+  .countdown-unit {
+    padding: 0.5rem 0.15rem !important;
+  }
+  .countdown-number {
+    font-size: 1.25rem !important;
+  }
+  .countdown-text {
+    font-size: 0.65rem !important;
+  }
+  .countdown-target {
+    font-size: 0.8rem !important;
   }
 }
 
@@ -1497,76 +1638,78 @@
   position: relative;
   width: 400px;
   max-width: 90vw;
-  height: 250px;
+  height: 270px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
 }
 
+/* Luminous Parchment & Sun Halo Disc (Provides natural positive background for authentic black ink engraving) */
+.preloader-sun-disc {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  max-width: 86vw;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(254, 248, 236, 0.96) 0%, rgba(252, 240, 214, 0.9) 45%, rgba(245, 158, 11, 0.32) 72%, transparent 100%);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: 0 0 55px rgba(245, 158, 11, 0.35);
+  animation: sunGlowPulse 3s infinite ease-in-out alternate;
+}
+
+@keyframes sunGlowPulse {
+  0% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.88; }
+  100% { transform: translate(-50%, -50%) scale(1.04); opacity: 1; }
+}
+
 .eagle-flight-group {
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: 1;
   animation: eagleFlightSway 3.4s infinite ease-in-out;
 }
 
-@keyframes eagleFlightSway {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-9px) rotate(0.8deg);
-  }
-}
-
+/* Common Eagle Layer Styling - Absolute stacking with responsive contain sizing */
 .eagle-layer {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  pointer-events: none;
 }
 
-/* Heritage & Dark Modes (Default): Warm Ivory Engraving Lines */
+/* Authentic Dark Charcoal Ink Engraving Layers (Positive polarity - Never Negative/Silver) */
 .wing-far {
-  background-image: url('../assets/images/eagle_wing_left_light.png');
+  background-image: url('../assets/images/eagle_wing_left.png');
   z-index: 1;
   transform-origin: 44% 52.4%;
   animation: flapFarWing 1.6s infinite ease-in-out alternate;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
 }
 
 .eagle-body-kumbh {
-  background-image: url('../assets/images/eagle_body_light.png');
+  background-image: url('../assets/images/eagle_body.png');
   z-index: 2;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
 }
 
 .wing-fore {
-  background-image: url('../assets/images/eagle_wing_right_light.png');
+  background-image: url('../assets/images/eagle_wing_right.png');
   z-index: 3;
   transform-origin: 55.7% 49.5%;
   animation: flapForeWing 1.6s infinite ease-in-out alternate;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
-}
-
-/* Light Theme: Crisp Charcoal / Ink Line Art */
-[data-theme="light"] .wing-far {
-  background-image: url('../assets/images/eagle_wing_left.png');
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
-}
-
-[data-theme="light"] .eagle-body-kumbh {
-  background-image: url('../assets/images/eagle_body.png');
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-}
-
-[data-theme="light"] .wing-fore {
-  background-image: url('../assets/images/eagle_wing_right.png');
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
 }
 
 /* Flapping Wing Physics */
