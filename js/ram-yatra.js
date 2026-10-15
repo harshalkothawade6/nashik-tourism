@@ -19,14 +19,13 @@
     const preloader = document.getElementById('kumbhPreloader');
     if (!preloader) return;
 
-    // Check if user already saw the preloader in this session
-    const hasSeen = sessionStorage.getItem('kumbh_preloader_seen');
-    const delayTime = hasSeen ? 700 : 1800;
+    // 5-second loading duration as requested
+    const delayTime = 10000;
 
-    // Update progress bar
+    // Update progress bar over 5 seconds
     const bar = document.getElementById('preloaderBar');
     if (bar) {
-      bar.style.transition = `width ${delayTime}ms cubic-bezier(0.16, 1, 0.3, 1)`;
+      bar.style.transition = `width ${delayTime}ms linear`;
       requestAnimationFrame(() => {
         bar.style.width = '100%';
       });
@@ -41,8 +40,18 @@
       }, 500);
     }
 
-    const timer = setTimeout(dismiss, delayTime + 200);
+    const timer = setTimeout(dismiss, delayTime);
 
+    // "Go to Main Page" Action Button
+    const enterBtn = document.getElementById('preloaderEnterBtn');
+    if (enterBtn) {
+      enterBtn.addEventListener('click', () => {
+        clearTimeout(timer);
+        dismiss();
+      });
+    }
+
+    // Skip Button (top-right)
     const skipBtn = document.getElementById('preloaderSkipBtn');
     if (skipBtn) {
       skipBtn.addEventListener('click', () => {
@@ -127,12 +136,13 @@
 
       const printEl = document.createElement('div');
       printEl.className = `sacred-paduka-print ${isLeftFoot ? 'foot-left' : 'foot-right'}`;
-      
+
       // Rotate footprint in direction of walking (SVG points upward naturally)
       const rotationDeg = (angle * 180) / Math.PI + 90;
       printEl.style.left = `${stepX}px`;
       printEl.style.top = `${stepY}px`;
-      printEl.style.transform = `translate(-50%, -50%) rotate(${rotationDeg}deg) scale(0.9)`;
+      printEl.style.transform = `translate(-50%, -50%) rotate(${rotationDeg}deg)`;
+      printEl.style.setProperty('--foot-rot', `${rotationDeg}deg`);
 
       printEl.innerHTML = createPadukaSvg(isLeftFoot);
       container.appendChild(printEl);

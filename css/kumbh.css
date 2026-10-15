@@ -1493,73 +1493,221 @@
   100% { transform: scale(1.1); opacity: 1; }
 }
 
-.preloader-walk-stage {
+.preloader-eagle-stage {
   position: relative;
-  width: 320px;
-  height: 180px;
+  width: 400px;
+  max-width: 90vw;
+  height: 250px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
 }
 
-.ram-yatra-svg {
+.eagle-flight-group {
+  position: relative;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 18px rgba(245, 158, 11, 0.45));
+  animation: eagleFlightSway 3.4s infinite ease-in-out;
 }
 
-/* Walking stride bobbing animations */
-.walk-ram {
-  animation: ramStride 1.4s infinite ease-in-out;
-  transform-origin: bottom center;
+@keyframes eagleFlightSway {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(0.8deg);
+  }
 }
 
-.walk-sita {
-  animation: sitaStride 1.4s infinite ease-in-out 0.2s;
-  transform-origin: bottom center;
+.eagle-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.walk-laxman {
-  animation: laxmanStride 1.4s infinite ease-in-out 0.4s;
-  transform-origin: bottom center;
+/* Heritage & Dark Modes (Default): Warm Ivory Engraving Lines */
+.wing-far {
+  background-image: url('../assets/images/eagle_wing_left_light.png');
+  z-index: 1;
+  transform-origin: 44% 52.4%;
+  animation: flapFarWing 1.6s infinite ease-in-out alternate;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
 }
 
-@keyframes ramStride {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-5px) rotate(1deg); }
+.eagle-body-kumbh {
+  background-image: url('../assets/images/eagle_body_light.png');
+  z-index: 2;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
-@keyframes sitaStride {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(-1deg); }
+.wing-fore {
+  background-image: url('../assets/images/eagle_wing_right_light.png');
+  z-index: 3;
+  transform-origin: 55.7% 49.5%;
+  animation: flapForeWing 1.6s infinite ease-in-out alternate;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
 }
 
-@keyframes laxmanStride {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-5px) rotate(1.2deg); }
+/* Light Theme: Crisp Charcoal / Ink Line Art */
+[data-theme="light"] .wing-far {
+  background-image: url('../assets/images/eagle_wing_left.png');
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
 }
 
-/* Gentle river ripple beneath holy steps */
-.preloader-river-waves {
+[data-theme="light"] .eagle-body-kumbh {
+  background-image: url('../assets/images/eagle_body.png');
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+[data-theme="light"] .wing-fore {
+  background-image: url('../assets/images/eagle_wing_right.png');
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+/* Flapping Wing Physics */
+@keyframes flapFarWing {
+  0% {
+    transform: rotate(-7deg) scaleY(0.95);
+  }
+  100% {
+    transform: rotate(7deg) scaleY(1.05);
+  }
+}
+
+@keyframes flapForeWing {
+  0% {
+    transform: rotate(7deg) scaleY(0.95);
+  }
+  100% {
+    transform: rotate(-7deg) scaleY(1.05);
+  }
+}
+
+/* Continuous Cascading Water Droplets from Kumbh */
+.kumbh-droplets-stream {
+  position: absolute;
+  left: 59.4%;
+  top: 81.8%;
+  width: 20px;
+  height: 68px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.water-droplet {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 11px;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 55%, #0284c7 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.85));
+  animation: waterDropDrip 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.water-droplet.drop-1 {
+  animation-delay: 0s;
+}
+
+.water-droplet.drop-2 {
+  animation-delay: 0.6s;
+}
+
+.water-droplet.drop-3 {
+  animation-delay: 1.2s;
+}
+
+@keyframes waterDropDrip {
+  0% {
+    transform: translateX(-50%) translateY(0px) scale(0.5);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(5px) scale(1);
+  }
+  75% {
+    opacity: 0.95;
+    transform: translateX(-50%) translateY(42px) scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(62px) scale(0.65);
+  }
+}
+
+/* Sacred Godavari River Splash Basin & Expanding Ripples */
+.river-ripples-basin {
+  position: absolute;
+  bottom: -6px;
+  left: 59.4%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.water-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(56, 189, 248, 0.7);
+  opacity: 0;
+  animation: rippleSpread 1.8s infinite cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.water-ripple.ripple-1 {
+  animation-delay: 0s;
+}
+
+.water-ripple.ripple-2 {
+  animation-delay: 0.6s;
+}
+
+.water-ripple.ripple-3 {
+  animation-delay: 1.2s;
+}
+
+@keyframes rippleSpread {
+  0% {
+    width: 6px;
+    height: 3px;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  100% {
+    width: 95px;
+    height: 24px;
+    opacity: 0;
+    border-color: rgba(56, 189, 248, 0);
+  }
+}
+
+.river-surface-mist {
   position: absolute;
   bottom: 0;
-  width: 260px;
-  height: 14px;
-  background: radial-gradient(ellipse at 50% 50%, rgba(56, 189, 248, 0.5) 0%, rgba(2, 132, 199, 0) 80%);
-  animation: wavePulse 2s infinite alternate ease-in-out;
-}
-
-@keyframes wavePulse {
-  0% { transform: scaleX(0.85); opacity: 0.5; }
-  100% { transform: scaleX(1.15); opacity: 0.9; }
+  width: 140px;
+  height: 4px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(56, 189, 248, 0.45) 0%, transparent 80%);
 }
 
 .preloader-chant {
   font-family: var(--font-devanagari);
   font-size: 1.35rem;
-  color: var(--gold-200);
-  text-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+  color: #f5f0eb;
+  text-shadow: 0 0 16px rgba(254, 240, 138, 0.35);
   margin-bottom: 0.5rem;
   text-align: center;
   letter-spacing: 0.05em;
@@ -1611,6 +1759,51 @@
   border-color: var(--border-gold-subtle);
 }
 
+/* "Go to Main Page" Call-To-Action in Preloader */
+.preloader-enter-btn {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(180, 83, 9, 0.28) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fffdf0;
+  font-family: var(--font-devanagari), var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.65rem 1.45rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 0 14px rgba(245, 158, 11, 0.2);
+  letter-spacing: 0.03em;
+  z-index: 10;
+}
+
+.preloader-enter-btn .enter-btn-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.25s ease;
+}
+
+.preloader-enter-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.5) 100%);
+  border-color: #f59e0b;
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.4), 0 0 20px rgba(251, 191, 36, 0.45);
+  transform: translateY(-2px) scale(1.03);
+  color: #ffffff;
+}
+
+.preloader-enter-btn:hover .enter-btn-arrow {
+  transform: translateX(4px);
+}
+
+.preloader-enter-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
 /* ==========================================================================
    17. SACRED PADUKA (FOOTPRINT) MOUSE & TOUCH TRAIL
    ========================================================================== */
@@ -1628,21 +1821,19 @@
   height: 34px;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.7);
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
-  filter: drop-shadow(0 0 7px rgba(245, 158, 11, 0.7));
+  transition: opacity 0.25s ease-out;
+  filter: drop-shadow(0 0 7px rgba(245, 158, 11, 0.75));
+  will-change: opacity;
 }
 
 .sacred-paduka-print.active-step {
-  opacity: 0.85;
-  transform: translate(-50%, -50%) scale(1);
+  opacity: 0.88;
 }
 
-/* Dissolve in 2-3 seconds as requested */
+/* Dissolve in 2-3 seconds with ZERO transform change: direction remains 100% frozen */
 .sacred-paduka-print.dissolve-step {
   opacity: 0 !important;
-  transform: translate(-50%, -50%) scale(0.8) !important;
-  transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s ease-out !important;
+  transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .paduka-svg {
