@@ -28,6 +28,96 @@
 </head>
 <body>
 
+  <!-- Ram, Sita, Laxman 2D Walking Preloader -->
+  <div class="kumbh-preloader" id="kumbhPreloader" role="progressbar" aria-label="Loading Nashik Simhastha Kumbh Mela Portal">
+    <button class="preloader-skip" id="preloaderSkipBtn" aria-label="Skip animation">Skip / पुढे चला</button>
+    <div class="preloader-halo"></div>
+    
+    <div class="preloader-walk-stage">
+      <svg class="ram-yatra-svg" viewBox="0 0 340 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldSilhouette" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fef08a" />
+            <stop offset="50%" stop-color="#f59e0b" />
+            <stop offset="100%" stop-color="#b45309" />
+          </linearGradient>
+          <linearGradient id="sitaGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fffbeb" />
+            <stop offset="50%" stop-color="#fde047" />
+            <stop offset="100%" stop-color="#d97706" />
+          </linearGradient>
+        </defs>
+
+        <!-- 1. Lakshmana (Trailing Guard on Left) -->
+        <g class="walk-laxman" transform="translate(45, 20)">
+          <!-- Bow on shoulder -->
+          <path d="M 12,20 Q 2,65 14,115" stroke="url(#goldSilhouette)" stroke-width="2.5" fill="none" />
+          <line x1="12" y1="20" x2="14" y2="115" stroke="rgba(254, 240, 138, 0.4)" stroke-width="0.8" />
+          <!-- Quiver & Arrows -->
+          <rect x="22" y="32" width="7" height="30" rx="3" fill="url(#goldSilhouette)" transform="rotate(15 22 32)" />
+          <line x1="28" y1="28" x2="33" y2="15" stroke="#fde047" stroke-width="1.5" />
+          <line x1="25" y1="30" x2="28" y2="17" stroke="#fde047" stroke-width="1.5" />
+          <!-- Head with Topknot / Mukut -->
+          <circle cx="28" cy="22" r="7.5" fill="url(#goldSilhouette)" />
+          <path d="M 27,15 C 27,10 33,10 32,15 Z" fill="url(#goldSilhouette)" />
+          <!-- Torso & Dhoti -->
+          <path d="M 22,30 Q 34,30 32,58 Q 38,85 36,110 L 22,110 Q 20,80 22,30 Z" fill="url(#goldSilhouette)" />
+          <!-- Legs in Walking Stride -->
+          <path d="M 23,110 L 16,145 L 23,148 L 29,112 Z" fill="url(#goldSilhouette)" />
+          <path d="M 32,110 L 42,142 L 49,143 L 36,110 Z" fill="url(#goldSilhouette)" />
+        </g>
+
+        <!-- 2. Devi Sita (Graceful in Center) -->
+        <g class="walk-sita" transform="translate(135, 32)">
+          <!-- Head & Saree Pallu Crown -->
+          <circle cx="22" cy="18" r="6.8" fill="url(#sitaGold)" />
+          <path d="M 14,15 C 14,6 28,6 29,15 C 29,26 14,26 14,15 Z" fill="url(#sitaGold)" />
+          <!-- Saree Drape & Silhouette -->
+          <path d="M 15,26 C 24,24 29,27 28,48 C 34,75 36,105 32,135 C 26,137 13,136 12,133 C 10,105 13,68 15,26 Z" fill="url(#sitaGold)" />
+          <!-- Graceful Pallu Floating Behind -->
+          <path d="M 14,28 Q 0,45 2,75 Q 5,60 14,50 Z" fill="url(#sitaGold)" opacity="0.8" />
+          <!-- Walking Feet beneath saree -->
+          <ellipse cx="19" cy="135" rx="4" ry="2.5" fill="url(#sitaGold)" />
+          <ellipse cx="27" cy="133" rx="4" ry="2.5" fill="url(#sitaGold)" />
+        </g>
+
+        <!-- 3. Lord Rama (Leading in Royal Dignity on Right) -->
+        <g class="walk-ram" transform="translate(210, 10)">
+          <!-- Majestic Kodanda Bow in Hand -->
+          <path d="M 14,15 Q 1,75 16,132" stroke="url(#goldSilhouette)" stroke-width="3" fill="none" />
+          <line x1="14" y1="15" x2="16" y2="132" stroke="rgba(254, 240, 138, 0.5)" stroke-width="1" />
+          <!-- Quiver of Divine Arrows -->
+          <rect x="25" y="30" width="8" height="36" rx="3.5" fill="url(#goldSilhouette)" transform="rotate(18 25 30)" />
+          <line x1="33" y1="24" x2="39" y2="8" stroke="#fef08a" stroke-width="1.8" />
+          <line x1="29" y1="27" x2="33" y2="11" stroke="#fef08a" stroke-width="1.8" />
+          <!-- Divine Head with Crown / Jata-Mukut -->
+          <circle cx="34" cy="22" r="8.5" fill="url(#goldSilhouette)" />
+          <path d="M 32,14 C 32,7 40,7 39,14 Z" fill="url(#goldSilhouette)" />
+          <!-- Broad Chest & Royal Posture -->
+          <path d="M 26,31 Q 42,31 40,62 Q 48,92 46,122 L 28,122 Q 24,88 26,31 Z" fill="url(#goldSilhouette)" />
+          <!-- Striding Legs (Marching to Panchavati) -->
+          <path d="M 30,122 L 20,158 L 29,161 L 38,124 Z" fill="url(#goldSilhouette)" />
+          <path d="M 40,122 L 53,155 L 61,156 L 46,122 Z" fill="url(#goldSilhouette)" />
+        </g>
+
+        <!-- Ground Riverbank Baseline Wave -->
+        <path d="M 10,168 Q 90,162 170,168 T 330,168" stroke="url(#goldSilhouette)" stroke-width="2" stroke-dasharray="4 4" opacity="0.6" />
+      </svg>
+      <div class="preloader-river-waves"></div>
+    </div>
+
+    <div class="preloader-chant">
+      ॥ प्रभू श्रीराम • सीता माता • लक्ष्मण ॥
+    </div>
+    <div class="preloader-subtext">
+      पवित्र पंचवटी तपोभूमी आगमन • सिंहस्थ कुंभमेळा
+    </div>
+
+    <div class="preloader-progress-track">
+      <div class="preloader-progress-fill" id="preloaderBar"></div>
+    </div>
+  </div>
+
   <!-- Site Header & Sticky Navigation -->
   <header class="site-header" id="siteHeader">
     <div class="container nav-container">
@@ -722,6 +812,7 @@
   <script src="js/audio.js"></script>
   <script src="js/diya-canvas.js"></script>
   <script src="js/planner.js"></script>
+  <script src="js/ram-yatra.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

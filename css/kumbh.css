@@ -177,7 +177,7 @@
 .event-title {
   font-size: 1.35rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .event-desc {
@@ -1456,3 +1456,402 @@
     padding: 0.55rem 0.95rem;
   }
 }
+
+/* ==========================================================================
+   16. RAM-SITA-LAXMAN 2D WALKING PRELOADER
+   ========================================================================== */
+.kumbh-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: radial-gradient(circle at 50% 40%, #260e04 0%, #130702 70%, #080301 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+  overflow: hidden;
+}
+
+.kumbh-preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-halo {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.18) 0%, rgba(234, 88, 12, 0.08) 50%, transparent 75%);
+  animation: pulseHalo 3s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes pulseHalo {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.preloader-walk-stage {
+  position: relative;
+  width: 320px;
+  height: 180px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.ram-yatra-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 18px rgba(245, 158, 11, 0.45));
+}
+
+/* Walking stride bobbing animations */
+.walk-ram {
+  animation: ramStride 1.4s infinite ease-in-out;
+  transform-origin: bottom center;
+}
+
+.walk-sita {
+  animation: sitaStride 1.4s infinite ease-in-out 0.2s;
+  transform-origin: bottom center;
+}
+
+.walk-laxman {
+  animation: laxmanStride 1.4s infinite ease-in-out 0.4s;
+  transform-origin: bottom center;
+}
+
+@keyframes ramStride {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1deg); }
+}
+
+@keyframes sitaStride {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(-1deg); }
+}
+
+@keyframes laxmanStride {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(1.2deg); }
+}
+
+/* Gentle river ripple beneath holy steps */
+.preloader-river-waves {
+  position: absolute;
+  bottom: 0;
+  width: 260px;
+  height: 14px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(56, 189, 248, 0.5) 0%, rgba(2, 132, 199, 0) 80%);
+  animation: wavePulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes wavePulse {
+  0% { transform: scaleX(0.85); opacity: 0.5; }
+  100% { transform: scaleX(1.15); opacity: 0.9; }
+}
+
+.preloader-chant {
+  font-family: var(--font-devanagari);
+  font-size: 1.35rem;
+  color: var(--gold-200);
+  text-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.preloader-subtext {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.preloader-progress-track {
+  width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 10px #f59e0b;
+}
+
+.preloader-skip {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preloader-skip:hover {
+  color: var(--gold-300);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--border-gold-subtle);
+}
+
+/* ==========================================================================
+   17. SACRED PADUKA (FOOTPRINT) MOUSE & TOUCH TRAIL
+   ========================================================================== */
+.footprint-trail-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+.sacred-paduka-print {
+  position: absolute;
+  width: 22px;
+  height: 34px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  filter: drop-shadow(0 0 7px rgba(245, 158, 11, 0.7));
+}
+
+.sacred-paduka-print.active-step {
+  opacity: 0.85;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Dissolve in 2-3 seconds as requested */
+.sacred-paduka-print.dissolve-step {
+  opacity: 0 !important;
+  transform: translate(-50%, -50%) scale(0.8) !important;
+  transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s ease-out !important;
+}
+
+.paduka-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   18. WHATSAPP VIRAL SHARE BUTTON
+   ========================================================================== */
+.btn-whatsapp-share {
+  background: rgba(37, 211, 102, 0.14) !important;
+  border: 1px solid rgba(37, 211, 102, 0.35) !important;
+  color: #25d366 !important;
+  transition: all var(--transition-fast);
+}
+
+.btn-whatsapp-share:hover {
+  background: #25d366 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4) !important;
+}
+
+/* ==========================================================================
+   19. COMPREHENSIVE LIGHT THEME (DIVYA PRAKASH) CONTRAST FIXES
+   ========================================================================== */
+[data-theme="light"] .kumbh-dates-section {
+  background: radial-gradient(circle at 50% 20%, rgba(217, 119, 6, 0.08) 0%, var(--bg-deep) 80%);
+}
+
+[data-theme="light"] .date-card {
+  background: #ffffff;
+  border-color: rgba(180, 83, 9, 0.24);
+  box-shadow: 0 4px 18px rgba(120, 53, 15, 0.07);
+}
+
+[data-theme="light"] .date-card:hover {
+  border-color: #d97706;
+  box-shadow: 0 12px 32px rgba(180, 83, 9, 0.15);
+}
+
+[data-theme="light"] .date-card.shahi-major {
+  background: linear-gradient(145deg, #ffffff 0%, #fff7ed 100%);
+  border: 2px solid rgba(234, 88, 12, 0.45);
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.12);
+}
+
+[data-theme="light"] .date-calendar-box {
+  background: #fbf5eb;
+  border-color: rgba(180, 83, 9, 0.35);
+}
+
+[data-theme="light"] .date-month {
+  color: #b45309;
+}
+
+[data-theme="light"] .date-day {
+  color: #1e1b18;
+}
+
+[data-theme="light"] .date-year {
+  color: #78716c;
+}
+
+[data-theme="light"] .event-title {
+  color: #1e1b18;
+}
+
+[data-theme="light"] .event-desc {
+  color: #4a453e;
+}
+
+[data-theme="light"] .event-tithi {
+  color: #92400e;
+}
+
+[data-theme="light"] .event-location-pill {
+  background: rgba(2, 132, 199, 0.12);
+  color: #0369a1;
+  border: 1px solid rgba(2, 132, 199, 0.25);
+}
+
+[data-theme="light"] .card-tag.tag-shahi {
+  background: #fff0eb;
+  color: #c2410c;
+  border: 1px solid rgba(234, 88, 12, 0.4);
+}
+
+[data-theme="light"] .card-tag.tag-parvani {
+  background: #fef8ee;
+  color: #92400e;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+}
+
+[data-theme="light"] .event-details-list {
+  border-top-color: rgba(180, 83, 9, 0.12);
+}
+
+[data-theme="light"] .detail-label {
+  color: #78716c;
+}
+
+[data-theme="light"] .detail-value {
+  color: #1e1b18;
+}
+
+[data-theme="light"] .btn-card-action.btn-google-cal {
+  background: #fdf3e7;
+  border-color: rgba(217, 119, 6, 0.4);
+  color: #92400e;
+}
+
+[data-theme="light"] .btn-card-action.btn-google-cal:hover {
+  background: var(--gold-gradient);
+  color: #ffffff;
+}
+
+[data-theme="light"] .btn-card-action.btn-ics-cal {
+  background: #f5eee4;
+  border-color: rgba(120, 53, 15, 0.18);
+  color: #4a453e;
+}
+
+[data-theme="light"] .btn-card-action.btn-ics-cal:hover {
+  background: #ebe0d1;
+  color: #1e1b18;
+}
+
+[data-theme="light"] .spot-card {
+  background: #ffffff;
+  border-color: rgba(180, 83, 9, 0.2);
+  box-shadow: 0 4px 18px rgba(120, 53, 15, 0.08);
+}
+
+[data-theme="light"] .spot-category-badge {
+  background: rgba(255, 255, 255, 0.95);
+  color: #92400e;
+  border-color: rgba(180, 83, 9, 0.35);
+}
+
+[data-theme="light"] .spot-rating {
+  background: rgba(255, 255, 255, 0.95);
+  color: #b45309;
+}
+
+[data-theme="light"] .spot-title {
+  color: #1e1b18;
+}
+
+[data-theme="light"] .spot-subtitle {
+  color: #b45309;
+}
+
+[data-theme="light"] .spot-snippet {
+  color: #4a453e;
+}
+
+[data-theme="light"] .quick-tag {
+  background: #fbf5eb;
+  border-color: rgba(180, 83, 9, 0.2);
+  color: #78716c;
+}
+
+[data-theme="light"] .btn-spot-modal {
+  background: #fdf3e7;
+  border-color: rgba(217, 119, 6, 0.4);
+  color: #92400e;
+}
+
+[data-theme="light"] .btn-spot-modal:hover {
+  background: var(--gold-gradient);
+  color: #ffffff;
+}
+
+[data-theme="light"] .filter-tab-btn {
+  background: #f7efe4;
+  border-color: rgba(180, 83, 9, 0.2);
+  color: #4a453e;
+}
+
+[data-theme="light"] .filter-tab-btn:hover {
+  background: #f1e4d3;
+  color: #92400e;
+}
+
+[data-theme="light"] .filter-tab-btn.active {
+  background: var(--gold-gradient);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(180, 83, 9, 0.3);
+}
+
+[data-theme="light"] .search-input {
+  background: #ffffff;
+  border-color: rgba(180, 83, 9, 0.3);
+  color: #1e1b18;
+}
+
+[data-theme="light"] .search-input::placeholder {
+  color: #78716c;
+}
+
+/* Heritage theme specific enhancements */
+[data-theme="heritage"] .date-card.shahi-major {
+  background: linear-gradient(145deg, rgba(58, 24, 7, 0.88) 0%, rgba(38, 14, 3, 0.92) 100%);
+  border-color: rgba(255, 138, 0, 0.65);
+}
+
+[data-theme="heritage"] .date-calendar-box {
+  background: rgba(28, 10, 3, 0.85);
+  border-color: rgba(255, 138, 0, 0.4);
+}
+
