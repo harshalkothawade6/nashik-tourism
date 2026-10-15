@@ -19,6 +19,12 @@
     const preloader = document.getElementById('kumbhPreloader');
     if (!preloader) return;
 
+    // Check if user already saw preloader in this session or requested bypass
+    if (window.location.search.includes('nopreloader') || sessionStorage.getItem('kumbh_preloader_seen') === 'true') {
+      preloader.style.display = 'none';
+      return;
+    }
+
     // 10-second loading duration as requested
     const delayTime = 10000;
 
