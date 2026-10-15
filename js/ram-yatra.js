@@ -19,8 +19,8 @@
     const preloader = document.getElementById('kumbhPreloader');
     if (!preloader) return;
 
-    // 5-second loading duration as requested
-    const delayTime = 5000;
+    // 10-second loading duration as requested
+    const delayTime = 10000;
 
     // Update progress bar smoothly over 5 seconds
     const bar = document.getElementById('preloaderBar');

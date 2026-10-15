@@ -81,6 +81,7 @@ function initThemeSwitcher() {
 function applyTheme(theme) {
   const html = document.documentElement;
   const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  const heroImg = document.getElementById('heroImg');
 
   html.setAttribute('data-theme', theme);
   
@@ -88,6 +89,15 @@ function applyTheme(theme) {
     if (theme === 'heritage') metaThemeColor.setAttribute('content', '#1f0b03');
     else if (theme === 'light') metaThemeColor.setAttribute('content', '#fbf8f2');
     else metaThemeColor.setAttribute('content', '#050912');
+  }
+
+  // Switch hero background image in Light Mode to match the dawn preloader background
+  if (heroImg) {
+    if (theme === 'light') {
+      heroImg.src = 'assets/images/kumbh_dawn_preloader_bg.jpg';
+    } else {
+      heroImg.src = 'assets/images/ramkund_aarti.jpg';
+    }
   }
 
   // Update active states on both desktop and mobile drawer buttons

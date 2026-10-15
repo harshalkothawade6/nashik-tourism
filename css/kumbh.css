@@ -1599,18 +1599,25 @@
 }
 
 /* ==========================================================================
-   16. RAM-SITA-LAXMAN 2D WALKING PRELOADER
+   16. RAM-SITA-LAXMAN 2D WALKING PRELOADER / GARUDA AMRIT KUMBH
    ========================================================================== */
 .kumbh-preloader {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: radial-gradient(circle at 50% 40%, #260e04 0%, #130702 70%, #080301 100%);
+  background-color: #0c0401;
+  background-image: 
+    radial-gradient(ellipse at 50% 36%, transparent 40%, rgba(12, 4, 1, 0.45) 80%, rgba(12, 4, 1, 0.8) 100%),
+    linear-gradient(to bottom, rgba(12, 4, 1, 0.55) 0%, rgba(12, 4, 1, 0.05) 28%, rgba(12, 4, 1, 0.45) 60%, rgba(12, 4, 1, 0.88) 80%, #0c0401 100%),
+    url('../assets/images/kumbh_dawn_preloader_bg.jpg');
+  background-position: center 30%;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
   overflow: hidden;
 }
 
@@ -1621,16 +1628,16 @@
 
 .preloader-halo {
   position: absolute;
-  width: 480px;
-  height: 480px;
+  width: 540px;
+  height: 540px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.18) 0%, rgba(234, 88, 12, 0.08) 50%, transparent 75%);
-  animation: pulseHalo 3s infinite alternate ease-in-out;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.28) 0%, rgba(234, 88, 12, 0.12) 50%, transparent 75%);
+  animation: pulseHalo 3.5s infinite alternate ease-in-out;
   pointer-events: none;
 }
 
 @keyframes pulseHalo {
-  0% { transform: scale(0.92); opacity: 0.7; }
+  0% { transform: scale(0.92); opacity: 0.75; }
   100% { transform: scale(1.1); opacity: 1; }
 }
 
@@ -1642,30 +1649,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-top: -2vh;
+  margin-bottom: 1.25rem;
 }
 
-/* Luminous Parchment & Sun Halo Disc (Provides natural positive background for authentic black ink engraving) */
+/* Luminous Parchment & Sun Halo Disc (Provides radiant high-contrast positive background for eagle engraving) */
 .preloader-sun-disc {
   position: absolute;
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 380px;
+  width: 350px;
   max-width: 86vw;
-  height: 240px;
+  height: 220px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%, rgba(254, 248, 236, 0.96) 0%, rgba(252, 240, 214, 0.9) 45%, rgba(245, 158, 11, 0.32) 72%, transparent 100%);
-  filter: blur(6px);
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 252, 240, 0.95) 0%, rgba(254, 243, 199, 0.8) 35%, rgba(245, 158, 11, 0.3) 68%, transparent 100%);
+  filter: blur(8px);
   pointer-events: none;
   z-index: 0;
-  box-shadow: 0 0 55px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 60px rgba(251, 191, 36, 0.55), 0 0 100px rgba(245, 158, 11, 0.3);
   animation: sunGlowPulse 3s infinite ease-in-out alternate;
 }
 
 @keyframes sunGlowPulse {
-  0% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.88; }
-  100% { transform: translate(-50%, -50%) scale(1.04); opacity: 1; }
+  0% { transform: translate(-50%, -50%) scale(0.96); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
 }
 
 .eagle-flight-group {
@@ -1676,7 +1684,7 @@
   animation: eagleFlightSway 3.4s infinite ease-in-out;
 }
 
-/* Common Eagle Layer Styling - Absolute stacking with responsive contain sizing */
+/* Common Eagle Layer Styling - Absolute stacking with responsive contain sizing & deep drop shadow */
 .eagle-layer {
   position: absolute;
   top: 0;
@@ -1687,6 +1695,7 @@
   background-repeat: no-repeat;
   background-position: center;
   pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.65)) contrast(1.12);
 }
 
 /* Authentic Dark Charcoal Ink Engraving Layers (Positive polarity - Never Negative/Silver) */
@@ -1695,13 +1704,11 @@
   z-index: 1;
   transform-origin: 44% 52.4%;
   animation: flapFarWing 1.6s infinite ease-in-out alternate;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
 }
 
 .eagle-body-kumbh {
   background-image: url('../assets/images/eagle_body.png');
   z-index: 2;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
 }
 
 .wing-fore {
@@ -1709,7 +1716,6 @@
   z-index: 3;
   transform-origin: 55.7% 49.5%;
   animation: flapForeWing 1.6s infinite ease-in-out alternate;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
 }
 
 /* Flapping Wing Physics */
@@ -1849,57 +1855,69 @@
 .preloader-chant {
   font-family: var(--font-devanagari);
   font-size: 1.35rem;
-  color: #f5f0eb;
-  text-shadow: 0 0 16px rgba(254, 240, 138, 0.35);
+  font-weight: 700;
+  color: #fffdf2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 24px rgba(254, 240, 138, 0.6);
   margin-bottom: 0.5rem;
   text-align: center;
   letter-spacing: 0.05em;
+  z-index: 10;
 }
 
 .preloader-subtext {
   font-family: var(--font-sans);
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fde68a;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
   text-align: center;
+  z-index: 10;
 }
 
 .preloader-progress-track {
-  width: 200px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 240px;
+  max-width: 80vw;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-full);
   overflow: hidden;
   position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  z-index: 10;
 }
 
 .preloader-progress-fill {
   width: 0%;
   height: 100%;
-  background: var(--gold-gradient);
-  box-shadow: 0 0 10px #f59e0b;
+  background: linear-gradient(90deg, #f59e0b 0%, #fef08a 60%, #ffffff 100%);
+  box-shadow: 0 0 14px #f59e0b;
 }
 
 .preloader-skip {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-glass);
-  color: var(--text-muted);
-  padding: 0.4rem 0.9rem;
+  background: rgba(16, 6, 2, 0.65);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fde68a;
+  padding: 0.45rem 1rem;
   border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   cursor: pointer;
   transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 12;
 }
 
 .preloader-skip:hover {
-  color: var(--gold-300);
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--border-gold-subtle);
+  color: #ffffff;
+  background: rgba(245, 158, 11, 0.35);
+  border-color: #f59e0b;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
 }
 
 /* "Go to Main Page" Call-To-Action in Preloader */
@@ -1908,19 +1926,19 @@
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(180, 83, 9, 0.28) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.45);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: #fffdf0;
+  background: linear-gradient(135deg, rgba(28, 11, 3, 0.88) 0%, rgba(55, 22, 6, 0.92) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #ffffff;
   font-family: var(--font-devanagari), var(--font-sans);
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 0.65rem 1.45rem;
+  padding: 0.7rem 1.6rem;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 0 14px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(245, 158, 11, 0.35);
   letter-spacing: 0.03em;
   z-index: 10;
 }
@@ -2188,4 +2206,54 @@
   background: rgba(28, 10, 3, 0.85);
   border-color: rgba(255, 138, 0, 0.4);
 }
+
+/* Light Mode Preloader Overrides (Clean Sacred Parchment & Warm Golden Radiance) */
+[data-theme="light"] .kumbh-preloader {
+  background-color: #fdfbf7;
+  background-image: 
+    radial-gradient(circle at 50% 40%, rgba(254, 243, 199, 0.85) 0%, rgba(253, 230, 138, 0.4) 45%, rgba(245, 238, 225, 0.95) 75%, #f7f2ea 100%);
+}
+
+[data-theme="light"] .preloader-sun-disc {
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(254, 240, 138, 0.5) 40%, rgba(245, 158, 11, 0.2) 75%, transparent 100%);
+  box-shadow: 0 0 50px rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="light"] .preloader-chant {
+  color: #2b1306;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.95), 0 0 18px rgba(245, 158, 11, 0.45);
+}
+
+[data-theme="light"] .preloader-subtext {
+  color: #5c2807;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .preloader-progress-track {
+  background: rgba(120, 53, 15, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .preloader-skip {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(180, 83, 9, 0.35);
+  color: #78350f;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .preloader-enter-btn {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.45) 100%);
+  border-color: #d97706;
+  color: #2e1203;
+  box-shadow: 0 4px 18px rgba(180, 83, 9, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme="light"] .preloader-enter-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.45) 0%, rgba(217, 119, 6, 0.65) 100%);
+  color: #000000;
+}
+
 

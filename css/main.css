@@ -439,6 +439,22 @@ img {
   backdrop-filter: blur(2px);
 }
 
+/* Light Theme Hero Overlay & Image Synchronization */
+[data-theme="light"] .hero-img {
+  filter: brightness(0.98) saturate(1.1) contrast(1.02);
+}
+
+[data-theme="light"] .hero-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(251, 248, 242, 0.38) 0%,
+    rgba(251, 248, 242, 0.68) 45%,
+    rgba(246, 241, 232, 0.94) 90%,
+    var(--bg-deep) 100%
+  );
+  backdrop-filter: blur(1.5px);
+}
+
 .hero-particles {
   position: absolute;
   inset: 0;
