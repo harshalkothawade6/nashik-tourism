@@ -1,4 +1,4 @@
-﻿/* --- Section 2: Shahi Snan & Sacred Dates --- */
+/* --- Section 2: Shahi Snan & Sacred Dates --- */
 .kumbh-dates-section {
   background: radial-gradient(circle at 50% 20%, rgba(20, 32, 56, 0.4) 0%, var(--bg-deep) 80%);
 }
@@ -1190,5 +1190,269 @@
   }
   .card-top {
     flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   12. AUDIENCE INTENT SELECTOR (Kumbh vs. Tourism)
+   ========================================================================== */
+.audience-intent-toggle {
+  display: inline-flex;
+  background: rgba(18, 29, 52, 0.65);
+  border: 1px solid var(--border-gold-medium);
+  border-radius: var(--radius-full);
+  padding: 0.3rem;
+  margin-bottom: 1.5rem;
+  gap: 0.35rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="heritage"] .audience-intent-toggle {
+  background: rgba(44, 17, 5, 0.85);
+  border-color: rgba(255, 138, 0, 0.45);
+}
+
+.intent-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.intent-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.intent-btn.active {
+  background: var(--gold-gradient);
+  color: var(--text-inverse);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   13. SEARCH FILTER BARS
+   ========================================================================== */
+.search-filter-bar {
+  max-width: 520px;
+  margin: 0 auto 1.5rem auto;
+  position: relative;
+  width: 100%;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.1rem;
+  width: 18px;
+  height: 18px;
+  color: var(--gold-400);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.72rem 2.5rem 0.72rem 2.85rem;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-input:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3);
+  background: var(--bg-surface);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 0.85rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.35rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem;
+  border-radius: 50%;
+  transition: color var(--transition-fast);
+}
+
+.search-clear-btn:hover {
+  color: var(--gold-300);
+}
+
+.empty-search-state {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  background: var(--bg-glass-card);
+  border: 1px dashed var(--border-gold-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.empty-search-state .empty-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* ==========================================================================
+   14. DUAL CALENDAR ACTION BUTTONS
+   ========================================================================== */
+.calendar-actions-row {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.calendar-actions-row .btn-card-action {
+  flex: 1;
+  min-width: 135px;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-google-cal {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--border-gold-medium);
+  color: var(--gold-300);
+}
+
+.btn-google-cal:hover {
+  background: var(--gold-gradient);
+  color: var(--text-inverse);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+}
+
+.btn-ics-cal {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border-color: var(--border-glass);
+}
+
+.btn-ics-cal:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-gold-subtle);
+}
+
+/* ==========================================================================
+   15. GEOLOCATION CONFIRMATION TOAST
+   ========================================================================== */
+.geo-lang-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--bg-glass-strong);
+  border: 1px solid var(--border-gold-bright);
+  border-radius: var(--radius-full);
+  padding: 0.6rem 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+  z-index: 10000;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: slideUpToast 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+@keyframes slideUpToast {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.geo-lang-toast .toast-pin {
+  font-size: 1.1rem;
+  display: inline-block;
+  animation: pulsePin 1.4s infinite alternate ease-in-out;
+}
+
+@keyframes pulsePin {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.25); }
+}
+
+.geo-lang-toast .toast-action {
+  background: var(--gold-gradient);
+  border: none;
+  color: var(--text-inverse);
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--transition-fast);
+}
+
+.geo-lang-toast .toast-action:hover {
+  transform: scale(1.04);
+}
+
+.geo-lang-toast .toast-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.2rem;
+}
+
+.geo-lang-toast .toast-close:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .geo-lang-toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    padding: 0.55rem 0.95rem;
   }
 }
