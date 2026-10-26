@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chapter 1 & 2: The Cosmic Churn & 14 Divine Ratnas • Hybrid Storytelling</title>
+  <meta name="description" content="An interactive 1992 Japanese anime cel storytelling experience for Samudra Manthan: Scene 1 The Cosmic Churn & Scene 2 The Emergence of the 14 Divine Ratnas popping out 2-by-2.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,600&family=Outfit:wght@300;400;500;600;700&family=Yatra+One&display=swap" rel="stylesheet">
+
+  <!-- GSAP & ScrollTrigger via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --bg-space: #030612;
+      --gold-primary: #FFC233;
+      --gold-glow: rgba(255, 194, 51, 0.5);
+      --saffron: #FF6B2B;
+      --venom-purple: #9D4EDD;
+      --water-foam: #80E5FF;
+      --text-cream: #FFF6E5;
+      --font-title: 'Cinzel', serif;
+      --font-sub: 'Cormorant Garamond', serif;
+      --font-ui: 'Outfit', sans-serif;
+      --font-marathi: 'Yatra One', cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      background: var(--bg-space);
+      font-family: var(--font-ui);
+      color: var(--text-cream);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Top Floating Navigation HUD */
+    .story-nav-hud {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      background: linear-gradient(180deg, rgba(3, 6, 18, 0.96) 0%, rgba(3, 6, 18, 0.5) 75%, transparent 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 194, 51, 0.15);
+    }
+
+    .brand-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .chapter-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 4px 10px;
+      background: linear-gradient(135deg, var(--saffron), #C41C1C);
+      border-radius: 4px;
+      text-transform: uppercase;
+      color: #fff;
+      box-shadow: 0 0 14px rgba(255, 107, 43, 0.6);
+      border: 1px solid rgba(255, 214, 150, 0.5);
+    }
+
+    .title-group h1 {
+      font-family: var(--font-title);
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #FFF;
+      text-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    .title-group p {
+      font-family: var(--font-marathi);
+      font-size: 13px;
+      color: #FFD27D;
+      letter-spacing: 0.5px;
+    }
+
+    /* Scene Switcher Segmented Control in Top HUD */
+    .scene-segmented-nav {
+      display: flex;
+      background: rgba(4, 8, 22, 0.9);
+      border: 1px solid rgba(255, 194, 51, 0.4);
+      border-radius: 22px;
+      padding: 3px;
+      gap: 4px;
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-scene-tab {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 6px 14px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-scene-tab:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-scene-tab.active {
+      background: linear-gradient(135deg, rgba(255, 194, 51, 0.45), rgba(212, 143, 10, 0.35));
+      border: 1px solid var(--gold-primary);
+      color: #FFF;
+      box-shadow: 0 0 12px var(--gold-glow);
+      text-shadow: 0 0 6px rgba(255, 194, 51, 0.5);
+    }
+
+    .hud-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-hud {
+      background: rgba(18, 27, 54, 0.75);
+      border: 1px solid rgba(255, 194, 51, 0.4);
+      color: var(--text-cream);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-hud:hover {
+      background: rgba(255, 194, 51, 0.22);
+      border-color: var(--gold-primary);
+      transform: translateY(-1px);
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+
+    /* Cosmic Earthquake Fullscreen Flash Overlay */
+    .cosmic-quake-flash {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 194, 51, 0.8) 40%, rgba(157, 78, 221, 0) 80%);
+      z-index: 100;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    /* ======================================================== */
+    /* SCENE 1: THE COSMIC CHURN (समुद्रमंथन)                   */
+    /* ======================================================== */
+    .scene-section {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .story-scroll-track {
+      position: relative;
+      width: 100%;
+      height: 320vh;
+    }
+
+    .cinema-stage-sticky {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #070c24 0%, #02040a 100%);
+    }
+
+    .diorama-tilt-rig {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    svg.manthan-svg {
+      width: 100%;
+      height: 100%;
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    #fxCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .cinema-vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.9);
+      z-index: 10;
+    }
+
+    .scanline-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(rgba(18, 16, 38, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+      background-size: 100% 4px;
+      mix-blend-mode: overlay;
+      opacity: 0.35;
+      z-index: 11;
+    }
+
+    /* 3D Hotspot Pins */
+    .hotspot-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 25;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hotspot-pin:hover { transform: translate(-50%, -50%) scale(1.15); }
+    .hotspot-core {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF7D1 0%, var(--gold-primary) 65%, #C27D00 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      box-shadow: 0 0 20px var(--gold-glow), 0 0 8px #FFF;
+      border: 2px solid #FFFFFF;
+    }
+    .hotspot-pulse {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-primary);
+      animation: pinPulse 2s infinite cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+    }
+    @keyframes pinPulse {
+      0% { transform: scale(0.85); opacity: 0.9; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+    .hotspot-label {
+      position: absolute;
+      top: 38px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(5, 9, 22, 0.88);
+      border: 1px solid rgba(255, 194, 51, 0.4);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      color: #FFF;
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+    }
+    #pinAsuras { top: 68%; left: 22%; }
+    #pinKurma { top: 88%; left: 50%; }
+    #pinMandara { top: 38%; left: 50%; }
+    #pinDevas { top: 68%; left: 78%; }
+
+    /* Scene 1 Perspective Buttons in Bottom Left */
+    .diorama-cam-dock {
+      position: absolute;
+      bottom: 24px;
+      left: 28px;
+      z-index: 30;
+      display: flex;
+      background: rgba(4, 8, 22, 0.85);
+      border: 1px solid rgba(255, 194, 51, 0.35);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 3px;
+      backdrop-filter: blur(10px);
+    }
+    .btn-cam {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-cam:hover { color: #FFF; background: rgba(255, 255, 255, 0.08); }
+    .btn-cam.active {
+      background: linear-gradient(135deg, rgba(255, 194, 51, 0.45), rgba(212, 143, 10, 0.35));
+      border: 1px solid var(--gold-primary);
+      color: #FFF;
+    }
+
+    /* Subtitle Card for Scene 1 */
+    .story-caption-box {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      width: 92%;
+      max-width: 880px;
+      background: rgba(5, 9, 22, 0.88);
+      border: 1px solid rgba(255, 194, 51, 0.4);
+      border-radius: 12px;
+      padding: 14px 24px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 0 18px rgba(255, 194, 51, 0.08);
+      backdrop-filter: blur(16px);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    }
+    .caption-beat-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .beat-pill {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-radius: 10px;
+      background: rgba(255, 194, 51, 0.15);
+      color: #FFD27D;
+      border: 1px solid rgba(255, 194, 51, 0.35);
+    }
+    .caption-en {
+      font-family: var(--font-sub);
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 600;
+      color: #FFF9EE;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    }
+    .caption-mr {
+      font-family: var(--font-marathi);
+      font-size: 13px;
+      color: #FFD27D;
+      text-shadow: 0 1px 4px #000;
+    }
+    .scroll-progress-line {
+      position: relative;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 2px;
+      margin-top: 4px;
+      overflow: hidden;
+    }
+    .scroll-progress-fill {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, #E63946, #FFC233, #00D2FF);
+      border-radius: 2px;
+    }
+
+    /* Jump to Scene 2 Button at bottom right */
+    .btn-jump-scene2 {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      z-index: 30;
+      background: linear-gradient(135deg, var(--saffron), #C41C1C);
+      border: 1px solid #FFE17D;
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 20px rgba(255, 107, 43, 0.6);
+      transition: all 0.25s ease;
+    }
+    .btn-jump-scene2:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(255, 107, 43, 0.9);
+    }
+
+    /* ======================================================== */
+    /* SCENE 2: THE 14 DIVINE RATNAS (१४ दिव्य रत्ने)             */
+    /* ======================================================== */
+    #scene2Section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #020409;
+    }
+
+    .scene2-stage-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Active Pair Background Image Container */
+    .scene2-bg-rig {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene2-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.5s ease-in-out;
+      will-change: transform, opacity;
+    }
+
+    /* SVG Overlay Stage for 14 Ratnas directly over manthan_bg_corrected.jpg */
+    .scene2-svg-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .s2-pop-node {
+      pointer-events: auto;
+      cursor: pointer;
+      transform-origin: center;
+      transition: filter 0.3s ease;
+    }
+
+    .s2-pop-node:hover {
+      filter: drop-shadow(0 0 25px rgba(255, 194, 51, 0.95));
+    }
+
+    .s2-overview-node {
+      pointer-events: auto;
+      cursor: pointer;
+      transform-origin: center;
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease;
+    }
+
+    .s2-overview-node:hover {
+      transform: scale(1.18);
+      filter: drop-shadow(0 0 20px #FFC233);
+    }
+
+    @keyframes s2SpinCw {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes s2SpinCcw {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    .s2-spin-ring {
+      transform-origin: center;
+      animation: s2SpinCw 20s linear infinite;
+    }
+
+    .s2-spin-ring-rev {
+      transform-origin: center;
+      animation: s2SpinCcw 20s linear infinite;
+    }
+
+    .s2-halo-pulse {
+      transform-origin: center;
+      animation: s2GlowPulse 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes s2GlowPulse {
+      0% { opacity: 0.75; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1.08); }
+    }
+
+    /* Floating Pop-Out Cards Container (Pops Out 2 by 2) */
+    .scene2-cards-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 90px 48px 100px 48px;
+      pointer-events: none;
+      z-index: 25;
+      gap: 32px;
+    }
+
+    .ratna-pop-card {
+      position: relative;
+      width: 44%;
+      max-width: 520px;
+      background: rgba(6, 11, 28, 0.88);
+      border: 1.5px solid rgba(255, 194, 51, 0.5);
+      border-radius: 16px;
+      padding: 18px 24px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 24px rgba(255, 194, 51, 0.15);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      pointer-events: auto;
+      transform-origin: center bottom;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .ratna-pop-card:hover {
+      border-color: var(--gold-primary);
+      box-shadow: 0 20px 56px rgba(0, 0, 0, 0.9), 0 0 32px rgba(255, 194, 51, 0.35);
+      transform: translateY(-4px);
+    }
+
+    .ratna-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+    }
+
+    .ratna-num-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255, 107, 43, 0.4), rgba(196, 28, 28, 0.4));
+      border: 1px solid var(--saffron);
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ratna-recipient-pill {
+      font-size: 11px;
+      font-weight: 600;
+      color: #FFD27D;
+      background: rgba(255, 194, 51, 0.15);
+      border: 1px solid rgba(255, 194, 51, 0.3);
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .ratna-card-title-mr {
+      font-family: var(--font-marathi);
+      font-size: 20px;
+      color: #FFF;
+      text-shadow: 0 0 10px var(--gold-glow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .ratna-card-title-en {
+      font-family: var(--font-sub);
+      font-size: 15px;
+      color: #CBD5E1;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .ratna-card-desc {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #E2E8F0;
+      margin-bottom: 10px;
+    }
+
+    .ratna-kumbh-badge {
+      background: rgba(255, 107, 43, 0.12);
+      border-left: 3px solid var(--saffron);
+      padding: 6px 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 11px;
+      line-height: 1.45;
+      color: #FFD9C2;
+    }
+
+    .ratna-kumbh-badge strong {
+      color: var(--saffron);
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Scene 2 Bottom Navigation Dock */
+    .scene2-nav-dock {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      width: 94%;
+      max-width: 1080px;
+      padding: 8px 20px;
+      background: rgba(8, 14, 32, 0.88);
+      border: 1px solid rgba(255, 194, 51, 0.4);
+      border-radius: 36px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 194, 51, 0.15);
+      z-index: 35;
+    }
+
+    .scene2-dock-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-dock-s2 {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-cream);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+    }
+    .btn-dock-s2:hover {
+      background: rgba(255, 194, 51, 0.25);
+      border-color: var(--gold-primary);
+      color: #FFF;
+      transform: translateY(-1px);
+    }
+
+    /* 7-Step Pair Indicator Segment */
+    .pair-step-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(3, 6, 18, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 3px 6px;
+    }
+
+    .btn-pair-pip {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.55);
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      transition: all 0.2s ease;
+    }
+    .btn-pair-pip:hover { color: #FFF; background: rgba(255, 255, 255, 0.1); }
+    .btn-pair-pip.active {
+      background: linear-gradient(135deg, rgba(255, 194, 51, 0.45), rgba(212, 143, 10, 0.35));
+      border: 1px solid var(--gold-primary);
+      color: #FFF;
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+
+    /* Scene 2 Header Overlay */
+    .scene2-title-badge {
+      position: absolute;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 24;
+      pointer-events: none;
+    }
+
+    .scene2-header-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      background: rgba(6, 11, 28, 0.85);
+      border: 1px solid rgba(255, 194, 51, 0.4);
+      color: #FFD27D;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+      margin-bottom: 4px;
+    }
+
+    .scene2-pair-title {
+      font-family: var(--font-marathi);
+      font-size: 18px;
+      color: #FFF;
+      text-shadow: 0 0 12px var(--gold-glow), 0 2px 4px #000;
+    }
+
+    /* Codex Drawer Styles */
+    .lore-modal-drawer {
+      position: fixed;
+      top: 0; right: -440px;
+      width: 100%; max-width: 420px; height: 100vh;
+      background: rgba(6, 10, 24, 0.94);
+      border-left: 1px solid rgba(255, 194, 51, 0.4);
+      box-shadow: -10px 0 50px rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      z-index: 60;
+      display: flex; flex-direction: column;
+      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 28px; overflow-y: auto;
+    }
+    .lore-modal-drawer.open { right: 0; }
+    .lore-close-btn {
+      align-self: flex-end;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF; width: 34px; height: 34px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .lore-close-btn:hover { background: rgba(230, 57, 70, 0.6); border-color: #E63946; }
+    .lore-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      color: var(--gold-primary); text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
+      background: rgba(255, 194, 51, 0.15); border: 1px solid rgba(255, 194, 51, 0.3);
+      margin-top: 14px; align-self: flex-start;
+    }
+    .lore-title-main { font-family: var(--font-title); font-size: 24px; color: #FFF; margin-top: 6px; }
+    .lore-title-mr { font-family: var(--font-marathi); font-size: 16px; color: #FFD27D; margin-bottom: 16px; }
+    .lore-shloka-box {
+      background: rgba(255, 194, 51, 0.08); border-left: 3px solid var(--gold-primary);
+      padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px;
+      font-family: var(--font-marathi); font-size: 14px; line-height: 1.6; color: #FFE6A8;
+    }
+    .lore-body-text { font-size: 14px; line-height: 1.7; color: #E2E8F0; margin-bottom: 20px; }
+    .lore-kumbh-connection {
+      background: rgba(255, 107, 43, 0.12); border: 1px solid rgba(255, 107, 43, 0.35);
+      border-radius: 8px; padding: 14px; font-size: 13px; line-height: 1.55; color: #FFD9C2;
+    }
+    .lore-kumbh-connection strong { color: var(--saffron); display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 1px; }
+    .lore-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65);
+      z-index: 55; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .lore-backdrop.active { opacity: 1; pointer-events: auto; }
+
+    /* Next Chapter Anchor at Bottom */
+    .next-chapter-anchor {
+      position: relative;
+      background: #020409;
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 194, 51, 0.25);
+      z-index: 20;
+    }
+    .next-card {
+      max-width: 680px; margin: 0 auto;
+      background: rgba(14, 20, 42, 0.65);
+      border: 1px solid rgba(255, 194, 51, 0.35);
+      border-radius: 16px; padding: 32px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px);
+    }
+    .btn-next-action {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--saffron), #C41C1C);
+      color: #FFF; text-decoration: none; padding: 12px 28px;
+      border-radius: 30px; font-weight: 700; font-size: 14px; letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(255, 107, 43, 0.6);
+      transition: all 0.25s ease; margin-top: 20px;
+    }
+    .btn-next-action:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 107, 43, 0.85); }
+
+    @media (max-width: 900px) {
+      .scene2-cards-overlay { flex-direction: column; align-items: center; padding: 75px 20px 80px 20px; gap: 12px; }
+      .ratna-pop-card { width: 100%; max-width: 100%; padding: 12px 16px; }
+      .scene2-nav-dock { width: 98%; padding: 6px 12px; gap: 6px; }
+      .pair-step-indicator { display: none; }
+      .diorama-cam-dock { display: none; }
+      .story-caption-box { bottom: 12px; padding: 10px 16px; }
+      .caption-en { font-size: 15px; }
+      .caption-mr { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cosmic Earthquake Flash Element -->
+  <div class="cosmic-quake-flash" id="quakeFlash"></div>
+
+  <!-- Top Floating HUD -->
+  <header class="story-nav-hud">
+    <div class="brand-meta">
+      <span class="chapter-tag">अध्याय १ व २</span>
+      <div class="title-group">
+        <h1>THE COSMIC CHURN & 14 RATNAS</h1>
+        <p>क्षीरसागराचे महामंथन व १४ दिव्य रत्नांचे प्रकटीकरण</p>
+      </div>
+    </div>
+
+    <!-- Scene Switcher in Top HUD -->
+    <div class="scene-segmented-nav" title="Switch Between Scenes">
+      <button class="btn-scene-tab active" id="btnNavScene1" title="Scene 1: The Cosmic Churning (महामंथन)">
+        🌊 दृश्य १: मंथन
+      </button>
+      <button class="btn-scene-tab" id="btnNavScene2" title="Scene 2: Emergence of 14 Ratnas 2-by-2 (१४ दिव्य रत्ने)">
+        💎 दृश्य २: १४ रत्ने
+      </button>
+    </div>
+
+    <div class="hud-actions">
+      <a href="samudra_manthan_scene.html" class="btn-hud" title="View Fullscreen 3D Scene">
+        🎭 Scene Studio
+      </a>
+      <a href="index.html" class="btn-hud" title="Return to Nashik Kumbh Portal">
+        🏛️ मुख्य पोर्टल
+      </a>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- SCENE 1: THE COSMIC CHURN (समुद्रमंथन)                   -->
+  <!-- ======================================================== -->
+  <div class="scene-section" id="scene1Section">
+    
+    <div class="story-scroll-track" id="scrollTrack">
+      <div class="cinema-stage-sticky" id="cinemaStage">
+        <div class="diorama-tilt-rig" id="dioramaRig">
+          
+          <!-- Lusion Fluid & Particle FX Canvas -->
+          <canvas id="fxCanvas"></canvas>
+
+          <!-- 3D Hotspot Pins -->
+          <div class="hotspot-pin" id="pinAsuras" data-node="asuras" title="Click to inspect the Asuras">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-core">👹</div>
+            <span class="hotspot-label">असुर संघ (Asuras)</span>
+          </div>
+
+          <div class="hotspot-pin" id="pinMandara" data-node="mandara" title="Click to inspect Mount Mandara & Vasuki">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-core">⛰️</div>
+            <span class="hotspot-label">मन्दराचल व वासुकी</span>
+          </div>
+
+          <div class="hotspot-pin" id="pinKurma" data-node="kurma" title="Click to inspect Lord Kurma Avatar">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-core">🪷</div>
+            <span class="hotspot-label">कूर्म अवतार (Kurma)</span>
+          </div>
+
+          <div class="hotspot-pin" id="pinDevas" data-node="devas" title="Click to inspect the Deva host">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-core">🔱</div>
+            <span class="hotspot-label">देव संघ (Devas)</span>
+          </div>
+
+          <!-- Master SVG Stage with Single-Hooded Naga Master Cel Assets -->
+          <svg class="manthan-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <image id="masterBgImg" href="assets/images/manthan_bg_corrected.jpg" width="1920" height="1080" preserveAspectRatio="none"/>
+              <image id="masterMandaraImg" href="assets/images/manthan_center_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
+              <image id="masterAsurasImg" href="assets/images/manthan_asuras_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
+              <image id="masterDevasImg" href="assets/images/manthan_devas_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
+              <image id="masterForeWavesImg" href="assets/images/manthan_forewaves_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
+            </defs>
+
+            <!-- Camera Shake Wrapper -->
+            <g id="cameraShakeRig">
+              <g id="cameraRig">
+                <g id="multiplaneStage">
+                  <!-- Unified Master Backdrop -->
+                  <g id="layerBackdrop">
+                    <use href="#masterBgImg"/>
+                  </g>
+
+                  <!-- Mount Mandara & Kurma Fulcrum (Center x=960, y=850) -->
+                  <g id="layerMandara" style="transform-origin: 960px 850px; will-change: transform;">
+                    <use href="#masterMandaraImg"/>
+                  </g>
+
+                  <!-- Asuras on Left (Holding Serpent Head - Pivot x=360, y=920) -->
+                  <g id="layerAsuras" style="transform-origin: 360px 920px; will-change: transform;">
+                    <use href="#masterAsurasImg"/>
+                  </g>
+
+                  <!-- Devas on Right (Holding Serpent Tail - Pivot x=1560, y=920) -->
+                  <g id="layerDevas" style="transform-origin: 1560px 920px; will-change: transform;">
+                    <use href="#masterDevasImg"/>
+                  </g>
+
+                  <!-- Foreground Ocean Waves -->
+                  <g id="layerForeWaves" style="will-change: transform;">
+                    <use href="#masterForeWavesImg"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+
+          <!-- Authentic Film Overlays -->
+          <div class="cinema-vignette"></div>
+          <div class="scanline-overlay"></div>
+
+        </div><!-- /.diorama-tilt-rig -->
+
+        <!-- Diorama Camera Switcher in Bottom Left -->
+        <div class="diorama-cam-dock" title="3D Camera Presets">
+          <button class="btn-cam active" id="camOverview" data-cam="overview">🎥 Overview</button>
+          <button class="btn-cam" id="camAsuras" data-cam="asuras">👹 Asuras</button>
+          <button class="btn-cam" id="camMandara" data-cam="mandara">⛰️ Mandara</button>
+          <button class="btn-cam" id="camDevas" data-cam="devas">🔱 Devas</button>
+        </div>
+
+        <!-- Jump to Scene 2 Button in Bottom Right -->
+        <button class="btn-jump-scene2" id="btnEnterScene2" title="Trigger Cosmic Earthquake & Enter Scene 2">
+          <span>⚡ १४ रत्नांचे प्रकटीकरण (Scene 2)</span>
+          <span>→</span>
+        </button>
+
+        <!-- Subtitle Caption Card for Scene 1 -->
+        <div class="story-caption-box" id="captionBox">
+          <div class="caption-beat-indicator">
+            <span class="beat-pill" id="beatTag">चरण १ • महाकरार</span>
+            <span style="font-size: 11px; opacity: 0.6;">SCROLL PROGRESS</span>
+          </div>
+          <p class="caption-en" id="captionEn">Before time began, the cosmic harmony fractured. Devas and Asuras forged an unprecedented pact to churn the Milky Ocean for the divine nectar of immortality.</p>
+          <p class="caption-mr" id="captionMr">सृष्टीच्या प्रारंभी देव आणि असुरांनी अमरत्वाच्या अमृताप्राप्तीसाठी क्षीरसागराचे महामंथन करण्याचा ऐतिहासिक करार केला.</p>
+          
+          <div class="scroll-progress-line">
+            <div class="scroll-progress-fill" id="scrollProgressFill"></div>
+          </div>
+        </div>
+
+      </div><!-- /.cinema-stage-sticky -->
+    </div><!-- /.story-scroll-track -->
+
+  </div><!-- /#scene1Section -->
+
+  <!-- ======================================================== -->
+  <!-- SCENE 2: THE 14 DIVINE RATNAS (१४ दिव्य रत्ने)             -->
+  <!-- ======================================================== -->
+  <section class="scene-section" id="scene2Section">
+    
+    <div class="scene2-stage-wrapper" id="scene2Stage">
+      
+      <!-- High Performance Canvas for Oceanic Foam & Golden Ratna Radiance -->
+      <canvas id="scene2FxCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;"></canvas>
+
+      <!-- Active Background Cel Image Container (With Camera Shake Rig) -->
+      <div class="scene2-bg-rig" id="scene2ShakeRig">
+        <img src="assets/images/manthan_bg_corrected.jpg" alt="Master Samudra Manthan Cel Artwork" class="scene2-bg-img" id="scene2BgImg">
+
+        <!-- Authentic Native SVG Stage: Emerges 14 Ratnas on top of manthan_bg_corrected with 0% mismatch -->
+        <svg class="scene2-svg-overlay" id="scene2SvgOverlay" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Golden Radiance for Active Pop-out Pair -->
+            <radialGradient id="s2GoldGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFF5B8" stop-opacity="1"/>
+              <stop offset="35%" stop-color="#FFD700" stop-opacity="0.85"/>
+              <stop offset="70%" stop-color="#FF6B2B" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#800020" stop-opacity="0"/>
+            </radialGradient>
+
+            <!-- Radial Halo for All 14 Ratnas in Panoramic Overview -->
+            <radialGradient id="s2OverviewHalo" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFD700" stop-opacity="0.95"/>
+              <stop offset="55%" stop-color="#FF9E00" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#FF6B2B" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- ================= GROUP A: 2-BY-2 ACTIVE POP-OUT PAIR ================= -->
+          <g id="s2PairPopGroup">
+            <!-- Active Ratna A (Left Emergence) -->
+            <g id="s2PopNodeA" class="s2-pop-node" transform="translate(520, 390)">
+              <circle r="145" fill="url(#s2GoldGlow)" class="s2-halo-pulse"/>
+              <circle r="115" fill="none" stroke="#FFC233" stroke-width="3" stroke-dasharray="10 5" class="s2-spin-ring"/>
+              <circle r="100" fill="rgba(6, 12, 28, 0.85)" stroke="#FFD700" stroke-width="2.5"/>
+              <image id="s2PopImgA" href="assets/images/cutouts/token_01_halahala.png" x="-92" y="-92" width="184" height="184" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 126)">
+                <rect x="-115" y="-18" width="230" height="36" rx="18" fill="rgba(5, 9, 24, 0.94)" stroke="#FFC233" stroke-width="2"/>
+                <text id="s2PopTextA" text-anchor="middle" y="6" fill="#FFF" font-size="15" font-family="'Yatra One', cursive" font-weight="700">१. हलाहल विष</text>
+              </g>
+            </g>
+
+            <!-- Active Ratna B (Right Emergence) -->
+            <g id="s2PopNodeB" class="s2-pop-node" transform="translate(1400, 390)">
+              <circle r="145" fill="url(#s2GoldGlow)" class="s2-halo-pulse"/>
+              <circle r="115" fill="none" stroke="#FFC233" stroke-width="3" stroke-dasharray="10 5" class="s2-spin-ring-rev"/>
+              <circle r="100" fill="rgba(6, 12, 28, 0.85)" stroke="#FFD700" stroke-width="2.5"/>
+              <image id="s2PopImgB" href="assets/images/cutouts/token_02_kamadhenu.png" x="-92" y="-92" width="184" height="184" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 126)">
+                <rect x="-115" y="-18" width="230" height="36" rx="18" fill="rgba(5, 9, 24, 0.94)" stroke="#FFC233" stroke-width="2"/>
+                <text id="s2PopTextB" text-anchor="middle" y="6" fill="#FFF" font-size="15" font-family="'Yatra One', cursive" font-weight="700">२. कामधेनु गाय</text>
+              </g>
+            </g>
+          </g>
+
+          <!-- ================= GROUP B: ALL 14 RATNAS PANORAMIC (SVG) ================= -->
+          <g id="s2OverviewAll14Group" style="display: none; opacity: 0; transition: opacity 0.4s ease;">
+            <!-- Ratna 10: १०. चंद्र देव -->
+            <g class="s2-overview-node" data-id="10" transform="translate(500, 140)">
+              <circle r="74" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="63" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_10_chandra.png" x="-60" y="-60" width="120" height="120" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 80)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">१०. चंद्र देव</text>
+              </g>
+            </g>
+
+            <!-- Ratna 5: ५. कौस्तुभ मणी -->
+            <g class="s2-overview-node" data-id="5" transform="translate(780, 155)">
+              <circle r="74" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="63" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_05_kaustubha.png" x="-60" y="-60" width="120" height="120" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 80)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">५. कौस्तुभ मणी</text>
+              </g>
+            </g>
+
+            <!-- Ratna 7: ७. अप्सरा रंभा -->
+            <g class="s2-overview-node" data-id="7" transform="translate(1650, 155)">
+              <circle r="79" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="68" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_07_rambha.png" x="-65" y="-65" width="130" height="130" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 85)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">७. अप्सरा रंभा</text>
+              </g>
+            </g>
+
+            <!-- Ratna 8: ८. महालक्ष्मी -->
+            <g class="s2-overview-node" data-id="8" transform="translate(960, 285)">
+              <circle r="99" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="88" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_08_lakshmi.png" x="-85" y="-85" width="170" height="170" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 105)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">८. महालक्ष्मी</text>
+              </g>
+            </g>
+
+            <!-- Ratna 3: ३. उच्चैःश्रवा (७ मुखी अश्व) -->
+            <g class="s2-overview-node" data-id="3" transform="translate(630, 365)">
+              <circle r="92" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="81" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_03_uchhaishravas.png" x="-78" y="-78" width="156" height="156" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 98)">
+                <rect x="-70" y="-12" width="140" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">३. उच्चैःश्रवा (७ मुखी)</text>
+              </g>
+            </g>
+
+            <!-- Ratna 4: ४. ऐरावत हत्ती -->
+            <g class="s2-overview-node" data-id="4" transform="translate(1300, 350)">
+              <circle r="92" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="81" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_04_airavata.png" x="-78" y="-78" width="156" height="156" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 98)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">४. ऐरावत हत्ती</text>
+              </g>
+            </g>
+
+            <!-- Ratna 1: १. हलाहल विष -->
+            <g class="s2-overview-node" data-id="1" transform="translate(390, 510)">
+              <circle r="82" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="71" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_01_halahala.png" x="-68" y="-68" width="136" height="136" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 88)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">१. हलाहल विष</text>
+              </g>
+            </g>
+
+            <!-- Ratna 9: ९. वारुणी देवी -->
+            <g class="s2-overview-node" data-id="9" transform="translate(230, 650)">
+              <circle r="79" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="68" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_09_varuni.png" x="-65" y="-65" width="130" height="130" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 85)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">९. वारुणी देवी</text>
+              </g>
+            </g>
+
+            <!-- Ratna 6: ६. पारिजात वृक्ष -->
+            <g class="s2-overview-node" data-id="6" transform="translate(660, 620)">
+              <circle r="84" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="73" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_06_parijata.png" x="-70" y="-70" width="140" height="140" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 90)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">६. पारिजात वृक्ष</text>
+              </g>
+            </g>
+
+            <!-- Ratna 12: १२. कल्पवृक्ष -->
+            <g class="s2-overview-node" data-id="12" transform="translate(1270, 580)">
+              <circle r="84" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="73" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_12_kalpavriksha.png" x="-70" y="-70" width="140" height="140" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 90)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">१२. कल्पवृक्ष</text>
+              </g>
+            </g>
+
+            <!-- Ratna 2: २. कामधेनु गाय -->
+            <g class="s2-overview-node" data-id="2" transform="translate(1540, 580)">
+              <circle r="84" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="73" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_02_kamadhenu.png" x="-70" y="-70" width="140" height="140" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 90)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">२. कामधेनु गाय</text>
+              </g>
+            </g>
+
+            <!-- Ratna 11: ११. पाञ्चजन्य शंख -->
+            <g class="s2-overview-node" data-id="11" transform="translate(540, 850)">
+              <circle r="79" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="68" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_11_shankha.png" x="-65" y="-65" width="130" height="130" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 85)">
+                <rect x="-65" y="-12" width="130" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">११. पाञ्चजन्य शंख</text>
+              </g>
+            </g>
+
+            <!-- Ratna 14: १४. अमृत कुंभ -->
+            <g class="s2-overview-node" data-id="14" transform="translate(960, 750)">
+              <circle r="96" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="85" fill="none" stroke="#FFD700" stroke-width="3" opacity="0.95"/>
+              <image href="assets/images/cutouts/token_14_amritakumbh.png" x="-80" y="-80" width="160" height="160" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 102)">
+                <rect x="-75" y="-13" width="150" height="26" rx="13" fill="rgba(5,9,24,0.95)" stroke="#FFD700" stroke-width="2"/>
+                <text text-anchor="middle" y="5" fill="#FFD700" font-size="12" font-family="'Yatra One', cursive" font-weight="700">१४. अमृत कुंभ 🏺</text>
+              </g>
+            </g>
+
+            <!-- Ratna 13: १३. भगवान धन्वंतरी -->
+            <g class="s2-overview-node" data-id="13" transform="translate(1380, 840)">
+              <circle r="84" fill="url(#s2OverviewHalo)" class="s2-halo-pulse"/>
+              <circle r="73" fill="none" stroke="#FFC233" stroke-width="2.5" opacity="0.9"/>
+              <image href="assets/images/cutouts/token_13_dhanvantari.png" x="-70" y="-70" width="140" height="140" preserveAspectRatio="xMidYMid meet"/>
+              <g transform="translate(0, 90)">
+                <rect x="-70" y="-12" width="140" height="24" rx="12" fill="rgba(5,9,24,0.92)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-size="11.5" font-family="'Yatra One', cursive" font-weight="700">१३. भगवान धन्वंतरी</text>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Film Vignette & Authentic 35mm Cel Scanlines -->
+      <div class="cinema-vignette"></div>
+      <div class="scanline-overlay"></div>
+
+      <!-- Top Title Header Badge -->
+      <div class="scene2-title-badge">
+        <div class="scene2-header-pill">💎 दृश्य २: क्षीरसागरातील १४ दिव्य रत्ने (14 RATNAS)</div>
+        <h2 class="scene2-pair-title" id="pairHeaderTitle">जोडी १: विनाश व जीवन (Poison & Sustenance)</h2>
+      </div>
+
+      <!-- Floating Pop-Out Cards Overlay: POPS OUT 2 BY 2 -->
+      <div class="scene2-cards-overlay">
+        
+        <!-- CARD A (Left Item) -->
+        <div class="ratna-pop-card" id="cardA">
+          <div class="ratna-card-header">
+            <span class="ratna-num-badge" id="cardANumber">
+              <span>☠️</span>
+              <span>रत्न १ • RATNA 1</span>
+            </span>
+            <span class="ratna-recipient-pill" id="cardARecipient">भगवान शिव</span>
+          </div>
+          <h3 class="ratna-card-title-mr" id="cardATitleMr">हलाहल / कालकूट विष</h3>
+          <p class="ratna-card-title-en" id="cardATitleEn">Halahala (Cosmic Venom)</p>
+          <p class="ratna-card-desc" id="cardADesc">
+            मंथनातून सर्वात आधी निघालेले अत्यंत दाहक व भयंकर विष, ज्याच्या धुराने तिन्ही लोक होरपळू लागले होते. विश्वाच्या रक्षणासाठी भगवान शंकराने हे विष प्राशन करून कंठात धारण केले.
+          </p>
+          <div class="ratna-kumbh-badge" id="cardAKumbh">
+            <strong>Kumbh Heritage Connection:</strong>
+            <span id="cardAKumbhText">Symbolizes that before attaining the immortal nectar (Amrit), one must confront and purify all inner poisons.</span>
+          </div>
+        </div>
+
+        <!-- CARD B (Right Item) -->
+        <div class="ratna-pop-card" id="cardB">
+          <div class="ratna-card-header">
+            <span class="ratna-num-badge" id="cardBNumber">
+              <span>🐄</span>
+              <span>रत्न २ • RATNA 2</span>
+            </span>
+            <span class="ratna-recipient-pill" id="cardBRecipient">सप्तर्षी व ऋषी</span>
+          </div>
+          <h3 class="ratna-card-title-mr" id="cardBTitleMr">कामधेनु (सुरभी गाय)</h3>
+          <p class="ratna-card-title-en" id="cardBTitleEn">Kamadhenu (Wish-Fulfilling Cow)</p>
+          <p class="ratna-card-desc" id="cardBDesc">
+            सर्व मनोकामना पूर्ण करणारी दिव्य कामधेनु गाय. हिच्यापासून हविष्य (यज्ञासाठी लागणारे शुद्ध दूध, तूप, दही) अखंड प्राप्त होते. ऋषीमुनींनी धार्मिक यज्ञासाठी तिचा स्वीकार केला.
+          </p>
+          <div class="ratna-kumbh-badge" id="cardBKumbh">
+            <strong>Kumbh Heritage Connection:</strong>
+            <span id="cardBKumbhText">Represents divine abundance and spiritual nourishment sustaining seekers on the pilgrim path to Kumbh.</span>
+          </div>
+        </div>
+
+      </div><!-- /.scene2-cards-overlay -->
+
+      <!-- Scene 2 Bottom Glassmorphic Navigation Dock -->
+      <footer class="scene2-nav-dock">
+        
+        <!-- Controls: Prev / Next / Auto-Play -->
+        <div class="scene2-dock-group">
+          <button class="btn-dock-s2" id="btnPrevPair" title="View Previous Pair (मागील जोडी)">
+            ← मागील
+          </button>
+          <button class="btn-dock-s2" id="btnNextPair" title="View Next Pair (पुढील जोडी)">
+            पुढील →
+          </button>
+          <button class="btn-dock-s2" id="btnAutoPlay" title="Auto-Play All 7 Pairs in Order">
+            <span id="autoPlayIcon">▶</span>
+            <span id="autoPlayText">स्वयंचलित</span>
+          </button>
+        </div>
+
+        <!-- 7-Pair Direct Jump Pills -->
+        <div class="pair-step-indicator" title="Jump Directly to Any Pair">
+          <button class="btn-pair-pip active" data-pair="0" title="1. विष व कामधेनु">१. विष-गाय</button>
+          <button class="btn-pair-pip" data-pair="1" title="2. उच्चैःश्रवा व ऐरावत">२. अश्व-हत्ती</button>
+          <button class="btn-pair-pip" data-pair="2" title="3. कौस्तुभ व पारिजात">३. मणी-पारिजात</button>
+          <button class="btn-pair-pip" data-pair="3" title="4. रंभा व महालक्ष्मी">४. रंभा-लक्ष्मी</button>
+          <button class="btn-pair-pip" data-pair="4" title="5. वारुणी व चंद्र">५. वारुणी-चंद्र</button>
+          <button class="btn-pair-pip" data-pair="5" title="6. शंख व कल्पवृक्ष">६. शंख-वृक्ष</button>
+          <button class="btn-pair-pip" data-pair="6" title="7. धन्वंतरी व अमृत कुंभ">७. धन्वंतरी-अमृत 🏺</button>
+        </div>
+
+        <!-- View All 14 Ratnas Panoramic Overview -->
+        <div class="scene2-dock-group">
+          <button class="btn-dock-s2" id="btnOverviewMode" style="background: rgba(255, 194, 51, 0.2); border-color: var(--gold-primary);" title="Toggle Panoramic Overview of All 14 Ratnas">
+            🌐 सर्व १४ रत्ने देखावा
+          </button>
+        </div>
+
+      </footer>
+
+    </div><!-- /.scene2-stage-wrapper -->
+
+  </section><!-- /#scene2Section -->
+
+  <!-- Epilogue & Chapter 2 Gateway (Kumbh Mela Origin) -->
+  <section class="next-chapter-anchor">
+    <div class="next-card">
+      <span class="chapter-tag" style="background: linear-gradient(135deg, #9D4EDD, #480CA8);">पुढील अध्याय • CHAPTER 2</span>
+      <h2 style="font-family: var(--font-title); font-size: 26px; color: #FFF; margin-top: 14px; letter-spacing: 2px;">
+        THE FLIGHT OF GARUDA & THE NASHIK DROPS
+      </h2>
+      <p style="font-family: var(--font-marathi); font-size: 16px; color: #FFD27D; margin-top: 4px;">
+        गरुडाची आकाशात दिव्य झेप व नाशिकच्या रामकुंडावर पडलेले अमृत थेंब
+      </p>
+      <p style="font-size: 14px; color: #CBD5E1; line-height: 1.6; margin-top: 14px;">
+        As the 14th Ratna (The Amrita Kumbh) surfaced in Lord Dhanvantari's golden hands, a ferocious chase erupted. Lord Vishnu assumed the divine form of Mohini, and the celestial eagle Garuda took flight across the heavens. Four sanctifying drops of the immortal nectar fell upon Earth: Nashik (Godavari River at Ramkund), Prayagraj, Haridwar, and Ujjain—founding the eternal Kumbh Mela!
+      </p>
+      <a href="samudra_manthan_scene.html" class="btn-next-action">
+        🚀 अनुभवा संपूर्ण ३D मंथन दृश्य (Explore 3D Manthan Scene) →
+      </a>
+    </div>
+  </section>
+
+  <!-- Lore Modal Backdrop & Drawer -->
+  <div class="lore-backdrop" id="loreBackdrop"></div>
+  <aside class="lore-modal-drawer" id="loreDrawer">
+    <button class="lore-close-btn" id="loreCloseBtn" title="Close Codex">✕</button>
+    <span class="lore-badge" id="loreBadge">MYTHOLOGICAL CODEX</span>
+    <h2 class="lore-title-main" id="loreTitleMain">Mount Mandara</h2>
+    <h3 class="lore-title-mr" id="loreTitleMr">मन्दराचल पर्वत</h3>
+
+    <div class="lore-shloka-box" id="loreShloka">
+      मथ्यताममृतं देवा मन्दरेणार्णवे तदा ।<br>
+      वासुकिं नेत्रमुत्पाद्य सर्वयत्नेन वेगतः ॥
+    </div>
+
+    <p class="lore-body-text" id="loreBodyText">
+      Mount Mandara was chosen as the churning rod due to its golden cosmic fortitude. Placed upon the celestial turtle Kurma, it withstood the colossal torque generated between gods and titans.
+    </p>
+
+    <div class="lore-kumbh-connection" id="loreKumbhConnection">
+      <strong>Kumbh Mela Heritage:</strong>
+      <span id="loreConnectionText">
+        The celestial churn produced the immortal nectar vessel (Amrit Kumbh). When Garuda fled with this vessel, four divine drops fell upon the earth, consecrating Ramkund at Nashik on the Godavari.
+      </span>
+    </div>
+  </aside>
+
+  <!-- ======================================================== -->
+  <!-- SCRIPT ENGINE: GSAP 3 + ScrollTrigger + 14 Ratnas Engine -->
+  <!-- ======================================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Elements
+      const quakeFlash = document.getElementById('quakeFlash');
+      const cameraShakeRig = document.getElementById('cameraShakeRig');
+      const cameraRig = document.getElementById('cameraRig');
+      const dioramaRig = document.getElementById('dioramaRig');
+      const scrollProgressFill = document.getElementById('scrollProgressFill');
+      const beatTag = document.getElementById('beatTag');
+      const captionEn = document.getElementById('captionEn');
+      const captionMr = document.getElementById('captionMr');
+      const btnEnterScene2 = document.getElementById('btnEnterScene2');
+      const btnNavScene1 = document.getElementById('btnNavScene1');
+      const btnNavScene2 = document.getElementById('btnNavScene2');
+
+      // Scene 2 Elements
+      const scene2ShakeRig = document.getElementById('scene2ShakeRig');
+      const scene2BgImg = document.getElementById('scene2BgImg');
+      const pairHeaderTitle = document.getElementById('pairHeaderTitle');
+      const cardA = document.getElementById('cardA');
+      const cardB = document.getElementById('cardB');
+      const cardANumber = document.getElementById('cardANumber');
+      const cardARecipient = document.getElementById('cardARecipient');
+      const cardATitleMr = document.getElementById('cardATitleMr');
+      const cardATitleEn = document.getElementById('cardATitleEn');
+      const cardADesc = document.getElementById('cardADesc');
+      const cardAKumbhText = document.getElementById('cardAKumbhText');
+      const cardBNumber = document.getElementById('cardBNumber');
+      const cardBRecipient = document.getElementById('cardBRecipient');
+      const cardBTitleMr = document.getElementById('cardBTitleMr');
+      const cardBTitleEn = document.getElementById('cardBTitleEn');
+      const cardBDesc = document.getElementById('cardBDesc');
+      const cardBKumbhText = document.getElementById('cardBKumbhText');
+
+      const btnPrevPair = document.getElementById('btnPrevPair');
+      const btnNextPair = document.getElementById('btnNextPair');
+      const btnAutoPlay = document.getElementById('btnAutoPlay');
+      const autoPlayIcon = document.getElementById('autoPlayIcon');
+      const autoPlayText = document.getElementById('autoPlayText');
+      const btnOverviewMode = document.getElementById('btnOverviewMode');
+      const pairPips = document.querySelectorAll('.btn-pair-pip');
+
+      // Scene 2 SVG Elements (Tokens and Overview)
+      const s2PairPopGroup = document.getElementById('s2PairPopGroup');
+      const s2PopNodeA = document.getElementById('s2PopNodeA');
+      const s2PopNodeB = document.getElementById('s2PopNodeB');
+      const s2PopImgA = document.getElementById('s2PopImgA');
+      const s2PopImgB = document.getElementById('s2PopImgB');
+      const s2PopTextA = document.getElementById('s2PopTextA');
+      const s2PopTextB = document.getElementById('s2PopTextB');
+      const s2OverviewAll14Group = document.getElementById('s2OverviewAll14Group');
+      const s2OverviewNodes = document.querySelectorAll('.s2-overview-node');
+
+      // 2. THE 14 RATNAS DATABASE (7 PAIRS)
+      const ratnaPairsData = [
+        {
+          pairIndex: 0,
+          pairTitleMr: "जोडी १: विनाश व जीवन (Poison & Sustenance)",
+          pairTitleEn: "Pair 1: The Cosmic Venom & The Divine Nourisher",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 1,
+            number: "रत्न १ • RATNA 1",
+            icon: "☠️",
+            nameMr: "हलाहल / कालकूट विष",
+            shortNameMr: "१. हलाहल विष",
+            nameEn: "Halahala (Cosmic Venom)",
+            tokenImg: "assets/images/cutouts/token_01_halahala.png",
+            recipient: "भगवान शिव (Neelkantha)",
+            desc: "मंथनातून सर्वात आधी निघालेले अत्यंत दाहक व भयंकर विष, ज्याच्या ज्वालांनी तिन्ही लोक होरपळू लागले होते. विश्वाच्या रक्षणासाठी भगवान शंकराने हे विष स्वतः प्राशन करून कंठात धारण केले, ज्यामुळे ते 'नीलकंठ' कहलाले.",
+            kumbh: "Symbolizes that before attaining the immortal nectar (Amrit), one must first confront, endure, and purify all ego and inner toxins."
+          },
+          itemB: {
+            ratnaId: 2,
+            number: "रत्न २ • RATNA 2",
+            icon: "🐄",
+            nameMr: "कामधेनु (सुरभी गाय)",
+            shortNameMr: "२. कामधेनु गाय",
+            nameEn: "Kamadhenu (Wish-Fulfilling Cow)",
+            tokenImg: "assets/images/cutouts/token_02_kamadhenu.png",
+            recipient: "सप्तर्षी व ऋषी-मुनी",
+            desc: "सर्व मनोकामना पूर्ण करणारी दिव्य कामधेनु गाय. हिच्यापासून यज्ञासाठी लागणारे शुद्ध हविष्य (दूध, तूप, दही) अखंड प्राप्त होते. ऋषीमुनींनी धार्मिक यज्ञकर्म व जनकल्याणासाठी तिचा स्वीकार केला.",
+            kumbh: "Represents pure spiritual sustenance and divine nourishment sustaining seekers on the pilgrim path to the Kumbh Mela."
+          }
+        },
+        {
+          pairIndex: 1,
+          pairTitleMr: "जोडी २: गती व ऐश्वर्य (Speed & Royal Majesty)",
+          pairTitleEn: "Pair 2: The Seven-Headed Steed & Celestial Elephant",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 3,
+            number: "रत्न ३ • RATNA 3",
+            icon: "🐎",
+            nameMr: "उच्चैःश्रवा (७ मुखी अश्व)",
+            shortNameMr: "३. उच्चैःश्रवा (७ मुखी)",
+            nameEn: "Uchhaishravas (Divine 7-Headed Flying Horse)",
+            tokenImg: "assets/images/cutouts/token_03_uchhaishravas.png",
+            recipient: "दैत्यराज बळी (असुर संघ)",
+            desc: "पांढऱ्याशुभ्र वर्णाचा, सात मुखे असलेला आणि वाऱ्याच्या वेगाने आकाशात झेपावणारा अलौकिक देव-अश्व. समुद्रमंथनातून प्रकट झाल्यावर दैत्यराज बळीने याचा स्वीकार केला.",
+            kumbh: "Symbolizes the supreme conquest of the senses and untamed cosmic speed channeled toward righteous destiny."
+          },
+          itemB: {
+            ratnaId: 4,
+            number: "रत्न ४ • RATNA 4",
+            icon: "🐘",
+            nameMr: "ऐरावत (४ सुळ्यांचा हत्ती)",
+            shortNameMr: "४. ऐरावत हत्ती",
+            nameEn: "Airavata (Four-Tusked White Elephant)",
+            tokenImg: "assets/images/cutouts/token_04_airavata.png",
+            recipient: "इंद्रदेव (स्वर्गलोक)",
+            desc: "पर्वतासारखा उत्तुंग, चार शुभ्र दंत असलेला आणि ढगांनाही नियंत्रित करणारा पांढरा हत्ती. इंद्रदेवाने आपले दिव्य वाहन म्हणून ऐरावताचा स्वीकार केला, जो पर्जन्यवृष्टी घडवतो.",
+            kumbh: "Reflects the majesty of the celestial monsoon waters that replenish the sacred Godavari River at Nashik."
+          }
+        },
+        {
+          pairIndex: 2,
+          pairTitleMr: "जोडी ३: दिव्य तेज व अखंड सुगंध (Cosmic Radiance & Fragrance)",
+          pairTitleEn: "Pair 3: The Supreme Gem & The Eternal Bloom",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 5,
+            number: "रत्न ५ • RATNA 5",
+            icon: "💎",
+            nameMr: "कौस्तुभ मणी",
+            shortNameMr: "५. कौस्तुभ मणी",
+            nameEn: "Kaustubha Mani (Supreme Divine Gem)",
+            tokenImg: "assets/images/cutouts/token_05_kaustubha.png",
+            recipient: "भगवान विष्णू (वैकुंठ)",
+            desc: "विश्वातील सर्वात तेजस्वी, लाखो सूर्यांप्रमाणे प्रकाशणारा अमूल्य दैवी मणी. हा शुद्ध चेतनेचे प्रतीक असून भगवान विष्णूंनी तो आपल्या वक्षस्थळावर (छातीवर) सदैव धारण केला.",
+            kumbh: "Emblemizes the jewel of self-realization and pure consciousness attained by taking the holy dip (Shahi Snan) at Ramkund."
+          },
+          itemB: {
+            ratnaId: 6,
+            number: "रत्न ६ • RATNA 6",
+            icon: "🌸",
+            nameMr: "पारिजात वृक्ष (हरसिंगार)",
+            shortNameMr: "६. पारिजात वृक्ष",
+            nameEn: "Parijata (Celestial Fragrant Tree)",
+            tokenImg: "assets/images/cutouts/token_06_parijata.png",
+            recipient: "देवलोक (इंद्राचे नंदनवन)",
+            desc: "ज्याची फुले कधीही कोमेजत नाहीत आणि ज्याचा दिव्य गंध त्रिलोकात दरवळतो असा स्वर्गीय कल्पद्रुम. देवलोकात इंद्राच्या नंदनवनात याची प्रतिष्ठापना झाली.",
+            kumbh: "The fragrant blossoms represent immortal divine grace that blossoms perpetually in the heart of sincere pilgrims."
+          }
+        },
+        {
+          pairIndex: 3,
+          pairTitleMr: "जोडी ४: सौंदर्य व समृद्धी (Beauty & Supreme Fortune)",
+          pairTitleEn: "Pair 4: Celestial Grace & Goddess of Prosperity",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 7,
+            number: "रत्न ७ • RATNA 7",
+            icon: "💃",
+            nameMr: "अप्सरा रंभा",
+            shortNameMr: "७. अप्सरा रंभा",
+            nameEn: "Apsara Rambha (Celestial Nymph)",
+            tokenImg: "assets/images/cutouts/token_07_rambha.png",
+            recipient: "स्वर्गलोक / गंधर्व सभा",
+            desc: "अलौकिक सौंदर्य, लावण्य, नृत्य व संगीताचे साक्षात प्रतीक असलेली स्वर्गीय अप्सरा. तिच्या प्रकटीकरणाने देवलोकात उत्सव आणि दिव्य आनंदाचे वातावरण निर्माण झाले.",
+            kumbh: "Represents celestial harmony, sacred music, and joyous celebration that fills the Kumbh festival."
+          },
+          itemB: {
+            ratnaId: 8,
+            number: "रत्न ८ • RATNA 8",
+            icon: "🪷",
+            nameMr: "देवी महालक्ष्मी",
+            shortNameMr: "८. महालक्ष्मी",
+            nameEn: "Goddess Maha Lakshmi",
+            tokenImg: "assets/images/cutouts/token_08_lakshmi.png",
+            recipient: "भगवान विष्णू (वैकुंठ)",
+            desc: "गुलाबी कमळावर आरूढ होऊन दोन्ही हातांनी सुवर्ण कलश घेतलेली समृद्धी, ऐश्वर्य व मांगल्याची आद्य देवता. प्रकट होताच तिने भगवान विष्णूंचा पती म्हणून स्वीकार केला.",
+            kumbh: "Brings spiritual wealth, inner prosperity, and liberation to all devotees who worship at the sacred banks of the Godavari."
+          }
+        },
+        {
+          pairIndex: 4,
+          pairTitleMr: "जोडी ५: उल्लास व शीतल प्रकाश (Spirit & Lunar Serenity)",
+          pairTitleEn: "Pair 5: The Mystic Spirit & The Cooling Crescent",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 9,
+            number: "रत्न ९ • RATNA 9",
+            icon: "🏺",
+            nameMr: "वारुणी (मदिरा देवी)",
+            shortNameMr: "९. वारुणी देवी",
+            nameEn: "Varuni (Goddess of Spirits)",
+            tokenImg: "assets/images/cutouts/token_09_varuni.png",
+            recipient: "असुर संघ",
+            desc: "समुद्राच्या गर्भातून मद्य व मदिरेचा कलश घेऊन प्रकट झालेली देवता. देवादिकांच्या अनुमतीने दैत्यांनी तिचा उत्साहाने स्वीकार केला.",
+            kumbh: "Contrasts temporary material intoxication with the eternal spiritual bliss of the divine Amrita."
+          },
+          itemB: {
+            ratnaId: 10,
+            number: "रत्न १० • RATNA 10",
+            icon: "🌙",
+            nameMr: "चंद्र (सोम देव)",
+            shortNameMr: "१०. चंद्र देव",
+            nameEn: "Chandra (The Crescent Moon)",
+            tokenImg: "assets/images/cutouts/token_10_chandra.png",
+            recipient: "भगवान शिव (जटांमध्ये स्थान)",
+            desc: "शीतल, शांत व अमृतमय प्रकाश देणारा चंद्र देव. हलाहल विषाच्या भयंकर दाहकतेने जळणाऱ्या मस्तकाला शीतलता देण्यासाठी शिवाने चंद्राला मस्तकावर मुकुटाप्रमाणे धारण केले.",
+            kumbh: "Chandra's celestial alignment with Jupiter (Guru) determines the sacred astrological timing of the Nashik Kumbh Mela."
+          }
+        },
+        {
+          pairIndex: 5,
+          pairTitleMr: "जोडी ६: विजय व सत्यकामना (Cosmic Victory & Divine Manifestation)",
+          pairTitleEn: "Pair 6: The Conch of Truth & The Wish Tree",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 11,
+            number: "रत्न ११ • RATNA 11",
+            icon: "🐚",
+            nameMr: "पाञ्चजन्य शंख",
+            shortNameMr: "११. पाञ्चजन्य शंख",
+            nameEn: "Panchajanya Shankha (Victory Conch)",
+            tokenImg: "assets/images/cutouts/token_11_shankha.png",
+            recipient: "भगवान विष्णू",
+            desc: "ज्याच्या ध्वनीने अज्ञानाचा, अहंकाराचा आणि असुरांचा समूळ नाश होतो असा पांढराशुभ्र सुवर्ण-नक्षीदार शंख. हा भगवान विष्णूंचा मुख्य आयुध-शंख आहे, ज्याचा नाद धर्माचा जयघोष करतो.",
+            kumbh: "Echoes the sacred conch shells blown across Nashik's holy ghats during the holy Shahi Snan mahapuja."
+          },
+          itemB: {
+            ratnaId: 12,
+            number: "रत्न १२ • RATNA 12",
+            icon: "🌳",
+            nameMr: "कल्पवृक्ष (कल्पतरू)",
+            shortNameMr: "१२. कल्पवृक्ष",
+            nameEn: "Kalpavriksha (The Wish Tree)",
+            tokenImg: "assets/images/cutouts/token_12_kalpavriksha.png",
+            recipient: "स्वर्गलोक (इंद्राचे नंदनवन)",
+            desc: "ज्या वृक्षाच्या छायेत उभे राहून जी इच्छा मनात आणली ती तत्काळ सत्य होते असा दिव्य स्वर्गीय कल्पवृक्ष. हा मानवी मनातील शुद्ध संकल्पांचे फळ देणारा मानला जातो.",
+            kumbh: "Reminds pilgrims that performing pilgrimage and sacred charity at the Kumbh Mela fulfills the soul's deepest longing for Moksha."
+          }
+        },
+        {
+          pairIndex: 6,
+          pairTitleMr: "जोडी ७: आरोग्य व अमरत्व (The Grand Climax: Healing & Immortality)",
+          pairTitleEn: "Pair 7: The Divine Physician & The Golden Nectar Pot",
+          bgImage: "assets/images/manthan_bg_corrected.jpg",
+          itemA: {
+            ratnaId: 13,
+            number: "रत्न १३ • RATNA 13",
+            icon: "🌿",
+            nameMr: "भगवान धन्वंतरी",
+            shortNameMr: "१३. भगवान धन्वंतरी",
+            nameEn: "Lord Dhanvantari (Divine Physician)",
+            tokenImg: "assets/images/cutouts/token_13_dhanvantari.png",
+            recipient: "समस्त जगताचे वैद्यराज",
+            desc: "हातात दुर्लभ संजीवनी औषधी वनस्पती आणि आयुर्वेद शास्त्र घेऊन क्षीरसागरातून साक्षात भगवान विष्णूंचे अवतार धन्वंतरी प्रकट झाले. ते विश्वाचे आद्य वैद्य आणि आरोग्यदाते आहेत.",
+            kumbh: "Bestows supreme physical and spiritual wellness to pilgrims bathing in the consecrated holy waters."
+          },
+          itemB: {
+            ratnaId: 14,
+            number: "रत्न १४ • RATNA 14",
+            icon: "🏺",
+            nameMr: "अमृत कुंभ (अमृत कलश)",
+            shortNameMr: "१४. अमृत कुंभ 🏺",
+            nameEn: "Amrita Kumbh (The Pot of Immortality)",
+            tokenImg: "assets/images/cutouts/token_14_amritakumbh.png",
+            recipient: "कुंभमेळ्याचा दिव्य उगम!",
+            desc: "भगवान धन्वंतरींच्या हातात आलेला सुवर्ण कलश, ज्यामध्ये अमरत्व देणारे दिव्य अमृत भरलेले होते. हा कलश दिसताच देव-दानवांमध्ये संघर्ष सुरू झाला! गरुडाने हा कलश घेऊन उड्डाण केले असता ४ थेंब पृथ्वीवर सांडले: नाशिक (रामकुंड), प्रयागराज, हरिद्वार व उज्जैन!",
+            kumbh: "The very heart and eternal origin of the Nashik Kumbh Mela, sanctifying the holy Godavari River forever!"
+          }
+        }
+      ];
+
+      // 3. COSMIC EARTHQUAKE CAMERA SHAKE FUNCTION
+      function triggerCosmicEarthquake(intensity = 6.0, onCompleteCallback) {
+        // Fullscreen Shockwave Flash
+        gsap.fromTo(quakeFlash, 
+          { opacity: 0.95 }, 
+          { opacity: 0, duration: 0.85, ease: "power2.out" }
+        );
+
+        // High frequency violent viewport tremors
+        const targets = [cameraShakeRig, scene2ShakeRig];
+        gsap.fromTo(targets,
+          { x: -intensity, y: intensity * 0.8, rotation: -0.5 },
+          {
+            x: intensity, y: -intensity * 0.8, rotation: 0.5,
+            duration: 0.045, repeat: 9, yoyo: true, ease: "power1.inOut",
+            onComplete: () => {
+              gsap.set(targets, { x: 0, y: 0, rotation: 0 });
+              if (onCompleteCallback) onCompleteCallback();
+            }
+          }
+        );
+      }
+
+      // 4. SCENE 2 RENDERER (POPS OUT 2 BY 2 IN NATIVE SVG OVER MANTHAN_BG_CORRECTED)
+      let currentPairIdx = 0;
+      let isAutoPlaying = false;
+      let autoPlayTimer = null;
+      let isOverviewMode = false;
+
+      function renderPair(idx, triggerShake = true) {
+        currentPairIdx = Math.max(0, Math.min(ratnaPairsData.length - 1, idx));
+        const data = ratnaPairsData[currentPairIdx];
+
+        if (triggerShake) {
+          triggerCosmicEarthquake(3.2);
+        }
+
+        // Ensure 14 Overview SVG is hidden and 2-by-2 pop group is active
+        if (s2OverviewAll14Group) {
+          s2OverviewAll14Group.style.display = 'none';
+          s2OverviewAll14Group.style.opacity = '0';
+        }
+        if (s2PairPopGroup) {
+          s2PairPopGroup.style.display = 'block';
+          s2PairPopGroup.style.opacity = '1';
+        }
+
+        // Background is strictly manthan_bg_corrected.jpg (0% mismatch)
+        if (scene2BgImg && !scene2BgImg.src.endsWith('manthan_bg_corrected.jpg')) {
+          scene2BgImg.src = 'assets/images/manthan_bg_corrected.jpg';
+        }
+
+        // Update Title Header
+        pairHeaderTitle.textContent = data.pairTitleMr;
+
+        // Update Pips in Dock
+        pairPips.forEach((pip, pIdx) => {
+          pip.classList.toggle('active', pIdx === currentPairIdx && !isOverviewMode);
+        });
+
+        // Update SVG 2-by-2 Active Tokens
+        if (s2PopImgA && s2PopImgB) {
+          s2PopImgA.setAttribute('href', data.itemA.tokenImg);
+          s2PopTextA.textContent = data.itemA.shortNameMr;
+          s2PopImgB.setAttribute('href', data.itemB.tokenImg);
+          s2PopTextB.textContent = data.itemB.shortNameMr;
+
+          // GSAP Pop-Out Spring Physics on SVG Ratna Nodes
+          gsap.fromTo(s2PopNodeA,
+            { scale: 0.15, y: 120, opacity: 0, rotation: -6 },
+            { scale: 1, y: 0, opacity: 1, rotation: 0, duration: 0.65, ease: "back.out(1.8)" }
+          );
+          gsap.fromTo(s2PopNodeB,
+            { scale: 0.15, y: 120, opacity: 0, rotation: 6 },
+            { scale: 1, y: 0, opacity: 1, rotation: 0, duration: 0.65, delay: 0.1, ease: "back.out(1.8)" }
+          );
+        }
+
+        // POP OUT 2 BY 2 ANIMATION: Animate Cards A and B
+        // Left Card (Item A)
+        cardANumber.innerHTML = `<span>${data.itemA.icon}</span><span>${data.itemA.number}</span>`;
+        cardARecipient.textContent = data.itemA.recipient;
+        cardATitleMr.textContent = data.itemA.nameMr;
+        cardATitleEn.textContent = data.itemA.nameEn;
+        cardADesc.textContent = data.itemA.desc;
+        cardAKumbhText.textContent = data.itemA.kumbh;
+
+        // Right Card (Item B)
+        cardBNumber.innerHTML = `<span>${data.itemB.icon}</span><span>${data.itemB.number}</span>`;
+        cardBRecipient.textContent = data.itemB.recipient;
+        cardBTitleMr.textContent = data.itemB.nameMr;
+        cardBTitleEn.textContent = data.itemB.nameEn;
+        cardBDesc.textContent = data.itemB.desc;
+        cardBKumbhText.textContent = data.itemB.kumbh;
+
+        // GSAP Bouncy Spring Pop-Out Animation (Cards pop out 2 by 2)
+        gsap.fromTo(cardA,
+          { scale: 0.6, y: 70, opacity: 0, rotation: -2 },
+          { scale: 1, y: 0, opacity: 1, rotation: 0, duration: 0.55, ease: "back.out(1.6)" }
+        );
+
+        gsap.fromTo(cardB,
+          { scale: 0.6, y: 70, opacity: 0, rotation: 2 },
+          { scale: 1, y: 0, opacity: 1, rotation: 0, duration: 0.55, delay: 0.12, ease: "back.out(1.6)" }
+        );
+      }
+
+      // Dock Button Listeners
+      btnPrevPair.addEventListener('click', () => {
+        isOverviewMode = false;
+        renderPair((currentPairIdx - 1 + ratnaPairsData.length) % ratnaPairsData.length);
+      });
+
+      btnNextPair.addEventListener('click', () => {
+        isOverviewMode = false;
+        renderPair((currentPairIdx + 1) % ratnaPairsData.length);
+      });
+
+      // Pair Pip Direct Jump Buttons
+      pairPips.forEach(pip => {
+        pip.addEventListener('click', () => {
+          isOverviewMode = false;
+          const targetPair = parseInt(pip.getAttribute('data-pair'), 10);
+          renderPair(targetPair);
+        });
+      });
+
+      // Overview Mode Toggle: Reveals All 14 Ratnas in SVG directly over manthan_bg_corrected.jpg
+      btnOverviewMode.addEventListener('click', () => {
+        isOverviewMode = !isOverviewMode;
+        if (isOverviewMode) {
+          btnOverviewMode.style.background = 'linear-gradient(135deg, #FFC233, #FF6B2B)';
+          btnOverviewMode.style.color = '#000';
+          pairHeaderTitle.textContent = "१४ दिव्य रत्नांचा महा देखावा (All 14 Ratnas Panoramic in SVG)";
+          
+          // Base image remains strictly manthan_bg_corrected.jpg
+          scene2BgImg.src = 'assets/images/manthan_bg_corrected.jpg';
+          triggerCosmicEarthquake(2.5);
+
+          // Hide 2-by-2 group, reveal all 14 SVG tokens
+          gsap.to(s2PairPopGroup, {
+            opacity: 0,
+            duration: 0.25,
+            onComplete: () => {
+              s2PairPopGroup.style.display = 'none';
+              s2OverviewAll14Group.style.display = 'block';
+              gsap.fromTo('.s2-overview-node',
+                { scale: 0, opacity: 0 },
+                { scale: 1, opacity: 1, stagger: 0.035, duration: 0.5, ease: 'back.out(1.8)' }
+              );
+              gsap.to(s2OverviewAll14Group, { opacity: 1, duration: 0.35 });
+            }
+          });
+
+          // Unhighlight pair pips
+          pairPips.forEach(pip => pip.classList.remove('active'));
+
+        } else {
+          btnOverviewMode.style.background = 'rgba(255, 194, 51, 0.2)';
+          btnOverviewMode.style.color = '#FFF';
+          renderPair(currentPairIdx);
+        }
+      });
+
+      // Interactive Click on Any Overview SVG Node
+      const ratnaItemLookup = {};
+      ratnaPairsData.forEach(p => {
+        ratnaItemLookup[p.itemA.ratnaId] = { item: p.itemA, partner: p.itemB };
+        ratnaItemLookup[p.itemB.ratnaId] = { item: p.itemB, partner: p.itemA };
+      });
+
+      if (s2OverviewNodes) {
+        s2OverviewNodes.forEach(node => {
+          node.addEventListener('click', () => {
+            const id = parseInt(node.getAttribute('data-id'), 10);
+            const found = ratnaItemLookup[id];
+            if (!found) return;
+
+            // Highlight clicked node with a pulse
+            gsap.fromTo(node, { scale: 1.35 }, { scale: 1, duration: 0.45, ease: "elastic.out(1, 0.4)" });
+
+            // Populate Card A with clicked ratna
+            cardANumber.innerHTML = `<span>${found.item.icon}</span><span>${found.item.number}</span>`;
+            cardARecipient.textContent = found.item.recipient;
+            cardATitleMr.textContent = found.item.nameMr;
+            cardATitleEn.textContent = found.item.nameEn;
+            cardADesc.textContent = found.item.desc;
+            cardAKumbhText.textContent = found.item.kumbh;
+
+            // Populate Card B with pair partner
+            cardBNumber.innerHTML = `<span>${found.partner.icon}</span><span>${found.partner.number}</span>`;
+            cardBRecipient.textContent = found.partner.recipient;
+            cardBTitleMr.textContent = found.partner.nameMr;
+            cardBTitleEn.textContent = found.partner.nameEn;
+            cardBDesc.textContent = found.partner.desc;
+            cardBKumbhText.textContent = found.partner.kumbh;
+
+            // Animate cards
+            gsap.fromTo([cardA, cardB],
+              { y: 30, opacity: 0.5 },
+              { y: 0, opacity: 1, duration: 0.35, stagger: 0.08, ease: "power2.out" }
+            );
+          });
+        });
+      }
+
+      // Auto-Play Cycle (Advances every 5.5s)
+      function toggleAutoPlay() {
+        isAutoPlaying = !isAutoPlaying;
+        if (isAutoPlaying) {
+          autoPlayIcon.textContent = '⏸';
+          autoPlayText.textContent = 'थांबवा';
+          btnAutoPlay.style.borderColor = 'var(--gold-primary)';
+          btnAutoPlay.style.background = 'rgba(255, 194, 51, 0.3)';
+
+          autoPlayTimer = setInterval(() => {
+            isOverviewMode = false;
+            const nextIdx = (currentPairIdx + 1) % ratnaPairsData.length;
+            renderPair(nextIdx);
+          }, 5500);
+        } else {
+          autoPlayIcon.textContent = '▶';
+          autoPlayText.textContent = 'स्वयंचलित';
+          btnAutoPlay.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+          btnAutoPlay.style.background = 'rgba(255, 255, 255, 0.08)';
+          clearInterval(autoPlayTimer);
+        }
+      }
+      btnAutoPlay.addEventListener('click', toggleAutoPlay);
+
+      // 5. SCENE SWITCHING (Scene 1 vs Scene 2)
+      function goToScene(sceneNum) {
+        if (sceneNum === 1) {
+          btnNavScene1.classList.add('active');
+          btnNavScene2.classList.remove('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          btnNavScene2.classList.add('active');
+          btnNavScene1.classList.remove('active');
+          
+          // Trigger Cosmic Earthquake shockwave as we enter Scene 2!
+          triggerCosmicEarthquake(5.0, () => {
+            const scene2El = document.getElementById('scene2Section');
+            scene2El.scrollIntoView({ behavior: 'smooth' });
+            renderPair(currentPairIdx, false);
+          });
+        }
+      }
+
+      btnNavScene1.addEventListener('click', () => goToScene(1));
+      btnNavScene2.addEventListener('click', () => goToScene(2));
+      btnEnterScene2.addEventListener('click', () => goToScene(2));
+
+      // 6. SCENE 1 SCROLLYTELLING LOGIC
+      const narrativeBeats = [
+        {
+          progress: 0.0,
+          tag: "चरण १ • महाकरार (The Accord)",
+          en: "Before time began, the cosmic harmony fractured. Devas and Asuras forged an unprecedented pact to churn the Milky Ocean for the divine nectar of immortality.",
+          mr: "सृष्टीच्या प्रारंभी देव आणि असुरांनी अमरत्वाच्या अमृताप्राप्तीसाठी क्षीरसागराचे महामंथन करण्याचा ऐतिहासिक करार केला."
+        },
+        {
+          progress: 0.25,
+          tag: "चरण २ • असुरांचा भीषण जोर (Asuras Heave)",
+          en: "Stationed at King Vasuki's venomous head out of sovereign pride, the Asuras pulled with colossal demonic fury, enduring the blistering smoke.",
+          mr: "नागराज वासुकीच्या मुखाकडील बाजू धरून असुरांनी प्रचंड वेगाने जोर लावला, त्यांच्या विषारी उष्णतेचा सामना केला."
+        },
+        {
+          progress: 0.55,
+          tag: "चरण ३ • देवांचे दिव्य सामर्थ्य (Devas Counter)",
+          en: "Holding the serpent's tail under Lord Vishnu's counsel, the Devas countered with radiant celestial fortitude, spinning Mount Mandara on Lord Kurma.",
+          mr: "भगवान विष्णूंच्या सल्ल्याने पुच्छ बाजू धरणाऱ्या देवांनी दिव्य तेज आणि समतोलाने मंदार पर्वताला वेगाने गरगरा फिरवले."
+        },
+        {
+          progress: 0.85,
+          tag: "चरण ४ • महामंथन पराकाष्ठा (Terminal Churn)",
+          en: "The ocean churned into a blinding cosmic vortex! Waves heaved like mountains as the first of the 14 divine Ratnas prepared to breach the milk.",
+          mr: "क्षीरसागरात महाप्रचंड आवर्त निर्माण झाले! चौदा रत्नांच्या आणि अमृत कुंभाच्या प्रकटीकरणासाठी मंथनाने सर्वोच्च वेग गाठला."
+        }
+      ];
+
+      ScrollTrigger.create({
+        trigger: "#scrollTrack",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const p = self.progress;
+          scrollProgressFill.style.width = (p * 100).toFixed(1) + '%';
+
+          // Update Narrative Beats
+          let activeBeat = narrativeBeats[0];
+          for (let i = 0; i < narrativeBeats.length; i++) {
+            if (p >= narrativeBeats[i].progress) activeBeat = narrativeBeats[i];
+          }
+          beatTag.textContent = activeBeat.tag;
+          captionEn.textContent = activeBeat.en;
+          captionMr.textContent = activeBeat.mr;
+
+          // If scrolled near bottom of Scene 1, highlight Scene 2 button
+          if (p > 0.88) {
+            btnEnterScene2.style.transform = 'scale(1.08)';
+            btnEnterScene2.style.boxShadow = '0 0 35px #FF6B2B';
+          } else {
+            btnEnterScene2.style.transform = 'scale(1.0)';
+            btnEnterScene2.style.boxShadow = '0 0 20px rgba(255, 107, 43, 0.6)';
+          }
+        }
+      });
+
+      // Update Nav tab active state based on viewport scroll position
+      window.addEventListener('scroll', () => {
+        const s2Rect = document.getElementById('scene2Section').getBoundingClientRect();
+        if (s2Rect.top <= window.innerHeight * 0.5 && s2Rect.bottom >= 0) {
+          btnNavScene2.classList.add('active');
+          btnNavScene1.classList.remove('active');
+        } else if (s2Rect.top > window.innerHeight * 0.5) {
+          btnNavScene1.classList.add('active');
+          btnNavScene2.classList.remove('active');
+        }
+      });
+
+      // 7. Hotspot Codex Wiring
+      const codexData = {
+        asuras: {
+          titleMain: "The Asura Vanguard",
+          titleMr: "असुर संघ (दैत्य व दानव)",
+          shloka: "मुखतो जगृहुः सर्पं दैतेया जातमन्यवः ।<br>पुच्छं देवाः समासाद्य निर्मन्थुः क्षीरसागरम् ॥",
+          body: "Led by King Bali, the Asuras insisted on holding King Vasuki's head. Vasuki's searing venomous breath scorched their bronze armor, yet their demonic power was essential to rotate Mount Mandara.",
+          connection: "Their colossal pulling force produced the extreme churn friction that brought forth the 14 Ratnas and Amrita Kumbh."
+        },
+        mandara: {
+          titleMain: "Mount Mandara & King Vasuki",
+          titleMr: "मन्दराचल पर्वत व नागराज वासुकी",
+          shloka: "मथ्यताममृतं देवा मन्दरेणार्णवे तदा ।<br>वासुकिं नेत्रमुत्पाद्य सर्वयत्नेन वेगतः ॥",
+          body: "Mount Mandara served as the cosmic churning pestle, while King Vasuki, sovereign of the Nagas, graciously offered his immense body as the churning cord without breaking.",
+          connection: "The torque generated around Mandara's axis laid the foundation for the four eternal celestial riverbanks in India."
+        },
+        kurma: {
+          titleMain: "Lord Kurma Avatar",
+          titleMr: "भगवान कूर्म अवतार (दिव्य कासव)",
+          shloka: "मग्नो मन्दरमग्नोऽसौ धृतः कूर्मात्मना विभो ।<br>पृष्ठे भ्रमन्नगस्तस्य कण्डूयनमिवाकरोत् ॥",
+          body: "When Mount Mandara began sinking into the bottomless abyssal mud of the ocean, Lord Vishnu assumed the gigantic Kurma (tortoise) incarnation to support the cosmic mountain on His indestructible shell.",
+          connection: "Without Kurma Avatar, the mountain would have sunk forever into the void, preventing the Amrit Kumbh from ever reaching Earth."
+        },
+        devas: {
+          titleMain: "The Celestial Devas",
+          titleMr: "देव संघ (आदित्य व मरुद्गण)",
+          shloka: "देवाः पुच्छे स्थिताः शान्ता विष्णोराज्ञानुवर्तिनः ।<br>तेजसा पूरयन्तश्च मन्दराचलमुत्तमम् ॥",
+          body: "Stationed at Vasuki's golden tail under Lord Vishnu's counsel, Indra and the 33 celestial deities were showered with cool ocean breezes, pulling with divine rhythm and balance.",
+          connection: "Indra's son Jayanta and the divine eagle Garuda safeguarded the nectar pot, dropping four sanctifying beads of Amrit onto Nashik, Ujjain, Haridwar, and Prayagraj."
+        }
+      };
+
+      const loreDrawer = document.getElementById('loreDrawer');
+      const loreBackdrop = document.getElementById('loreBackdrop');
+      const loreCloseBtn = document.getElementById('loreCloseBtn');
+      const loreTitleMain = document.getElementById('loreTitleMain');
+      const loreTitleMr = document.getElementById('loreTitleMr');
+      const loreShloka = document.getElementById('loreShloka');
+      const loreBodyText = document.getElementById('loreBodyText');
+      const loreConnectionText = document.getElementById('loreConnectionText');
+
+      document.querySelectorAll('.hotspot-pin').forEach(pin => {
+        pin.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const nodeKey = pin.getAttribute('data-node');
+          const data = codexData[nodeKey];
+          if (!data) return;
+
+          loreTitleMain.textContent = data.titleMain;
+          loreTitleMr.textContent = data.titleMr;
+          loreShloka.innerHTML = data.shloka;
+          loreBodyText.textContent = data.body;
+          loreConnectionText.textContent = data.connection;
+
+          loreDrawer.classList.add('open');
+          loreBackdrop.classList.add('active');
+        });
+      });
+
+      function closeLore() {
+        loreDrawer.classList.remove('open');
+        loreBackdrop.classList.remove('active');
+      }
+      loreCloseBtn.addEventListener('click', closeLore);
+      loreBackdrop.addEventListener('click', closeLore);
+
+      // 8. 3D Camera Switcher Presets
+      document.querySelectorAll('.btn-cam').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.btn-cam').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const mode = btn.getAttribute('data-cam');
+          if (mode === 'overview') {
+            gsap.to(cameraRig, { x: 0, y: 0, scale: 1.0, duration: 1.2, ease: "power2.inOut" });
+          } else if (mode === 'asuras') {
+            gsap.to(cameraRig, { x: 180, y: -25, scale: 1.18, duration: 1.2, ease: "power2.inOut" });
+          } else if (mode === 'mandara') {
+            gsap.to(cameraRig, { x: 0, y: -45, scale: 1.22, duration: 1.2, ease: "power2.inOut" });
+          } else if (mode === 'devas') {
+            gsap.to(cameraRig, { x: -180, y: -25, scale: 1.18, duration: 1.2, ease: "power2.inOut" });
+          }
+        });
+      });
+
+      // Initialize Scene 2 Pair 0 on ready
+      renderPair(0, false);
+
+    })();
+  </script>
+</body>
+</html>

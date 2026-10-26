@@ -1295,7 +1295,7 @@ function initDiyaForm() {
 }
 
 /* ==========================================================================
-   9. TRANSIT ESTIMATOR
+   9. TRANSIT ESTIMATOR & RUNTIME GOOGLE MAPS TRIP GENERATOR
    ========================================================================== */
 function initTransitEstimator() {
   const citySelect = document.getElementById('transitCitySelect');
@@ -1339,6 +1339,218 @@ function updateCityStats(cityKey) {
   safeText('calcTrains', trains);
   safeText('calcToll', data.tollEst);
 }
+
+/* Runtime Google Maps Trip Generator from User Live GPS */
+function initGmapTripGenerator() {
+  const tabLive = document.getElementById('tabLiveGmap');
+  const tabCity = document.getElementById('tabCityEstimator');
+  const panelLive = document.getElementById('panelLiveGmap');
+  const panelCity = document.getElementById('panelCityEstimator');
+
+  if (tabLive && tabCity && panelLive && panelCity) {
+    tabLive.addEventListener('click', () => {
+      tabLive.classList.add('active');
+      tabCity.classList.remove('active');
+      panelLive.style.display = 'block';
+      panelCity.style.display = 'none';
+      panelLive.classList.add('active');
+      panelCity.classList.remove('active');
+    });
+
+    tabCity.addEventListener('click', () => {
+      tabCity.classList.add('active');
+      tabLive.classList.remove('active');
+      panelCity.style.display = 'block';
+      panelLive.style.display = 'none';
+      panelCity.classList.add('active');
+      panelLive.classList.remove('active');
+    });
+  }
+
+  // Destination coordinates database for live distance calculation
+  const DEST_COORDS = {
+    "Ramkund, Panchavati, Nashik, Maharashtra": { lat: 19.9975, lng: 73.7910, name: "रामकुंड" },
+    "Trimbakeshwar Shiva Temple, Trimbak, Maharashtra": { lat: 19.9322, lng: 73.5307, name: "श्री त्र्यंबकेश्वर ज्योतिर्लिंग" },
+    "Sita Gumpha, Panchavati, Nashik": { lat: 20.0050, lng: 73.7950, name: "सीता गुंफा व पंचवटी" },
+    "Tapovan, Nashik, Maharashtra": { lat: 19.9890, lng: 73.8150, name: "तपोवन साधुग्राम" },
+    "Muktidham Temple, Nashik Road": { lat: 19.9530, lng: 73.8320, name: "मुक्तीधाम मंदिर" },
+    "Anjaneri Hills, Nashik": { lat: 19.9200, lng: 73.5850, name: "अंजनेरी पर्वत" },
+    "Harihar Fort, Harshewadi, Nashik": { lat: 19.9020, lng: 73.4720, name: "हरिहर किल्ला" },
+    "Adgaon Satellite Parking Hub, Nashik": { lat: 20.0400, lng: 73.8400, name: "आडगाव सॅटेलाइट पार्किंग" },
+    "Vilholi Satellite Parking Hub, Nashik": { lat: 19.9200, lng: 73.7400, name: "विल्होळी सॅटेलाइट पार्किंग" },
+    "Nashik Road Railway Station, Nashik": { lat: 19.9540, lng: 73.8370, name: "नाशिक रोड रेल्वे स्थानक" },
+    "Ozar Airport, Nashik, Maharashtra": { lat: 20.1190, lng: 73.9140, name: "ओझर विमानतळ" }
+  };
+
+  let userCoords = null;
+  let selectedTravelMode = 'driving';
+
+  // Mode buttons
+  const modePills = document.querySelectorAll('#gmapTravelModes .travel-mode-pill');
+  modePills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      modePills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedTravelMode = pill.getAttribute('data-mode') || 'driving';
+    });
+  });
+
+  // Haversine formula
+  function computeDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Earth radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  function updateDistanceDisplay() {
+    const destSelect = document.getElementById('gmapDestSelect');
+    const distIndicator = document.getElementById('liveDistanceIndicator');
+    const distText = document.getElementById('liveDistanceText');
+    if (!destSelect || !distIndicator || !distText) return;
+
+    if (!userCoords) {
+      distIndicator.style.display = 'none';
+      return;
+    }
+
+    const selectedDest = destSelect.value;
+    const destInfo = DEST_COORDS[selectedDest];
+    if (destInfo) {
+      const dist = computeDistanceKm(userCoords.lat, userCoords.lng, destInfo.lat, destInfo.lng);
+      distIndicator.style.display = 'flex';
+      distText.innerHTML = `<strong>अंदाजे थेट अंतर:</strong> ~${dist.toFixed(1)} किमी (Google Maps रस्ता अंतर व अचूक ट्रॅफिक वेळ देईल)`;
+    }
+  }
+
+  const destSelect = document.getElementById('gmapDestSelect');
+  if (destSelect) {
+    destSelect.addEventListener('change', updateDistanceDisplay);
+  }
+
+  // GPS Detection Button
+  const btnDetect = document.getElementById('btnDetectGps');
+  const gpsPill = document.getElementById('gpsStatusPill');
+  const gpsDetail = document.getElementById('gpsStatusDetail');
+  const gpsLabel = document.getElementById('gpsBtnLabel');
+
+  if (btnDetect) {
+    btnDetect.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        if (gpsPill) {
+          gpsPill.className = 'gps-status-pill error';
+          gpsPill.textContent = 'GPS Unsupported';
+        }
+        if (gpsDetail) {
+          gpsDetail.textContent = 'आपल्या ब्राउझरमध्ये Geolocation उपलब्ध नाही. Google Maps उघडल्यावर थेट स्थान वापरेल.';
+        }
+        return;
+      }
+
+      if (gpsLabel) gpsLabel.textContent = 'स्थान शोधत आहे (Detecting...)...';
+      if (gpsPill) {
+        gpsPill.className = 'gps-status-pill';
+        gpsPill.textContent = 'शोधत आहे...';
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          userCoords = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+            accuracy: pos.coords.accuracy
+          };
+
+          if (gpsPill) {
+            gpsPill.className = 'gps-status-pill locked';
+            gpsPill.textContent = '✅ GPS Locked';
+          }
+          if (gpsLabel) {
+            gpsLabel.textContent = 'स्थान अपडेट करा (Refresh GPS)';
+          }
+          if (gpsDetail) {
+            gpsDetail.innerHTML = `📍 <strong>चालू स्थान प्राप्त:</strong> ${userCoords.lat.toFixed(4)}°N, ${userCoords.lng.toFixed(4)}°E (अचूकता: ±${Math.round(userCoords.accuracy)}m)`;
+          }
+
+          if (window.sacredAudio) {
+            window.sacredAudio.playTempleBell(528, 1.2);
+          }
+
+          updateDistanceDisplay();
+        },
+        (err) => {
+          console.warn('Geolocation denied or failed', err);
+          if (gpsPill) {
+            gpsPill.className = 'gps-status-pill error';
+            gpsPill.textContent = 'स्थान नकारले';
+          }
+          if (gpsLabel) {
+            gpsLabel.textContent = 'माझे सध्याचे स्थान शोधा (Detect Location)';
+          }
+          if (gpsDetail) {
+            gpsDetail.textContent = 'ब्राउझरने थेट स्थान परवानगी दिली नाही. चिंता नको, खालील बटनावर क्लिक करताच Google Maps आपोआप डिव्हाइसचे स्थान वापरेल.';
+          }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      );
+    });
+  }
+
+  // Launch Live Trip Button
+  const btnLaunch = document.getElementById('btnLaunchGmap');
+  if (btnLaunch) {
+    btnLaunch.addEventListener('click', () => {
+      const destSelect = document.getElementById('gmapDestSelect');
+      const destination = destSelect ? destSelect.value : 'Ramkund, Panchavati, Nashik, Maharashtra';
+      
+      let originParam = '';
+      if (userCoords) {
+        originParam = `${userCoords.lat},${userCoords.lng}`;
+      } else {
+        originParam = 'My+Location';
+      }
+
+      let gmapMode = 'driving';
+      if (selectedTravelMode === 'transit') gmapMode = 'transit';
+      if (selectedTravelMode === 'two_wheeler') gmapMode = 'two_wheeler';
+
+      const gmapUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originParam)}&destination=${encodeURIComponent(destination)}&travelmode=${gmapMode}`;
+      window.open(gmapUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  // City GMap button
+  const btnCityGmap = document.getElementById('btnCityGmap');
+  if (btnCityGmap) {
+    btnCityGmap.addEventListener('click', () => {
+      const citySelect = document.getElementById('transitCitySelect');
+      const cityKey = citySelect ? citySelect.value : 'mumbai';
+      
+      const cityOrigins = {
+        mumbai: 'Mumbai, Maharashtra',
+        pune: 'Pune, Maharashtra',
+        shirdi: 'Shirdi, Maharashtra',
+        surat: 'Surat, Gujarat',
+        delhi: 'New Delhi, Delhi',
+        hyderabad: 'Hyderabad, Telangana',
+        bengaluru: 'Bengaluru, Karnataka',
+        indore: 'Indore, Madhya Pradesh'
+      };
+
+      const origin = cityOrigins[cityKey] || 'Mumbai, Maharashtra';
+      const destination = 'Ramkund, Panchavati, Nashik, Maharashtra';
+      const cityUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+      window.open(cityUrl, '_blank', 'noopener,noreferrer');
+    });
+  }
+}
+
+
 
 /* ==========================================================================
    10. AUDIO SYNTHESIZER CONTROLS

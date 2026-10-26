@@ -25,8 +25,8 @@
       return;
     }
 
-    // 10-second loading duration as requested
-    const delayTime = 10000;
+    // Fast graceful loading duration (2.2s)
+    const delayTime = 2200;
 
     // Update progress bar smoothly over 5 seconds
     const bar = document.getElementById('preloaderBar');
@@ -86,9 +86,93 @@
     let lastX = 0;
     let lastY = 0;
     let isLeftFoot = true;
-    let activePrints = 0;
-    const MAX_PRINTS = 35; // Keep DOM lightweight & 60fps
     const MIN_DISTANCE = 44; // Minimum travel distance (px) between human steps
+    const MAX_QUEUE_SIZE = 25; // Safety cap to keep DOM lightweight & 60fps
+
+    // Sacred Paduka Water Ripple on Holy Ground
+    function spawnPadukaRipple(rx, ry) {
+      const ripple = document.createElement('div');
+      ripple.className = 'sacred-paduka-ripple';
+      ripple.style.left = `${rx}px`;
+      ripple.style.top = `${ry}px`;
+      container.appendChild(ripple);
+      setTimeout(() => {
+        if (ripple.parentNode) ripple.remove();
+      }, 900);
+    }
+
+    // Option 3: Parallax World Drift (Background layers subtly shift with footstep movement)
+    let parallaxX = 0;
+    let parallaxY = 0;
+    function handleParallaxDrift(dx, dy) {
+      parallaxX = Math.max(-28, Math.min(28, parallaxX + dx * 0.12));
+      parallaxY = Math.max(-28, Math.min(28, parallaxY + dy * 0.12));
+      const heroBg = document.querySelector('.hero-bg, .hero-particles');
+      if (heroBg) {
+        heroBg.style.transform = `translate3d(${parallaxX}px, ${parallaxY}px, 0)`;
+      }
+    }
+
+    // Sequential Footprint Fade Queue (guarantees one-by-one step fade)
+    const footprintQueue = []; // Array of { el, birthTime }
+    let isFading = false;
+    let fadeTimer = null;
+
+    function processQueue() {
+      if (isFading) return;
+      if (footprintQueue.length === 0) {
+        if (fadeTimer) {
+          clearTimeout(fadeTimer);
+          fadeTimer = null;
+        }
+        return;
+      }
+
+      const now = performance.now();
+      const oldest = footprintQueue[0];
+      const age = now - oldest.birthTime;
+      const count = footprintQueue.length;
+
+      const MAX_VISIBLE = 7;
+      const MIN_LIFETIME = 700; // ms to remain fully visible before eligible to fade
+
+      // If trail length is within limit, let the oldest step linger for at least MIN_LIFETIME
+      if (count <= MAX_VISIBLE && age < MIN_LIFETIME) {
+        if (fadeTimer) clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(processQueue, Math.max(25, MIN_LIFETIME - age));
+        return;
+      }
+
+      // Begin fading strictly ONE step at a time
+      isFading = true;
+      const current = footprintQueue.shift();
+
+      // Dynamic duration: crisp, smooth, and prevents pileups
+      let fadeDuration = 380; // ms
+      let pauseAfter = 85;    // ms pause before next step can begin fading
+      if (count > 14) {
+        fadeDuration = 200;
+        pauseAfter = 25;
+      } else if (count > 8) {
+        fadeDuration = 280;
+        pauseAfter = 45;
+      }
+
+      if (current.el) {
+        current.el.style.setProperty('--dissolve-duration', `${fadeDuration}ms`);
+        current.el.classList.add('dissolve-step');
+      }
+
+      setTimeout(() => {
+        if (current.el && current.el.parentNode) {
+          current.el.remove();
+        }
+        setTimeout(() => {
+          isFading = false;
+          processQueue(); // Fades the next step in sequence, strictly one by one!
+        }, pauseAfter);
+      }, fadeDuration);
+    }
 
     // Golden Sacred Footprint SVG (Left & Right anatomical variations)
     function createPadukaSvg(isLeft) {
@@ -130,10 +214,11 @@
     }
 
     function spawnFootprint(x, y, angle) {
-      if (activePrints >= MAX_PRINTS) {
-        const oldest = container.firstElementChild;
-        if (oldest) oldest.remove();
-        activePrints--;
+      if (footprintQueue.length >= MAX_QUEUE_SIZE) {
+        const excess = footprintQueue.shift();
+        if (excess && excess.el && excess.el.parentNode) {
+          excess.el.remove();
+        }
       }
 
       // Step Stride Offset: offset step laterally perpendicular to travel direction
@@ -155,37 +240,44 @@
 
       printEl.innerHTML = createPadukaSvg(isLeftFoot);
       container.appendChild(printEl);
-      activePrints++;
+
+      // Sacred Water Ripple on ground contact
+      spawnPadukaRipple(stepX, stepY);
 
       // Trigger animation frame for smooth appearance
       requestAnimationFrame(() => {
         printEl.classList.add('active-step');
       });
 
-      // Dissolve in 2.5 seconds as requested by user
-      setTimeout(() => {
-        printEl.classList.add('dissolve-step');
-      }, 1000);
-
-      // Clean up completely from DOM after dissolve completes
-      setTimeout(() => {
-        if (printEl.parentNode) {
-          printEl.remove();
-          activePrints--;
-        }
-      }, 2600);
+      // Enqueue footprint with timestamp
+      footprintQueue.push({
+        el: printEl,
+        birthTime: performance.now()
+      });
 
       // Alternate foot for next step!
       isLeftFoot = !isLeftFoot;
+
+      // Trigger sequential queue processing
+      processQueue();
     }
 
     function handlePointerMove(e) {
       const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
       const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
 
+      if (lastX === 0 && lastY === 0) {
+        lastX = clientX;
+        lastY = clientY;
+        return;
+      }
+
       const dx = clientX - lastX;
       const dy = clientY - lastY;
       const dist = Math.hypot(dx, dy);
+
+      // Option 3: Parallax World Drift on movement
+      handleParallaxDrift(dx, dy);
 
       if (dist >= MIN_DISTANCE) {
         const angle = Math.atan2(dy, dx);
@@ -200,36 +292,15 @@
     window.addEventListener('touchmove', handlePointerMove, { passive: true });
   }
 
-  /* ==========================================================================
-     3. VIRAL RETENTION: WHATSAPP SHARE ENGINE FOR SHAHI SNAN DATES
-     ========================================================================== */
-  window.shareSnanOnWhatsApp = function (eventId) {
-    if (!window.SHAHI_SNAN_DATES) return;
-    const event = window.SHAHI_SNAN_DATES.find(e => e.id === eventId);
-    if (!event) return;
-
-    const lang = document.documentElement.lang || 'mr';
-    const title = lang === 'mr' ? event.titleMr : (lang === 'hi' ? event.titleHi : event.title);
-    const tithi = lang === 'mr' ? event.tithiMr : (lang === 'hi' ? event.tithiHi : event.tithi);
-    const muhurat = lang === 'mr' ? event.muhuratMr : (lang === 'hi' ? event.muhuratHi : event.muhurat);
-    const loc = lang === 'mr' ? event.locationMr : (lang === 'hi' ? event.locationHi : event.location);
-
-    const shareText = `🚩 *सिंहस्थ कुंभमेळा नाशिक-त्र्यंबकेश्वर २०२७*\n\n` +
-      `📅 *${title}*\n` +
-      `🕉️ तिथी: ${tithi}\n` +
-      `⏰ शुभ मुहूर्त: ${muhurat}\n` +
-      `📍 स्थान: ${loc}\n\n` +
-      `✨ संपूर्ण दिनदर्शिका, दर्शन माहिती व प्रवास मार्गदर्शकासाठी येथे भेट द्या:\n` +
-      `🌐 https://nashik-tourism-delta.vercel.app/#dates\n\n` +
-      `"हर हर गंगे • जय गोदावरी माता" 🙏`;
-
-    const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-  };
-
-  // Initialize on DOM load
-  document.addEventListener('DOMContentLoaded', () => {
+  // Safe Boot Loader: runs immediately if DOM already parsed, or waits for DOMContentLoaded
+  function bootRamYatra() {
     initPreloader();
     initFootprintTrail();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootRamYatra);
+  } else {
+    bootRamYatra();
+  }
 })();
