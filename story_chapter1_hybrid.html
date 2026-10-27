@@ -530,16 +530,19 @@
     }
 
     .s2-spin-ring {
+      transform-box: fill-box;
       transform-origin: center;
       animation: s2SpinCw 20s linear infinite;
     }
 
     .s2-spin-ring-rev {
+      transform-box: fill-box;
       transform-origin: center;
       animation: s2SpinCcw 20s linear infinite;
     }
 
     .s2-halo-pulse {
+      transform-box: fill-box;
       transform-origin: center;
       animation: s2GlowPulse 2.5s ease-in-out infinite alternate;
     }
@@ -1055,7 +1058,7 @@
           <!-- ================= GROUP A: 2-BY-2 ACTIVE POP-OUT PAIR ================= -->
           <g id="s2PairPopGroup">
             <!-- Active Ratna A (Left Emergence) -->
-            <g id="s2PopNodeA" class="s2-pop-node" transform="translate(520, 390)">
+            <g id="s2PopNodeA" class="s2-pop-node" transform="translate(480, 410)">
               <circle r="145" fill="url(#s2GoldGlow)" class="s2-halo-pulse"/>
               <circle r="115" fill="none" stroke="#FFC233" stroke-width="3" stroke-dasharray="10 5" class="s2-spin-ring"/>
               <circle r="100" fill="rgba(6, 12, 28, 0.85)" stroke="#FFD700" stroke-width="2.5"/>
@@ -1067,7 +1070,7 @@
             </g>
 
             <!-- Active Ratna B (Right Emergence) -->
-            <g id="s2PopNodeB" class="s2-pop-node" transform="translate(1400, 390)">
+            <g id="s2PopNodeB" class="s2-pop-node" transform="translate(1440, 410)">
               <circle r="145" fill="url(#s2GoldGlow)" class="s2-halo-pulse"/>
               <circle r="115" fill="none" stroke="#FFC233" stroke-width="3" stroke-dasharray="10 5" class="s2-spin-ring-rev"/>
               <circle r="100" fill="rgba(6, 12, 28, 0.85)" stroke="#FFD700" stroke-width="2.5"/>
@@ -1721,12 +1724,12 @@
 
           // GSAP Pop-Out Spring Physics on SVG Ratna Nodes
           gsap.fromTo(s2PopNodeA,
-            { scale: 0.15, y: 120, opacity: 0, rotation: -6 },
-            { scale: 1, y: 0, opacity: 1, rotation: 0, duration: 0.65, ease: "back.out(1.8)" }
+            { scale: 0.15, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.65, ease: "back.out(1.8)" }
           );
           gsap.fromTo(s2PopNodeB,
-            { scale: 0.15, y: 120, opacity: 0, rotation: 6 },
-            { scale: 1, y: 0, opacity: 1, rotation: 0, duration: 0.65, delay: 0.1, ease: "back.out(1.8)" }
+            { scale: 0.15, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.65, delay: 0.1, ease: "back.out(1.8)" }
           );
         }
 
