@@ -23,3 +23,6 @@ yarn-error.log*
 # Scratch & Temporary Logs
 *.log
 .system_generated/
+tests/screenshots/
+.chrome_*
+
