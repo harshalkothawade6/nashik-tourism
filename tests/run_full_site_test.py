@@ -397,22 +397,126 @@ async def run_tests(base_url, screenshots_dir, headless=True):
             # Test Responsive Viewports on Scene 2
             print("\n--- Testing Scene 2 Responsiveness (Tablet & Mobile) ---")
             await set_viewport(ws, 768, 1024)
+            await eval_js(ws, "document.getElementById('scene2Section')?.scrollIntoView({behavior: 'instant', block: 'start'})")
             await asyncio.sleep(0.5)
             await take_screenshot(ws, "test_story_scene2_tablet_768.png", screenshots_dir)
 
             await set_viewport(ws, 390, 844, is_mobile=True)
+            await eval_js(ws, "document.getElementById('scene2Section')?.scrollIntoView({behavior: 'instant', block: 'start'})")
             await asyncio.sleep(0.5)
             mobile_flex = await eval_js(ws, "window.getComputedStyle(document.querySelector('.scene2-cards-overlay')).flexDirection")
             print(f"✓ Mobile cards layout: flex-direction={mobile_flex}")
             await take_screenshot(ws, "test_story_scene2_mobile_390.png", screenshots_dir)
 
-            test_results.append("SUITE 2: story_chapter1_hybrid.html PASSED (All 7 pairs, 7-headed horse, 14 SVG Overview, Responsive)")
+            test_results.append("SUITE 2: story_chapter1_hybrid.html Scene 2 PASSED (All 7 pairs, 7-headed horse, 14 SVG Overview, Responsive)")
 
             # =================================================================
-            # SUITE 3: samudra_manthan_scene.html
+            # SUITE 3: SCENE 3 - FLIGHT OF GARUDA & 4 SACRED DROPS
             # =================================================================
             print("\n" + "="*68)
-            print("🚀 SUITE 3: TESTING 3D MANTHAN SCENE (samudra_manthan_scene.html)")
+            print("🚀 SUITE 3: TESTING SCENE 3 - GARUDA FLIGHT & 4 SACRED DROPS")
+            print("="*68)
+
+            # Desktop Viewport
+            await set_viewport(ws, 1920, 1080)
+
+            # Test Navigating to Scene 3 via button
+            print("\n--- Navigating to Scene 3 via #btnGoToScene3 ---")
+            await eval_js(ws, "document.getElementById('btnGoToScene3')?.click()")
+            await asyncio.sleep(1.5)
+
+            # Verify Scene 3 is active in Top HUD
+            s3_tab_active = await eval_js(ws, "document.getElementById('btnNavScene3')?.classList.contains('active')")
+            print(f"✓ Scene 3 HUD Tab Active: {s3_tab_active}")
+
+            # Verify Base Cel Image is garuda_sky_sea_map.jpg
+            s3_bg = await eval_js(ws, "document.getElementById('scene3BgImg')?.src")
+            print(f"✓ Scene 3 Base Cel Image: '{s3_bg}'")
+            assert "garuda_sky_sea_map.jpg" in s3_bg, "Scene 3 Base Cel must be garuda_sky_sea_map.jpg"
+
+            # Verify SVG Overlay
+            s3_svg_exists = await eval_js(ws, "document.getElementById('scene3SvgOverlay') !== null")
+            assert s3_svg_exists, "scene3SvgOverlay must be present"
+            print("✓ Scene 3 Native SVG Overlay verified present")
+
+            # Verify All 4 Holy City Nodes exist
+            city_nodes_count = await eval_js(ws, "document.querySelectorAll('.s3-city-node').length")
+            print(f"✓ Total Holy City Nodes in SVG: {city_nodes_count} / 4")
+            assert city_nodes_count == 4, f"Expected 4 city nodes, found {city_nodes_count}"
+
+            # Test Initial City: Nashik (Hero Tirtha)
+            print("\n--- Testing City 1: Nashik (Ramkund & Godavari) ---")
+            s3_title = await eval_js(ws, "document.getElementById('s3CityTitleHeader')?.textContent")
+            s3_city_mr = await eval_js(ws, "document.getElementById('s3CardTitleMr')?.textContent")
+            s3_river = await eval_js(ws, "document.getElementById('s3CardRiver')?.textContent")
+            print(f"✓ Header Title: '{s3_title}'")
+            print(f"✓ City Card: '{s3_city_mr}' | River: '{s3_river}'")
+            assert "नाशिक" in s3_city_mr, "Default city must be Nashik"
+            assert "गोदावरी" in s3_river, "River for Nashik must be Godavari"
+
+            await take_screenshot(ws, "test_story_scene3_garuda_flight_desktop.png", screenshots_dir)
+
+            # Test City 2: Prayagraj
+            print("\n--- Testing City 2: Prayagraj (Triveni Sangam) ---")
+            await eval_js(ws, "document.querySelector(\".btn-city-pip[data-city='prayagraj']\")?.click()")
+            await asyncio.sleep(1.0)
+            p_city_mr = await eval_js(ws, "document.getElementById('s3CardTitleMr')?.textContent")
+            p_river = await eval_js(ws, "document.getElementById('s3CardRiver')?.textContent")
+            print(f"✓ City Card: '{p_city_mr}' | River: '{p_river}'")
+            assert "प्रयागराज" in p_city_mr
+            assert "त्रिवेणी" in p_river
+
+            # Test City 3: Haridwar
+            print("\n--- Testing City 3: Haridwar (Har Ki Pauri & Ganga) ---")
+            await eval_js(ws, "document.querySelector(\".btn-city-pip[data-city='haridwar']\")?.click()")
+            await asyncio.sleep(1.0)
+            h_city_mr = await eval_js(ws, "document.getElementById('s3CardTitleMr')?.textContent")
+            h_river = await eval_js(ws, "document.getElementById('s3CardRiver')?.textContent")
+            print(f"✓ City Card: '{h_city_mr}' | River: '{h_river}'")
+            assert "हरिद्वार" in h_city_mr
+            assert "गंगा" in h_river
+
+            # Test City 4: Ujjain
+            print("\n--- Testing City 4: Ujjain (Ramghat & Kshipra) ---")
+            await eval_js(ws, "document.querySelector(\".btn-city-pip[data-city='ujjain']\")?.click()")
+            await asyncio.sleep(1.0)
+            u_city_mr = await eval_js(ws, "document.getElementById('s3CardTitleMr')?.textContent")
+            u_river = await eval_js(ws, "document.getElementById('s3CardRiver')?.textContent")
+            print(f"✓ City Card: '{u_city_mr}' | River: '{u_river}'")
+            assert "उज्जैन" in u_city_mr
+            assert "क्षिप्रा" in u_river
+
+            # Test "Show All 4 Drops" button
+            print("\n--- Testing 'Show All 4 Drops' Mode ---")
+            await eval_js(ws, "document.getElementById('btnS3ShowAllDrops')?.click()")
+            await asyncio.sleep(0.8)
+            all_active_nodes = await eval_js(ws, "document.querySelectorAll('.s3-city-node.active').length")
+            print(f"✓ All Active City Nodes: {all_active_nodes} / 4")
+            assert all_active_nodes == 4, f"Expected all 4 nodes active, got {all_active_nodes}"
+
+            await take_screenshot(ws, "test_story_scene3_all_4drops.png", screenshots_dir)
+
+            # Test Responsive Viewports on Scene 3
+            print("\n--- Testing Scene 3 Responsiveness (Tablet & Mobile) ---")
+            await set_viewport(ws, 768, 1024)
+            await eval_js(ws, "document.getElementById('scene3Section')?.scrollIntoView({behavior: 'instant', block: 'start'})")
+            await asyncio.sleep(0.5)
+            await take_screenshot(ws, "test_story_scene3_tablet_768.png", screenshots_dir)
+
+            await set_viewport(ws, 390, 844, is_mobile=True)
+            await eval_js(ws, "document.getElementById('scene3Section')?.scrollIntoView({behavior: 'instant', block: 'start'})")
+            await asyncio.sleep(0.5)
+            s3_card_w = await eval_js(ws, "document.getElementById('s3CityCard')?.offsetWidth")
+            print(f"✓ Mobile Scene 3 Card Width: {s3_card_w}px")
+            await take_screenshot(ws, "test_story_scene3_mobile_390.png", screenshots_dir)
+
+            test_results.append("SUITE 3: Scene 3 (Garuda Flight & 4 Holy Drops) PASSED (Cel locked, 4 Cities, Drops, Responsive)")
+
+            # =================================================================
+            # SUITE 4: samudra_manthan_scene.html
+            # =================================================================
+            print("\n" + "="*68)
+            print("🚀 SUITE 4: TESTING 3D MANTHAN SCENE (samudra_manthan_scene.html)")
             print("="*68)
 
             await set_viewport(ws, 1920, 1080)
@@ -447,7 +551,7 @@ async def run_tests(base_url, screenshots_dir, headless=True):
             await asyncio.sleep(0.5)
             await take_screenshot(ws, "test_manthan_scene_mobile_390.png", screenshots_dir)
 
-            test_results.append("SUITE 3: samudra_manthan_scene.html PASSED (Harmonic Rig, Master Cel, 14 SVG, 3s Cycle, Mobile)")
+            test_results.append("SUITE 4: samudra_manthan_scene.html PASSED (Harmonic Rig, Master Cel, 14 SVG, 3s Cycle, Mobile)")
 
             event_task.cancel()
 
@@ -483,7 +587,30 @@ def main():
     parser.add_argument("--no-headless", action="store_true", help="Launch Chrome in non-headless visual mode")
     args = parser.parse_args()
 
-    success = asyncio.run(run_tests(base_url=args.url.rstrip('/'), screenshots_dir=args.screenshots_dir, headless=not args.no_headless))
+    # Auto-start local HTTP server if target URL is not already running
+    server_proc = None
+    target_url = args.url.rstrip('/')
+    try:
+        requests.get(target_url, timeout=1.0)
+    except Exception:
+        port = "3000"
+        if ":" in target_url:
+            port = target_url.split(":")[-1].split("/")[0]
+        print(f"📡 Dev server not detected at {target_url}. Launching internal HTTP server on port {port}...")
+        server_proc = subprocess.Popen([sys.executable, "-m", "http.server", port], cwd=REPO_ROOT)
+        time.sleep(1.5)
+
+    try:
+        success = asyncio.run(run_tests(base_url=target_url, screenshots_dir=args.screenshots_dir, headless=not args.no_headless))
+    finally:
+        if server_proc:
+            print("🛑 Stopping internal HTTP server...")
+            server_proc.terminate()
+            try:
+                server_proc.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                server_proc.kill()
+
     sys.exit(0 if success else 1)
 
 if __name__ == "__main__":

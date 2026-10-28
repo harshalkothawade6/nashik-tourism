@@ -856,6 +856,352 @@
     }
     .btn-next-action:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(255, 107, 43, 0.85); }
 
+    /* ======================================================== */
+    /* SCENE 3: CELESTIAL FLIGHT OF GARUDA & 4 HOLY DROPS       */
+    /* ======================================================== */
+    #scene3Section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #020409;
+    }
+
+    .scene3-stage-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene3-bg-rig {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene3-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 12s ease-out;
+      will-change: transform;
+    }
+
+    .scene3-svg-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .scene3-fx-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Scene 3 Top Header Pill */
+    .scene3-header-pill {
+      position: absolute;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 25;
+      text-align: center;
+      pointer-events: none;
+      background: rgba(6, 12, 28, 0.88);
+      border: 1px solid rgba(255, 194, 51, 0.5);
+      border-radius: 30px;
+      padding: 8px 24px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .scene3-subtag {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #FFC233;
+      margin-bottom: 2px;
+    }
+
+    .scene3-title {
+      font-family: var(--font-title);
+      font-size: 18px;
+      color: #FFF;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(255, 194, 51, 0.5);
+    }
+
+    /* Interactive City Beacons */
+    .s3-city-node {
+      pointer-events: auto;
+      cursor: pointer;
+      transform-origin: center;
+      transform-box: fill-box;
+      transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .s3-city-node:hover {
+      filter: drop-shadow(0 0 25px #FFD700);
+      transform: scale(1.12);
+    }
+
+    .s3-city-node.active {
+      filter: drop-shadow(0 0 35px #FFC233);
+      transform: scale(1.15);
+    }
+
+    @keyframes s3RippleWave {
+      0% { r: 18px; opacity: 1; stroke-width: 3px; }
+      100% { r: 85px; opacity: 0; stroke-width: 0.5px; }
+    }
+
+    .s3-ripple.r1 {
+      animation: s3RippleWave 2.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+    }
+
+    .s3-ripple.r2 {
+      animation: s3RippleWave 2.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 1.4s;
+    }
+
+    .s3-halo {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: s3HaloGlow 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes s3HaloGlow {
+      0% { opacity: 0.6; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .s3-drop-arc {
+      stroke-dashoffset: 0;
+      animation: s3DashFlow 20s linear infinite;
+    }
+
+    @keyframes s3DashFlow {
+      to { stroke-dashoffset: -200; }
+    }
+
+    /* Glassmorphic City Lore Card */
+    .scene3-city-card {
+      position: absolute;
+      left: 36px;
+      bottom: 96px;
+      width: 440px;
+      max-width: calc(100vw - 72px);
+      background: rgba(6, 12, 28, 0.92);
+      border: 1.5px solid rgba(255, 194, 51, 0.6);
+      border-radius: 18px;
+      padding: 22px 24px;
+      z-index: 25;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      pointer-events: auto;
+      transition: all 0.35s ease;
+    }
+
+    .s3-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 194, 51, 0.25);
+      padding-bottom: 12px;
+    }
+
+    .s3-city-icon-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,194,51,0.3), rgba(255,107,43,0.1));
+      border: 2px solid var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 0 18px rgba(255,194,51,0.4);
+      flex-shrink: 0;
+    }
+
+    .s3-city-order {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #FFC233;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .s3-city-name-mr {
+      font-family: var(--font-title);
+      font-size: 20px;
+      color: #FFF;
+      margin: 2px 0 0 0;
+      letter-spacing: 0.5px;
+    }
+
+    .s3-city-name-en {
+      font-size: 12px;
+      color: #94A3B8;
+      display: block;
+    }
+
+    .s3-card-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .s3-meta-cell {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 194, 51, 0.15);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .s3-meta-label {
+      font-size: 10px;
+      color: #94A3B8;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .s3-meta-val {
+      font-size: 13px;
+      color: #FFD27D;
+      font-weight: 700;
+      margin-top: 2px;
+      display: block;
+    }
+
+    .s3-city-desc {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #E2E8F0;
+      margin-bottom: 12px;
+      font-family: var(--font-marathi);
+    }
+
+    .s3-kumbh-highlight {
+      background: linear-gradient(135deg, rgba(255, 107, 43, 0.18), rgba(128, 0, 32, 0.25));
+      border-left: 3px solid var(--gold-primary);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #FEF08A;
+    }
+
+    /* Scene 3 Bottom Control Dock */
+    .scene3-bottom-dock {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 25;
+      background: rgba(6, 12, 28, 0.88);
+      border: 1.5px solid rgba(255, 194, 51, 0.5);
+      border-radius: 36px;
+      padding: 8px 18px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(14px);
+      max-width: 95vw;
+    }
+
+    .scene3-dock-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scene3-pips-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0 10px;
+    }
+
+    .btn-dock-s3 {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-dock-s3:hover {
+      background: rgba(255, 194, 51, 0.3);
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 0 14px rgba(255, 194, 51, 0.5);
+    }
+
+    .btn-city-pip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.8);
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-marathi);
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-city-pip:hover {
+      color: #FFF;
+      border-color: var(--gold-primary);
+      background: rgba(255, 194, 51, 0.2);
+    }
+
+    .btn-city-pip.active {
+      background: linear-gradient(135deg, var(--gold-primary), var(--saffron));
+      color: #060C1C;
+      border-color: #FFF;
+      box-shadow: 0 0 14px var(--gold-glow);
+    }
+
     @media (max-width: 900px) {
       .scene2-cards-overlay { flex-direction: column; align-items: center; padding: 75px 20px 80px 20px; gap: 12px; }
       .ratna-pop-card { width: 100%; max-width: 100%; padding: 12px 16px; }
@@ -865,6 +1211,44 @@
       .story-caption-box { bottom: 12px; padding: 10px 16px; }
       .caption-en { font-size: 15px; }
       .caption-mr { font-size: 12px; }
+
+      .scene3-city-card {
+        left: 14px;
+        right: 14px;
+        bottom: 74px;
+        width: auto;
+        max-width: none;
+        padding: 12px 14px;
+      }
+      .scene3-bottom-dock {
+        width: 96%;
+        overflow-x: auto;
+        padding: 6px 10px;
+        gap: 6px;
+        bottom: 12px;
+      }
+      .scene3-header-pill {
+        top: 56px;
+        left: 14px;
+        right: 14px;
+        width: auto;
+        transform: none;
+        padding: 6px 12px;
+      }
+      .scene3-title {
+        font-size: 13.5px;
+      }
+      .s3-city-name-mr {
+        font-size: 16px;
+      }
+      .s3-city-desc {
+        font-size: 11.5px;
+        line-height: 1.4;
+      }
+      .s3-kumbh-highlight {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
     }
   </style>
 </head>
@@ -876,7 +1260,7 @@
   <!-- Top Floating HUD -->
   <header class="story-nav-hud">
     <div class="brand-meta">
-      <span class="chapter-tag">अध्याय १ व २</span>
+      <span class="chapter-tag">अध्याय १, २ व ३</span>
       <div class="title-group">
         <h1>THE COSMIC CHURN & 14 RATNAS</h1>
         <p>क्षीरसागराचे महामंथन व १४ दिव्य रत्नांचे प्रकटीकरण</p>
@@ -888,8 +1272,11 @@
       <button class="btn-scene-tab active" id="btnNavScene1" title="Scene 1: The Cosmic Churning (महामंथन)">
         🌊 दृश्य १: मंथन
       </button>
-      <button class="btn-scene-tab" id="btnNavScene2" title="Scene 2: Emergence of 14 Ratnas 2-by-2 (१४ दिव्य रत्ने)">
+      <button class="btn-scene-tab" id="btnNavScene2" title="Scene 2: Emergence of 14 Ratnas (१४ दिव्य रत्ने)">
         💎 दृश्य २: १४ रत्ने
+      </button>
+      <button class="btn-scene-tab" id="btnNavScene3" title="Scene 3: Flight of Garuda & 4 Holy Drops (गरुड उड्डाण व ४ अमृत तीर्थे)">
+        🦅 दृश्य ३: गरुड उड्डाण व ४ तीर्थे
       </button>
     </div>
 
@@ -1329,6 +1716,9 @@
           <button class="btn-dock-s2" id="btnOverviewMode" style="background: rgba(255, 194, 51, 0.2); border-color: var(--gold-primary);" title="Toggle Panoramic Overview of All 14 Ratnas">
             🌐 सर्व १४ रत्ने देखावा
           </button>
+          <button class="btn-dock-s2" id="btnGoToScene3" style="background: linear-gradient(135deg, rgba(255, 107, 43, 0.4), rgba(212, 143, 10, 0.3)); border-color: var(--saffron);" title="Proceed to Scene 3: Garuda's Flight & 4 Holy Drops">
+            🦅 दृश्य ३: गरुड उड्डाण →
+          </button>
         </div>
 
       </footer>
@@ -1336,6 +1726,203 @@
     </div><!-- /.scene2-stage-wrapper -->
 
   </section><!-- /#scene2Section -->
+
+  <!-- ======================================================== -->
+  <!-- SCENE 3: THE CELESTIAL FLIGHT OF GARUDA & 4 HOLY DROPS    -->
+  <!-- ======================================================== -->
+  <section class="scene-section" id="scene3Section">
+    <div class="scene3-stage-wrapper" id="scene3Stage">
+      
+      <!-- High Performance Particle Canvas for Golden Amrita Sparkles -->
+      <canvas id="scene3FxCanvas" class="scene3-fx-canvas"></canvas>
+
+      <!-- Background Rig with Master Cel: garuda_sky_sea_map.jpg -->
+      <div class="scene3-bg-rig" id="scene3BgRig">
+        <img src="assets/images/garuda_sky_sea_map.jpg" alt="Master 1992 Cel: Garuda's Flight from Sea over Ancient India Map" class="scene3-bg-img" id="scene3BgImg">
+
+        <!-- Native SVG Interactive Overlay for Flight Path, Falling Drops, and 4 Sacred Cities -->
+        <svg class="scene3-svg-overlay" id="scene3SvgOverlay" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Golden Glows and Drop Gradients -->
+            <radialGradient id="s3AmritaGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFFDF0" stop-opacity="1"/>
+              <stop offset="30%" stop-color="#FFD700" stop-opacity="0.95"/>
+              <stop offset="70%" stop-color="#FF7B25" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#800020" stop-opacity="0"/>
+            </radialGradient>
+            
+            <radialGradient id="s3CityHaloNashik" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFC233" stop-opacity="1"/>
+              <stop offset="45%" stop-color="#FF6B2B" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#1E40AF" stop-opacity="0"/>
+            </radialGradient>
+
+            <filter id="s3CelGlowFilter" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
+
+          <!-- Arc Trajectory Curves from Garuda's Urn (980, 510) to 4 Holy Cities -->
+          <g id="s3DropTracksGroup" class="s3-drop-tracks">
+            <!-- Trajectory to Nashik (870, 830) -->
+            <path id="trackNashik" class="s3-drop-arc" d="M 980 510 Q 940 680 870 830" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6"/>
+            <!-- Trajectory to Ujjain (790, 660) -->
+            <path id="trackUjjain" class="s3-drop-arc" d="M 980 510 Q 880 560 790 660" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6"/>
+            <!-- Trajectory to Prayagraj (1510, 890) -->
+            <path id="trackPrayagraj" class="s3-drop-arc" d="M 980 510 Q 1280 670 1510 890" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6"/>
+            <!-- Trajectory to Haridwar (1360, 760) -->
+            <path id="trackHaridwar" class="s3-drop-arc" d="M 980 510 Q 1200 600 1360 760" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.6"/>
+          </g>
+
+          <!-- Animated Falling Amrita Drops along trajectories -->
+          <g id="s3ActiveDropsGroup">
+            <!-- Drop 1: Nashik -->
+            <g id="s3DropNashik" class="s3-flying-drop" transform="translate(870, 830)">
+              <circle r="22" fill="url(#s3AmritaGlow)" filter="url(#s3CelGlowFilter)"/>
+              <circle r="9" fill="#FFFDF0"/>
+            </g>
+            <!-- Drop 2: Ujjain -->
+            <g id="s3DropUjjain" class="s3-flying-drop" transform="translate(790, 660)">
+              <circle r="22" fill="url(#s3AmritaGlow)" filter="url(#s3CelGlowFilter)"/>
+              <circle r="9" fill="#FFFDF0"/>
+            </g>
+            <!-- Drop 3: Prayagraj -->
+            <g id="s3DropPrayagraj" class="s3-flying-drop" transform="translate(1510, 890)">
+              <circle r="22" fill="url(#s3AmritaGlow)" filter="url(#s3CelGlowFilter)"/>
+              <circle r="9" fill="#FFFDF0"/>
+            </g>
+            <!-- Drop 4: Haridwar -->
+            <g id="s3DropHaridwar" class="s3-flying-drop" transform="translate(1360, 760)">
+              <circle r="22" fill="url(#s3AmritaGlow)" filter="url(#s3CelGlowFilter)"/>
+              <circle r="9" fill="#FFFDF0"/>
+            </g>
+          </g>
+
+          <!-- 4 Holy City Hotspot Beacons -->
+          <g id="s3CityNodesGroup">
+            
+            <!-- CITY 1: NASHIK (Hero Focus!) -->
+            <g id="s3NodeNashik" class="s3-city-node active" data-city="nashik" transform="translate(870, 830)">
+              <circle class="s3-ripple r1" r="35" fill="none" stroke="#FFD700" stroke-width="2"/>
+              <circle class="s3-ripple r2" r="55" fill="none" stroke="#FF7B25" stroke-width="1.5"/>
+              <circle class="s3-halo" r="42" fill="url(#s3CityHaloNashik)"/>
+              <circle r="26" fill="rgba(6, 12, 28, 0.9)" stroke="#FFC233" stroke-width="3"/>
+              <text text-anchor="middle" y="7" font-size="20">🚩</text>
+              <g class="s3-city-badge" transform="translate(0, 48)">
+                <rect x="-115" y="-16" width="230" height="32" rx="16" fill="rgba(6, 12, 28, 0.94)" stroke="#FFD700" stroke-width="2"/>
+                <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="14" font-weight="700">१. नाशिक • रामकुंड (गोदावरी)</text>
+              </g>
+            </g>
+
+            <!-- CITY 2: PRAYAGRAJ -->
+            <g id="s3NodePrayagraj" class="s3-city-node" data-city="prayagraj" transform="translate(1510, 890)">
+              <circle class="s3-ripple r1" r="35" fill="none" stroke="#FFD700" stroke-width="2"/>
+              <circle class="s3-halo" r="38" fill="url(#s3AmritaGlow)"/>
+              <circle r="24" fill="rgba(6, 12, 28, 0.9)" stroke="#FFC233" stroke-width="2.5"/>
+              <text text-anchor="middle" y="6" font-size="18">🕉️</text>
+              <g class="s3-city-badge" transform="translate(0, 46)">
+                <rect x="-105" y="-15" width="210" height="30" rx="15" fill="rgba(6, 12, 28, 0.94)" stroke="#FFC233" stroke-width="1.8"/>
+                <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="13" font-weight="700">२. प्रयागराज • त्रिवेणी संगम</text>
+              </g>
+            </g>
+
+            <!-- CITY 3: HARIDWAR -->
+            <g id="s3NodeHaridwar" class="s3-city-node" data-city="haridwar" transform="translate(1360, 760)">
+              <circle class="s3-ripple r1" r="35" fill="none" stroke="#FFD700" stroke-width="2"/>
+              <circle class="s3-halo" r="38" fill="url(#s3AmritaGlow)"/>
+              <circle r="24" fill="rgba(6, 12, 28, 0.9)" stroke="#FFC233" stroke-width="2.5"/>
+              <text text-anchor="middle" y="6" font-size="18">🏔️</text>
+              <g class="s3-city-badge" transform="translate(0, 46)">
+                <rect x="-105" y="-15" width="210" height="30" rx="15" fill="rgba(6, 12, 28, 0.94)" stroke="#FFC233" stroke-width="1.8"/>
+                <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="13" font-weight="700">३. हरिद्वार • हर की पौडी (गंगा)</text>
+              </g>
+            </g>
+
+            <!-- CITY 4: UJJAIN -->
+            <g id="s3NodeUjjain" class="s3-city-node" data-city="ujjain" transform="translate(790, 660)">
+              <circle class="s3-ripple r1" r="35" fill="none" stroke="#FFD700" stroke-width="2"/>
+              <circle class="s3-halo" r="38" fill="url(#s3AmritaGlow)"/>
+              <circle r="24" fill="rgba(6, 12, 28, 0.9)" stroke="#FFC233" stroke-width="2.5"/>
+              <text text-anchor="middle" y="6" font-size="18">🔱</text>
+              <g class="s3-city-badge" transform="translate(0, 46)">
+                <rect x="-105" y="-15" width="210" height="30" rx="15" fill="rgba(6, 12, 28, 0.94)" stroke="#FFC233" stroke-width="1.8"/>
+                <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="13" font-weight="700">४. उज्जैन • रामघाट (क्षिप्रा)</text>
+              </g>
+            </g>
+
+          </g>
+        </svg>
+      </div><!-- /.scene3-bg-rig -->
+
+      <!-- Top Overlay Title Pill -->
+      <div class="scene3-header-pill">
+        <span class="scene3-subtag">🦅 अध्याय ३: गरुडाची दिव्य झेप व ४ पवित्र तीर्थे (SCENE 3)</span>
+        <h2 id="s3CityTitleHeader" class="scene3-title">नाशिक: गोदावरी तीरावरील अमृत थेंब (The Sacred Drop at Nashik)</h2>
+      </div>
+
+      <!-- Glassmorphic Sacred City Lore Card (Floating Lower Corner) -->
+      <aside class="scene3-city-card" id="s3CityCard">
+        <div class="s3-card-header">
+          <div class="s3-city-icon-badge" id="s3CardIcon">🚩</div>
+          <div>
+            <span class="s3-city-order" id="s3CardOrder">तीर्थ १ • SACRED TIRTHA 1 (सिंहस्थ कुंभ)</span>
+            <h3 class="s3-city-name-mr" id="s3CardTitleMr">नाशिक • रामकुंड (पंचवटी)</h3>
+            <span class="s3-city-name-en" id="s3CardTitleEn">Nashik — Ramkund on Holy Godavari River</span>
+          </div>
+        </div>
+
+        <div class="s3-card-meta-grid">
+          <div class="s3-meta-cell">
+            <span class="s3-meta-label">🌊 पावन नदी (Sacred River)</span>
+            <strong class="s3-meta-val" id="s3CardRiver">गोदावरी (दक्षिण गंगा)</strong>
+          </div>
+          <div class="s3-meta-cell">
+            <span class="s3-meta-label">🪐 ग्रह योग (Planetary Alignment)</span>
+            <strong class="s3-meta-val" id="s3CardPlanet">बृहस्पती (गुरु) सिंह राशीत</strong>
+          </div>
+        </div>
+
+        <p class="s3-city-desc" id="s3CardDesc">
+          समुद्रमंथनातून निघालेला दिव्य अमृत कुंभ घेऊन गरुडाने क्षीरसागरावरून आकाशात झेप घेतली. दानवांशी झालेल्या संघर्षात अमृताचा पहिला पावन थेंब गोदावरीच्या तटावर नाशिकच्या रामकुंडात पडला! यामुळे गोदावरी नदी सर्व पापांचे क्षालन करणारी अमृतवाहिनी बनली.
+        </p>
+
+        <div class="s3-kumbh-highlight" id="s3CardHighlight">
+          <strong>कुंभमेळा परंपरा:</strong> दर १२ वर्षांनी जेव्हा गुरु ग्रह सिंह राशीत प्रवेश करतो, तेव्हा नाशिक व त्र्यंबकेश्वर येथे 'सिंहस्थ कुंभमेळा' भरतो. कोट्यवधी भाविक गोदावरीच्या पावन तीर्थात स्नान करून मोक्ष प्राप्त करतात.
+        </div>
+      </aside>
+
+      <!-- Bottom Scene 3 Interactive Control Dock -->
+      <footer class="scene3-bottom-dock">
+        <div class="scene3-dock-group">
+          <button class="btn-dock-s3" id="btnS3BackToS2" title="Back to Scene 2: 14 Ratnas">
+            ◀ दृश्य २ (१४ रत्ने)
+          </button>
+          <button class="btn-dock-s3" id="btnS3AutoTour" title="Auto Tour all 4 Sacred Drop Cities">
+            <span id="s3AutoTourIcon">▶</span> <span id="s3AutoTourText">स्वयंचलित यात्रा</span>
+          </button>
+        </div>
+
+        <!-- 4 City Direct Jump Pips -->
+        <div class="scene3-pips-group">
+          <button class="btn-city-pip active" data-city="nashik" title="Nashik (Godavari)">१. नाशिक 🚩</button>
+          <button class="btn-city-pip" data-city="prayagraj" title="Prayagraj (Sangam)">२. प्रयागराज 🕉️</button>
+          <button class="btn-city-pip" data-city="haridwar" title="Haridwar (Ganga)">३. हरिद्वार 🏔️</button>
+          <button class="btn-city-pip" data-city="ujjain" title="Ujjain (Shipra)">४. उज्जैन 🔱</button>
+        </div>
+
+        <div class="scene3-dock-group">
+          <button class="btn-dock-s3" id="btnS3ShowAllDrops" style="background: rgba(255, 194, 51, 0.25); border-color: var(--gold-primary);" title="Show All 4 Drops & Golden Beacons">
+            🌐 चारही अमृत तीर्थे
+          </button>
+          <a href="index.html" class="btn-dock-s3" title="Return to Portal">
+            🏛️ मुख्य पोर्टल
+          </a>
+        </div>
+      </footer>
+
+    </div><!-- /.scene3-stage-wrapper -->
+  </section><!-- /#scene3Section -->
 
   <!-- Epilogue & Chapter 2 Gateway (Kumbh Mela Origin) -->
   <section class="next-chapter-anchor">
@@ -1402,6 +1989,28 @@
       const btnEnterScene2 = document.getElementById('btnEnterScene2');
       const btnNavScene1 = document.getElementById('btnNavScene1');
       const btnNavScene2 = document.getElementById('btnNavScene2');
+      const btnNavScene3 = document.getElementById('btnNavScene3');
+      const btnGoToScene3 = document.getElementById('btnGoToScene3');
+
+      // Scene 3 Elements
+      const scene3Section = document.getElementById('scene3Section');
+      const btnS3BackToS2 = document.getElementById('btnS3BackToS2');
+      const btnS3AutoTour = document.getElementById('btnS3AutoTour');
+      const s3AutoTourIcon = document.getElementById('s3AutoTourIcon');
+      const s3AutoTourText = document.getElementById('s3AutoTourText');
+      const btnS3ShowAllDrops = document.getElementById('btnS3ShowAllDrops');
+      const s3CityPips = document.querySelectorAll('.btn-city-pip');
+      const s3CityNodes = document.querySelectorAll('.s3-city-node');
+      const s3CityCard = document.getElementById('s3CityCard');
+      const s3CityTitleHeader = document.getElementById('s3CityTitleHeader');
+      const s3CardIcon = document.getElementById('s3CardIcon');
+      const s3CardOrder = document.getElementById('s3CardOrder');
+      const s3CardTitleMr = document.getElementById('s3CardTitleMr');
+      const s3CardTitleEn = document.getElementById('s3CardTitleEn');
+      const s3CardRiver = document.getElementById('s3CardRiver');
+      const s3CardPlanet = document.getElementById('s3CardPlanet');
+      const s3CardDesc = document.getElementById('s3CardDesc');
+      const s3CardHighlight = document.getElementById('s3CardHighlight');
 
       // Scene 2 Elements
       const scene2ShakeRig = document.getElementById('scene2ShakeRig');
@@ -1885,15 +2494,17 @@
       }
       btnAutoPlay.addEventListener('click', toggleAutoPlay);
 
-      // 5. SCENE SWITCHING (Scene 1 vs Scene 2)
+      // 5. SCENE SWITCHING (Scene 1 vs Scene 2 vs Scene 3)
       function goToScene(sceneNum) {
         if (sceneNum === 1) {
           btnNavScene1.classList.add('active');
           btnNavScene2.classList.remove('active');
+          btnNavScene3.classList.remove('active');
           window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
+        } else if (sceneNum === 2) {
           btnNavScene2.classList.add('active');
           btnNavScene1.classList.remove('active');
+          btnNavScene3.classList.remove('active');
           
           // Trigger Cosmic Earthquake shockwave as we enter Scene 2!
           triggerCosmicEarthquake(5.0, () => {
@@ -1901,12 +2512,27 @@
             scene2El.scrollIntoView({ behavior: 'smooth' });
             renderPair(currentPairIdx, false);
           });
+        } else if (sceneNum === 3) {
+          btnNavScene3.classList.add('active');
+          btnNavScene1.classList.remove('active');
+          btnNavScene2.classList.remove('active');
+
+          triggerCosmicEarthquake(3.5, () => {
+            const scene3El = document.getElementById('scene3Section');
+            scene3El.scrollIntoView({ behavior: 'smooth' });
+            if (typeof selectCity === 'function') {
+              selectCity(currentS3City || 'nashik', true);
+            }
+          });
         }
       }
 
       btnNavScene1.addEventListener('click', () => goToScene(1));
       btnNavScene2.addEventListener('click', () => goToScene(2));
       btnEnterScene2.addEventListener('click', () => goToScene(2));
+      btnNavScene3.addEventListener('click', () => goToScene(3));
+      if (btnGoToScene3) btnGoToScene3.addEventListener('click', () => goToScene(3));
+      if (btnS3BackToS2) btnS3BackToS2.addEventListener('click', () => goToScene(2));
 
       // 6. SCENE 1 SCROLLYTELLING LOGIC
       const narrativeBeats = [
@@ -1967,13 +2593,23 @@
 
       // Update Nav tab active state based on viewport scroll position
       window.addEventListener('scroll', () => {
-        const s2Rect = document.getElementById('scene2Section').getBoundingClientRect();
-        if (s2Rect.top <= window.innerHeight * 0.5 && s2Rect.bottom >= 0) {
+        const s3El = document.getElementById('scene3Section');
+        const s2El = document.getElementById('scene2Section');
+        const s3Rect = s3El ? s3El.getBoundingClientRect() : null;
+        const s2Rect = s2El ? s2El.getBoundingClientRect() : null;
+
+        if (s3Rect && s3Rect.top <= window.innerHeight * 0.5 && s3Rect.bottom >= 0) {
+          btnNavScene3.classList.add('active');
+          btnNavScene1.classList.remove('active');
+          btnNavScene2.classList.remove('active');
+        } else if (s2Rect && s2Rect.top <= window.innerHeight * 0.5 && s2Rect.bottom >= 0) {
           btnNavScene2.classList.add('active');
           btnNavScene1.classList.remove('active');
-        } else if (s2Rect.top > window.innerHeight * 0.5) {
+          btnNavScene3.classList.remove('active');
+        } else if (s2Rect && s2Rect.top > window.innerHeight * 0.5) {
           btnNavScene1.classList.add('active');
           btnNavScene2.classList.remove('active');
+          btnNavScene3.classList.remove('active');
         }
       });
 
@@ -2061,6 +2697,283 @@
           }
         });
       });
+
+      // 9. SCENE 3: GARUDA'S FLIGHT & 4 SACRED CITIES LOGIC
+      const sacredCitiesData = {
+        nashik: {
+          id: "nashik",
+          order: "तीर्थ १ • SACRED TIRTHA 1 (सिंहस्थ कुंभ)",
+          headerTitle: "नाशिक: गोदावरी तीरावरील अमृत थेंब (The Sacred Drop at Nashik)",
+          nameMr: "नाशिक • रामकुंड (पंचवटी)",
+          nameEn: "Nashik — Ramkund on Holy Godavari River",
+          icon: "🚩",
+          river: "गोदावरी (दक्षिण गंगा)",
+          planet: "बृहस्पती (गुरु) सिंह राशीत",
+          dropCoordinates: { x: 870, y: 830 },
+          dropElementId: "s3DropNashik",
+          nodeElementId: "s3NodeNashik",
+          desc: "समुद्रमंथनातून निघालेला दिव्य अमृत कुंभ घेऊन गरुडाने क्षीरसागरावरून आकाशात झेप घेतली. दानवांशी झालेल्या संघर्षात अमृताचा पहिला पावन थेंब गोदावरीच्या तटावर नाशिकच्या रामकुंडात पडला! यामुळे गोदावरी नदी सर्व पापांचे क्षालन करणारी अमृतवाहिनी बनली.",
+          kumbh: "<strong>कुंभमेळा परंपरा:</strong> दर १२ वर्षांनी जेव्हा गुरु ग्रह सिंह राशीत प्रवेश करतो, तेव्हा नाशिक व त्र्यंबकेश्वर येथे 'सिंहस्थ कुंभमेळा' भरतो. कोट्यवधी भाविक गोदावरीच्या पावन तीर्थात स्नान करून मोक्ष प्राप्त करतात."
+        },
+        prayagraj: {
+          id: "prayagraj",
+          order: "तीर्थ २ • SACRED TIRTHA 2 (महाकुंभ / तीर्थराज)",
+          headerTitle: "प्रयागराज: त्रिवेणी संगमावरील अमृत थेंब (The Sacred Drop at Prayagraj)",
+          nameMr: "प्रयागराज • त्रिवेणी संगम",
+          nameEn: "Prayagraj — Triveni Sangam (Ganga, Yamuna, Saraswati)",
+          icon: "🕉️",
+          river: "त्रिवेणी संगम (गंगा, यमुना व गुप्त सरस्वती)",
+          planet: "बृहस्पती (गुरु) मेष/वृषभ व सूर्य-चंद्र मकर राशीत",
+          dropCoordinates: { x: 1510, y: 890 },
+          dropElementId: "s3DropPrayagraj",
+          nodeElementId: "s3NodePrayagraj",
+          desc: "तीर्थराज प्रयाग येथे गंगा, यमुना आणि अदृश्य सरस्वतीच्या पवित्र संगमावर अमृताचा दुसरा थेंब पडला. हे स्थान सर्व तीर्थांचा राजा मानले जाते, जेथे स्नान केल्याने आत्म्याला परम शांती व मोक्ष लाभतो.",
+          kumbh: "<strong>कुंभमेळा परंपरा:</strong> दर १२ वर्षांनी येथे 'महाकुंभमेळा' आणि दर ६ वर्षांनी 'अर्धकुंभ' आयोजित होतो. जगातील सर्वात मोठा मानवी आध्यात्मिक मेळावा याच पवित्र संगमावर भरतो."
+        },
+        haridwar: {
+          id: "haridwar",
+          order: "तीर्थ ३ • SACRED TIRTHA 3 (गंगाद्वार)",
+          headerTitle: "हरिद्वार: हर की पौडीवरील अमृत थेंब (The Sacred Drop at Haridwar)",
+          nameMr: "हरिद्वार • हर की पौडी (ब्रह्मकुंड)",
+          nameEn: "Haridwar — Har Ki Pauri (Brahma Kund on Ganga)",
+          icon: "🏔️",
+          river: "गंगा नदी (Himalayan Descent)",
+          planet: "बृहस्पती (गुरु) कुंभ राशीत व सूर्य मेष राशीत",
+          dropCoordinates: { x: 1360, y: 760 },
+          dropElementId: "s3DropHaridwar",
+          nodeElementId: "s3NodeHaridwar",
+          desc: "हिमालयाच्या कुशीतून मैदानी भागात प्रवेश करणाऱ्या माता गंगेच्या प्रवाहात 'हर की पौडी' (ब्रह्मकुंड) येथे अमृताचा तिसरा थेंब सांडला. येथे साक्षात भगवान विष्णूंच्या चरणकमलांचे स्मरण केले जाते.",
+          kumbh: "<strong>कुंभमेळा परंपरा:</strong> दर १२ वर्षांनी जेव्हा गुरु कुंभ राशीत आणि सूर्य मेष राशीत असतो, तेव्हा लाखो साधू-संत आणि भाविक गंगेच्या अमृतमय शीतल प्रवाहात महास्नान करतात."
+        },
+        ujjain: {
+          id: "ujjain",
+          order: "तीर्थ ४ • SACRED TIRTHA 4 (महाकाल नगरी)",
+          headerTitle: "उज्जैन: क्षिप्रा तीरावरील अमृत थेंब (The Sacred Drop at Ujjain)",
+          nameMr: "उज्जैन • रामघाट (क्षिप्रा)",
+          nameEn: "Ujjain — Ramghat on Holy Kshipra River",
+          icon: "🔱",
+          river: "क्षिप्रा नदी (मोक्षदायिनी)",
+          planet: "बृहस्पती (गुरु) सिंह राशीत व सूर्य मेष राशीत",
+          dropCoordinates: { x: 790, y: 660 },
+          dropElementId: "s3DropUjjain",
+          nodeElementId: "s3NodeUjjain",
+          desc: "द्वादश ज्योतिर्लिंगांपैकी एक असलेल्या भगवान महाकालेश्वरांच्या पावन अवंतिका नगरीत क्षिप्रा नदीच्या रामघाटावर अमृताचा चौथा थेंब पडला. ही भूमी काल आणि मोक्षाची अधिष्ठात्री आहे.",
+          kumbh: "<strong>कुंभमेळा परंपरा:</strong> दर १२ वर्षांनी सिंहस्थ पर्वात देशभरातील आखाडे, नागा साधू आणि कोट्यवधी भाविक क्षिप्रा नदीत शाही स्नान करून भगवान महाकालाचा आशीर्वाद घेतात."
+        }
+      };
+
+      let currentS3City = 'nashik';
+      let s3AutoTourTimer = null;
+      let isS3AutoTour = false;
+      const s3CityKeys = ['nashik', 'prayagraj', 'haridwar', 'ujjain'];
+
+      function selectCity(cityKey, animateDrop = true) {
+        const data = sacredCitiesData[cityKey];
+        if (!data) return;
+        currentS3City = cityKey;
+
+        // Update Card Details
+        if (s3CityTitleHeader) s3CityTitleHeader.textContent = data.headerTitle;
+        if (s3CardIcon) s3CardIcon.textContent = data.icon;
+        if (s3CardOrder) s3CardOrder.textContent = data.order;
+        if (s3CardTitleMr) s3CardTitleMr.textContent = data.nameMr;
+        if (s3CardTitleEn) s3CardTitleEn.textContent = data.nameEn;
+        if (s3CardRiver) s3CardRiver.textContent = data.river;
+        if (s3CardPlanet) s3CardPlanet.textContent = data.planet;
+        if (s3CardDesc) s3CardDesc.textContent = data.desc;
+        if (s3CardHighlight) s3CardHighlight.innerHTML = data.kumbh;
+
+        // Animate Card Pop
+        if (s3CityCard) {
+          gsap.fromTo(s3CityCard,
+            { y: 25, opacity: 0.7, scale: 0.98 },
+            { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+          );
+        }
+
+        // Update Pips active state
+        if (s3CityPips) {
+          s3CityPips.forEach(pip => {
+            pip.classList.toggle('active', pip.getAttribute('data-city') === cityKey);
+          });
+        }
+
+        // Update SVG Nodes active state
+        if (s3CityNodes) {
+          s3CityNodes.forEach(node => {
+            const isTarget = node.getAttribute('data-city') === cityKey;
+            node.classList.toggle('active', isTarget);
+            if (isTarget) {
+              gsap.fromTo(node, { scale: 1.4 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+            }
+          });
+        }
+
+        // Animate Drop Fall if requested
+        if (animateDrop) {
+          const dropEl = document.getElementById(data.dropElementId);
+          if (dropEl) {
+            const targetX = data.dropCoordinates.x;
+            const targetY = data.dropCoordinates.y;
+            
+            gsap.fromTo(dropEl, 
+              { transform: `translate(980px, 510px) scale(0.3)`, opacity: 0.2 },
+              {
+                transform: `translate(${targetX}px, ${targetY}px) scale(1)`,
+                opacity: 1,
+                duration: 0.85,
+                ease: "power2.inOut",
+                onComplete: () => {
+                  const nodeEl = document.getElementById(data.nodeElementId);
+                  if (nodeEl) {
+                    const ripples = nodeEl.querySelectorAll('.s3-ripple');
+                    gsap.fromTo(ripples,
+                      { scale: 0.6, opacity: 1 },
+                      { scale: 1.8, opacity: 0, duration: 0.9, stagger: 0.2, ease: "power1.out" }
+                    );
+                  }
+                }
+              }
+            );
+          }
+        }
+      }
+
+      function showAllCities() {
+        if (isS3AutoTour) toggleS3AutoTour();
+        if (s3CityPips) s3CityPips.forEach(p => p.classList.add('active'));
+        if (s3CityNodes) {
+          s3CityNodes.forEach(node => {
+            node.classList.add('active');
+            gsap.fromTo(node, { scale: 1.25 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)" });
+          });
+        }
+
+        if (s3CityTitleHeader) s3CityTitleHeader.textContent = "चारही पावन तीर्थे: नाशिक, प्रयागराज, हरिद्वार व उज्जैन (All 4 Sacred Kumbh Tirthas)";
+        if (s3CardIcon) s3CardIcon.textContent = "✨";
+        if (s3CardOrder) s3CardOrder.textContent = "अमृत वर्षा • THE 4 SACRED SITES OF KUMBH MELA";
+        if (s3CardTitleMr) s3CardTitleMr.textContent = "चार महातीर्थे (अमृताचे ४ दिव्य थेंब)";
+        if (s3CardTitleEn) s3CardTitleEn.textContent = "The 4 Immortal Sites of the Celestial Kumbh Drops";
+        if (s3CardRiver) s3CardRiver.textContent = "गोदावरी, त्रिवेणी संगम, गंगा, क्षिप्रा";
+        if (s3CardPlanet) s3CardPlanet.textContent = "सिंहस्थ, महाकुंभ, कुंभ व अर्धकुंभ";
+        if (s3CardDesc) s3CardDesc.textContent = "गरुडाच्या दिव्य उड्डाणादरम्यान अमृताचे चार थेंब भारतवर्षातील चार पावन नद्यांच्या तटावर पडले. या अलौकिक घटनेमुळे नाशिक (गोदावरी), प्रयागराज (त्रिवेणी संगम), हरिद्वार (गंगा) आणि उज्जैन (क्षिप्रा) ही क्षेत्रे मोक्षदायी तीर्थे बनली. येथे दर १२ वर्षांनी अमृतमयी कुंभमेळा साजरा होतो.";
+        if (s3CardHighlight) s3CardHighlight.innerHTML = "<strong>नाशिकचे महात्म्य:</strong> गोदावरीच्या तीरावरील पावन रामकुंड हे सिंहस्थ कुंभमेळ्याचे मुख्य केंद्र असून, प्रभु श्रीरामांच्या पदस्पर्शाने आणि अमृताच्या थेंबाने हे तीर्थ सदैव पावन झाले आहे.";
+
+        if (s3CityCard) {
+          gsap.fromTo(s3CityCard,
+            { y: 30, opacity: 0.5 },
+            { y: 0, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }
+          );
+        }
+      }
+
+      function toggleS3AutoTour() {
+        isS3AutoTour = !isS3AutoTour;
+        if (isS3AutoTour) {
+          if (s3AutoTourIcon) s3AutoTourIcon.textContent = '⏸';
+          if (s3AutoTourText) s3AutoTourText.textContent = 'थांबवा';
+          if (btnS3AutoTour) {
+            btnS3AutoTour.style.borderColor = 'var(--gold-primary)';
+            btnS3AutoTour.style.background = 'rgba(255, 194, 51, 0.35)';
+          }
+
+          let nextIdx = (s3CityKeys.indexOf(currentS3City) + 1) % s3CityKeys.length;
+          selectCity(s3CityKeys[nextIdx], true);
+
+          s3AutoTourTimer = setInterval(() => {
+            nextIdx = (s3CityKeys.indexOf(currentS3City) + 1) % s3CityKeys.length;
+            selectCity(s3CityKeys[nextIdx], true);
+          }, 4800);
+        } else {
+          if (s3AutoTourIcon) s3AutoTourIcon.textContent = '▶';
+          if (s3AutoTourText) s3AutoTourText.textContent = 'स्वयंचलित यात्रा';
+          if (btnS3AutoTour) {
+            btnS3AutoTour.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            btnS3AutoTour.style.background = 'rgba(255, 255, 255, 0.08)';
+          }
+          clearInterval(s3AutoTourTimer);
+        }
+      }
+
+      // Hook up Scene 3 listeners
+      if (btnS3AutoTour) btnS3AutoTour.addEventListener('click', toggleS3AutoTour);
+      if (btnS3ShowAllDrops) btnS3ShowAllDrops.addEventListener('click', showAllCities);
+
+      if (s3CityPips) {
+        s3CityPips.forEach(pip => {
+          pip.addEventListener('click', () => {
+            if (isS3AutoTour) toggleS3AutoTour();
+            const cityKey = pip.getAttribute('data-city');
+            selectCity(cityKey, true);
+          });
+        });
+      }
+
+      if (s3CityNodes) {
+        s3CityNodes.forEach(node => {
+          node.addEventListener('click', () => {
+            if (isS3AutoTour) toggleS3AutoTour();
+            const cityKey = node.getAttribute('data-city');
+            selectCity(cityKey, true);
+          });
+        });
+      }
+
+      // High-performance Canvas Particle Sparkles for Scene 3
+      const s3Canvas = document.getElementById('scene3FxCanvas');
+      if (s3Canvas) {
+        const s3Ctx = s3Canvas.getContext('2d');
+        let s3Particles = [];
+        const s3ParticleCount = 35;
+
+        function resizeS3Canvas() {
+          if (!s3Canvas.parentElement) return;
+          s3Canvas.width = s3Canvas.offsetWidth || window.innerWidth;
+          s3Canvas.height = s3Canvas.offsetHeight || window.innerHeight;
+        }
+        window.addEventListener('resize', resizeS3Canvas);
+        resizeS3Canvas();
+
+        for (let i = 0; i < s3ParticleCount; i++) {
+          s3Particles.push({
+            x: Math.random() * (s3Canvas.width || 1200),
+            y: Math.random() * (s3Canvas.height || 800),
+            r: Math.random() * 2.2 + 0.8,
+            speedY: Math.random() * 0.7 + 0.2,
+            sway: Math.random() * Math.PI * 2,
+            swaySpeed: Math.random() * 0.02 + 0.01,
+            alpha: Math.random() * 0.6 + 0.3
+          });
+        }
+
+        function renderS3Canvas() {
+          if (s3Ctx && s3Canvas.width > 0 && s3Canvas.height > 0) {
+            s3Ctx.clearRect(0, 0, s3Canvas.width, s3Canvas.height);
+            for (let p of s3Particles) {
+              p.y += p.speedY;
+              p.sway += p.swaySpeed;
+              p.x += Math.sin(p.sway) * 0.4;
+
+              if (p.y > s3Canvas.height + 10) {
+                p.y = -10;
+                p.x = Math.random() * s3Canvas.width;
+              }
+
+              s3Ctx.beginPath();
+              s3Ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+              s3Ctx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
+              s3Ctx.shadowColor = '#FFD700';
+              s3Ctx.shadowBlur = 5;
+              s3Ctx.fill();
+            }
+          }
+          requestAnimationFrame(renderS3Canvas);
+        }
+        renderS3Canvas();
+      }
+
+      // Initialize Scene 3 initial city
+      selectCity('nashik', false);
 
       // Initialize Scene 2 Pair 0 on ready
       renderPair(0, false);
