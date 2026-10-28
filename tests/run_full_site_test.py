@@ -546,30 +546,12 @@ async def run_tests(base_url, screenshots_dir, headless=True):
 
             await take_screenshot(ws, "test_manthan_scene_emergence_3s.png", screenshots_dir)
 
-            # Test Tab: Garuda Celestial Flight & Amrita Drops Mode
-            await set_viewport(ws, 1920, 1080)
-            await eval_js(ws, "document.getElementById('btnTabGaruda')?.click()")
-            await asyncio.sleep(1.0)
-            garuda_mode_display = await eval_js(ws, "document.getElementById('studioGarudaGroup')?.style.display")
-            assert garuda_mode_display == "block", f"Expected studioGarudaGroup block, got {garuda_mode_display}"
-            garuda_eagle_exists = await eval_js(ws, "!!document.getElementById('studioTravellingEagle')")
-            assert garuda_eagle_exists is True, "Travelling eagle element should exist in studio"
-            city_nodes_count = await eval_js(ws, "document.querySelectorAll('.studio-city-node').length")
-            assert city_nodes_count == 4, f"Expected 4 studio city nodes, found {city_nodes_count}"
-
-            # Test jumping to City 1: Nashik
-            await eval_js(ws, "document.getElementById('btnGarudaCity1')?.click()")
-            await asyncio.sleep(0.8)
-            nashik_active = await eval_js(ws, "document.getElementById('studioNodeNashik')?.classList.contains('active')")
-            print(f"✓ Studio Garuda Flight Active: Eagle present, 4 Cities found, Nashik active={nashik_active}")
-            await take_screenshot(ws, "test_manthan_scene_garuda_flight_studio.png", screenshots_dir)
-
             # Test Mobile
             await set_viewport(ws, 390, 844, is_mobile=True)
             await asyncio.sleep(0.5)
             await take_screenshot(ws, "test_manthan_scene_mobile_390.png", screenshots_dir)
 
-            test_results.append("SUITE 4: samudra_manthan_scene.html PASSED (Harmonic Rig, Master Cel, 14 SVG, 3s Cycle, Garuda Studio Flight, Mobile)")
+            test_results.append("SUITE 4: samudra_manthan_scene.html PASSED (Harmonic Rig, Master Cel, 14 SVG, 3s Cycle, Mobile)")
 
             event_task.cancel()
 

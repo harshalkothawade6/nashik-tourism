@@ -289,12 +289,6 @@
       color: #fff;
       transform: translateY(-1px);
     }
-    .btn-dock.active {
-      background: linear-gradient(135deg, rgba(255, 194, 51, 0.45), rgba(212, 143, 10, 0.35));
-      border-color: var(--cel-gold);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(255, 194, 51, 0.45);
-    }
 
     /* Mode Switcher Segmented Control */
     .mode-switch-container {
@@ -675,52 +669,6 @@
       0% { transform: scale(0.94); opacity: 0.65; }
       100% { transform: scale(1.08); opacity: 0.95; }
     }
-
-    /* Studio Garuda Flight Mode Styling (Glitch-Free Stable Hover) */
-    .studio-city-node {
-      pointer-events: auto;
-      cursor: pointer;
-      transition: filter 0.25s ease;
-    }
-    .studio-city-node:hover {
-      filter: drop-shadow(0 0 28px #FFD700);
-    }
-    .studio-city-node:hover > circle:not(.studio-city-ripple) {
-      stroke: #FFFFFF;
-      stroke-width: 4px;
-    }
-    .studio-city-node:hover .studio-city-badge rect {
-      fill: rgba(255, 194, 51, 0.98);
-      stroke: #FFFFFF;
-      stroke-width: 2px;
-    }
-    .studio-city-node:hover .studio-city-badge text {
-      fill: #060C1C;
-      font-weight: 800;
-    }
-    .studio-city-node.active {
-      filter: drop-shadow(0 0 35px #FFC233);
-    }
-    .studio-city-node.active .studio-city-badge rect {
-      fill: rgba(255, 194, 51, 0.96);
-      stroke: #FFFFFF;
-      stroke-width: 2px;
-    }
-    .studio-city-node.active .studio-city-badge text {
-      fill: #060C1C;
-      font-weight: 800;
-    }
-
-    @keyframes studioRippleWave {
-      0% { r: 18px; opacity: 1; stroke-width: 3px; }
-      100% { r: 85px; opacity: 0; stroke-width: 0.5px; }
-    }
-    .studio-city-ripple.r1 {
-      animation: studioRippleWave 2.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
-    }
-    .studio-city-ripple.r2 {
-      animation: studioRippleWave 2.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 1.4s;
-    }
   </style>
 </head>
 <body>
@@ -743,7 +691,6 @@
           <image id="masterAsurasImg" href="assets/images/manthan_asuras_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
           <image id="masterDevasImg" href="assets/images/manthan_devas_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
           <image id="masterForeWavesImg" href="assets/images/manthan_forewaves_corrected.png" width="1920" height="1080" preserveAspectRatio="none"/>
-          <image id="garudaSkySeaMapImg" href="assets/images/garuda_sky_sea_map.jpg" width="1920" height="1080" preserveAspectRatio="none"/>
 
           <!-- Glow Filter for Divine Heave Energy -->
           <filter id="amritaGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -968,115 +915,6 @@
               </g>
             </g>
 
-            <!-- ================= MODE 5: NEXT SCENE: FLIGHT OF GARUDA (AMRITA JOURNEY) ================= -->
-            <g id="studioGarudaGroup" style="display: none; opacity: 0; will-change: opacity, transform;">
-              <!-- Background Cel Image: Garuda Soaring from Churning Sea over Ancient India Map -->
-              <use href="#garudaSkySeaMapImg"/>
-
-              <!-- Trajectory Flight Paths from Sea to 4 Sacred Cities -->
-              <g id="studioFlightArcs">
-                <!-- Arc 1: Sea origin (980, 510) -> Nashik (870, 830) -->
-                <path id="flightArcNashik" d="M 980 510 Q 940 680 870 830" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="10 8" opacity="0.65"/>
-                <!-- Arc 2: Nashik (870, 830) -> Ujjain (790, 660) -->
-                <path id="flightArcUjjain" d="M 870 830 Q 820 740 790 660" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="10 8" opacity="0.65"/>
-                <!-- Arc 3: Ujjain (790, 660) -> Prayagraj (1510, 890) -->
-                <path id="flightArcPrayagraj" d="M 790 660 Q 1150 780 1510 890" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="10 8" opacity="0.65"/>
-                <!-- Arc 4: Prayagraj (1510, 890) -> Haridwar (1360, 760) -->
-                <path id="flightArcHaridwar" d="M 1510 890 Q 1480 810 1360 760" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="10 8" opacity="0.65"/>
-              </g>
-
-              <!-- 4 Sacred Falling Amrita Drops (Animated Drop by Drop) -->
-              <g id="studioDropsGroup">
-                <!-- Drop 1: Nashik -->
-                <g id="studioDrop1Nashik" transform="translate(980, 510)" opacity="0">
-                  <circle r="22" fill="url(#ratnaHaloGrad)"/>
-                  <circle r="9" fill="#FFFDF0"/>
-                </g>
-                <!-- Drop 2: Ujjain -->
-                <g id="studioDrop2Ujjain" transform="translate(870, 830)" opacity="0">
-                  <circle r="22" fill="url(#ratnaHaloGrad)"/>
-                  <circle r="9" fill="#FFFDF0"/>
-                </g>
-                <!-- Drop 3: Prayagraj -->
-                <g id="studioDrop3Prayagraj" transform="translate(790, 660)" opacity="0">
-                  <circle r="22" fill="url(#ratnaHaloGrad)"/>
-                  <circle r="9" fill="#FFFDF0"/>
-                </g>
-                <!-- Drop 4: Haridwar -->
-                <g id="studioDrop4Haridwar" transform="translate(1510, 890)" opacity="0">
-                  <circle r="22" fill="url(#ratnaHaloGrad)"/>
-                  <circle r="9" fill="#FFFDF0"/>
-                </g>
-              </g>
-
-              <!-- 4 Holy City Destination Nodes -->
-              <g id="studioCityNodesGroup">
-                <!-- City 1: Nashik (Hero Focus) -->
-                <g id="studioNodeNashik" class="studio-city-node active" data-city="nashik" transform="translate(870, 830)">
-                  <circle class="studio-city-ripple r1" r="38" fill="none" stroke="#FFD700" stroke-width="2.5"/>
-                  <circle class="studio-city-ripple r2" r="60" fill="none" stroke="#FF7B25" stroke-width="1.8"/>
-                  <circle r="25" fill="rgba(6, 12, 28, 0.92)" stroke="#FFC233" stroke-width="3"/>
-                  <text text-anchor="middle" y="7" font-size="20">🚩</text>
-                  <g class="studio-city-badge" transform="translate(0, 48)">
-                    <rect x="-115" y="-16" width="230" height="32" rx="16" fill="rgba(6, 12, 28, 0.94)" stroke="#FFD700" stroke-width="2"/>
-                    <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="14" font-weight="700">१. नाशिक • रामकुंड (गोदावरी)</text>
-                  </g>
-                </g>
-
-                <!-- City 2: Ujjain -->
-                <g id="studioNodeUjjain" class="studio-city-node" data-city="ujjain" transform="translate(790, 660)">
-                  <circle class="studio-city-ripple r1" r="38" fill="none" stroke="#FFD700" stroke-width="2.5"/>
-                  <circle r="24" fill="rgba(6, 12, 28, 0.92)" stroke="#FFC233" stroke-width="2.5"/>
-                  <text text-anchor="middle" y="6" font-size="18">🔱</text>
-                  <g class="studio-city-badge" transform="translate(0, 46)">
-                    <rect x="-105" y="-15" width="210" height="30" rx="15" fill="rgba(6, 12, 28, 0.94)" stroke="#FFC233" stroke-width="1.8"/>
-                    <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="13" font-weight="700">२. उज्जैन • रामघाट (क्षिप्रा)</text>
-                  </g>
-                </g>
-
-                <!-- City 3: Prayagraj -->
-                <g id="studioNodePrayagraj" class="studio-city-node" data-city="prayagraj" transform="translate(1510, 890)">
-                  <circle class="studio-city-ripple r1" r="38" fill="none" stroke="#FFD700" stroke-width="2.5"/>
-                  <circle r="24" fill="rgba(6, 12, 28, 0.92)" stroke="#FFC233" stroke-width="2.5"/>
-                  <text text-anchor="middle" y="6" font-size="18">🕉️</text>
-                  <g class="studio-city-badge" transform="translate(0, 46)">
-                    <rect x="-105" y="-15" width="210" height="30" rx="15" fill="rgba(6, 12, 28, 0.94)" stroke="#FFC233" stroke-width="1.8"/>
-                    <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="13" font-weight="700">३. प्रयागराज • त्रिवेणी संगम</text>
-                  </g>
-                </g>
-
-                <!-- City 4: Haridwar -->
-                <g id="studioNodeHaridwar" class="studio-city-node" data-city="haridwar" transform="translate(1360, 760)">
-                  <circle class="studio-city-ripple r1" r="38" fill="none" stroke="#FFD700" stroke-width="2.5"/>
-                  <circle r="24" fill="rgba(6, 12, 28, 0.92)" stroke="#FFC233" stroke-width="2.5"/>
-                  <text text-anchor="middle" y="6" font-size="18">🏔️</text>
-                  <g class="studio-city-badge" transform="translate(0, 46)">
-                    <rect x="-105" y="-15" width="210" height="30" rx="15" fill="rgba(6, 12, 28, 0.94)" stroke="#FFC233" stroke-width="1.8"/>
-                    <text text-anchor="middle" y="5" fill="#FFF" font-family="'Yatra One', cursive" font-size="13" font-weight="700">४. हरिद्वार • हर की पौडी (गंगा)</text>
-                  </g>
-                </g>
-              </g>
-
-              <!-- Dynamic Travelling Eagle Avatar Carrying Golden Amrita Kumbh -->
-              <g id="studioTravellingEagle" transform="translate(980, 510)" style="filter: drop-shadow(0 0 30px #FFD700);">
-                <!-- Golden Aura Halo -->
-                <circle r="60" fill="url(#ratnaHaloGrad)" opacity="0.8"/>
-                <!-- Eagle & Pot Silhouette / Crest -->
-                <circle r="36" fill="rgba(6, 12, 28, 0.92)" stroke="#FFD700" stroke-width="3.5"/>
-                <text text-anchor="middle" y="9" font-size="28">🦅</text>
-                <!-- Golden Amrita Urn attached -->
-                <g transform="translate(26, 18) scale(0.85)">
-                  <ellipse cx="0" cy="0" rx="18" ry="16" fill="#FFC233" stroke="#FFF" stroke-width="2"/>
-                  <text text-anchor="middle" y="5" font-size="14">🏺</text>
-                </g>
-                <!-- Flight Direction Tag -->
-                <g transform="translate(0, -48)">
-                  <rect x="-70" y="-12" width="140" height="24" rx="12" fill="rgba(6, 12, 28, 0.95)" stroke="#FFD700" stroke-width="1.5"/>
-                  <text text-anchor="middle" y="4" fill="#FFD700" font-family="'Yatra One', cursive" font-size="12" font-weight="700">🦅 गरुड अमृत उड्डाण</text>
-                </g>
-              </g>
-            </g>
-
           </g>
         </g>
       </svg>
@@ -1160,9 +998,6 @@
         </div>
 
         <div class="header-actions">
-          <button class="btn-header" id="btnHeaderGaruda" style="background: linear-gradient(135deg, rgba(255, 107, 43, 0.45), rgba(212, 143, 10, 0.35)); border-color: #FFC233; color: #FFF; box-shadow: 0 0 14px rgba(255, 107, 43, 0.5);" title="Next Scene: Celestial Flight of Garuda travelling and dropping Amrita one by one">
-            🦅 पुढील दृश्य: गरुड उड्डाण →
-          </button>
           <button class="btn-header" id="btnHeaderRatnasToggle" style="background: linear-gradient(135deg, rgba(255, 194, 51, 0.35), rgba(255, 107, 43, 0.35)); border-color: #FFC233; color: #FFF; box-shadow: 0 0 12px rgba(255, 194, 51, 0.4);" title="Start 14 Ratnas 3s Pop-Out Showcase">
             ✨ १४ रत्ने प्रकटीकरण (३s)
           </button>
@@ -1202,7 +1037,7 @@
         </div>
 
         <!-- Mode Toggle Segmented Switch -->
-        <div class="mode-switch-container" title="Choose Motion Mode: Compare Multiplane Rig vs. Unified Master Cel vs. 14 Ratnas vs. Garuda's Flight">
+        <div class="mode-switch-container" title="Choose Motion Mode: Compare Multiplane Rig vs. Unified Master Cel vs. 14 Ratnas">
           <button class="btn-mode-tab" id="btnTabRig" title="Harmonic Multiplane Rig: Smooth zero-tear multiplane kinematics">
             🎭 बहुस्तरीय मंथन
           </button>
@@ -1215,9 +1050,6 @@
           <button class="btn-mode-tab" id="btnTabSvgAll" title="All 14 Ratnas in SVG: View all 14 treasures simultaneously in SVG directly on the master churning scene">
             🌐 सर्व १४ रत्ने (SVG)
           </button>
-          <button class="btn-mode-tab" id="btnTabGaruda" title="Next Scene: Celestial Flight of Garuda travelling and dropping Amrita one by one">
-            🦅 गरुड अमृत यात्रा
-          </button>
         </div>
 
         <!-- Ratna Prev / Next Step Buttons (Shown when in Ratnas mode) -->
@@ -1227,22 +1059,6 @@
           </button>
           <button class="btn-dock" id="btnNextRatna" title="पुढील रत्न (Next Ratna)">
             पुढे ▶
-          </button>
-        </div>
-
-        <!-- Garuda Holy Drop Step Buttons (Shown when in Garuda Flight mode) -->
-        <div class="deck-group" id="garudaNavGroup" style="display: none;">
-          <button class="btn-dock" id="btnGarudaCity1" title="१. नाशिक (Nashik: Ramkund, Godavari)">
-            १. नाशिक 🚩
-          </button>
-          <button class="btn-dock" id="btnGarudaCity2" title="२. उज्जैन (Ujjain: Ramghat, Kshipra)">
-            २. उज्जैन 🔱
-          </button>
-          <button class="btn-dock" id="btnGarudaCity3" title="३. प्रयागराज (Prayagraj: Triveni Sangam)">
-            ३. प्रयागराज 🕉️
-          </button>
-          <button class="btn-dock" id="btnGarudaCity4" title="४. हरिद्वार (Haridwar: Har Ki Pauri, Ganga)">
-            ४. हरिद्वार 🏔️
           </button>
         </div>
 
@@ -1305,25 +1121,6 @@
       const captionBadge = document.getElementById('captionBadge');
       const subtitleEn = document.getElementById('subtitleEn');
       const subtitleMr = document.getElementById('subtitleMr');
-
-      // Garuda Flight Next Scene Elements
-      const btnTabGaruda = document.getElementById('btnTabGaruda');
-      const btnHeaderGaruda = document.getElementById('btnHeaderGaruda');
-      const studioGarudaGroup = document.getElementById('studioGarudaGroup');
-      const garudaNavGroup = document.getElementById('garudaNavGroup');
-      const btnGarudaCity1 = document.getElementById('btnGarudaCity1');
-      const btnGarudaCity2 = document.getElementById('btnGarudaCity2');
-      const btnGarudaCity3 = document.getElementById('btnGarudaCity3');
-      const btnGarudaCity4 = document.getElementById('btnGarudaCity4');
-      const studioTravellingEagle = document.getElementById('studioTravellingEagle');
-      const studioDrop1Nashik = document.getElementById('studioDrop1Nashik');
-      const studioDrop2Ujjain = document.getElementById('studioDrop2Ujjain');
-      const studioDrop3Prayagraj = document.getElementById('studioDrop3Prayagraj');
-      const studioDrop4Haridwar = document.getElementById('studioDrop4Haridwar');
-      const studioNodeNashik = document.getElementById('studioNodeNashik');
-      const studioNodeUjjain = document.getElementById('studioNodeUjjain');
-      const studioNodePrayagraj = document.getElementById('studioNodePrayagraj');
-      const studioNodeHaridwar = document.getElementById('studioNodeHaridwar');
 
       // Controls Elements
       const btnPlayPause = document.getElementById('btnPlayPause');
@@ -1600,220 +1397,6 @@
         .add(() => { if (currentMode === 'master') triggerCameraShake(1.4); }, 6.0)
         .to(unifiedArtLayer, { x: 0, rotation: 0, scale: 1.0, duration: 2.0, ease: "sine.inOut" }, 6.0);
 
-      // 5B. TIMELINE 3: NEXT SCENE: FLIGHT OF GARUDA (16.0s Sequential Amrita Journey)
-      const tlGaruda = gsap.timeline({
-        repeat: -1,
-        paused: true,
-        onUpdate: () => {
-          if (currentMode === 'garuda') updateScrubber();
-        }
-      });
-
-      function setCityActiveState(city) {
-        if (!studioNodeNashik) return;
-        studioNodeNashik.classList.toggle('active', city === 'nashik' || city === 'all');
-        studioNodeUjjain.classList.toggle('active', city === 'ujjain' || city === 'all');
-        studioNodePrayagraj.classList.toggle('active', city === 'prayagraj' || city === 'all');
-        studioNodeHaridwar.classList.toggle('active', city === 'haridwar' || city === 'all');
-
-        if (btnGarudaCity1) btnGarudaCity1.classList.toggle('active', city === 'nashik');
-        if (btnGarudaCity2) btnGarudaCity2.classList.toggle('active', city === 'ujjain');
-        if (btnGarudaCity3) btnGarudaCity3.classList.toggle('active', city === 'prayagraj');
-        if (btnGarudaCity4) btnGarudaCity4.classList.toggle('active', city === 'haridwar');
-      }
-
-      tlGaruda
-        // t = 0.0s: Reset at Ocean Origin (980, 510)
-        .set(studioTravellingEagle, { x: 980, y: 510, rotation: 0, scale: 1 }, 0)
-        .set([studioDrop1Nashik, studioDrop2Ujjain, studioDrop3Prayagraj, studioDrop4Haridwar], { opacity: 0, scale: 1 }, 0)
-        .add(() => {
-          setCityActiveState('none');
-          if (currentMode === 'garuda') {
-            captionBadge.textContent = '🦅 गरुड अमृत उड्डाण • प्रस्थान: क्षीरसागर';
-            subtitleEn.textContent = 'Flight of Garuda • Lord Garuda takes flight with the golden Amrita Kumbh from the churning Kshira Sagara!';
-            subtitleMr.textContent = 'गरुड अमृत उड्डाण • क्षीरसागराच्या महामंथनातून दिव्य अमृत कुंभ घेऊन भगवान गरुड आकाशात झेपावले!';
-          }
-        }, 0)
-
-        // t = 0.5s -> 2.5s: Fly from Ocean Origin to Nashik (870, 770)
-        .to(studioTravellingEagle, { x: 870, y: 770, rotation: -6, duration: 2.0, ease: "power1.inOut" }, 0.5)
-
-        // t = 2.5s: Arrival at Nashik
-        .add(() => {
-          setCityActiveState('nashik');
-          if (currentMode === 'garuda') {
-            captionBadge.textContent = '१. नाशिक • अमृत थेंब १ (गोदावरी)';
-            subtitleEn.textContent = 'Drop 1: Nashik (Godavari) • The first divine nectar drop falls into Ramkund, establishing the sacred Nashik Kumbh Mela!';
-            subtitleMr.textContent = '१. नाशिक • पहिला अमृत थेंब रामकुंड, गोदावरीच्या पावन प्रवाहात पडला आणि नाशिक कुंभपर्वाची अमर स्थापना झाली!';
-          }
-        }, 2.5)
-
-        // t = 2.5s -> 3.2s: Drop 1 falls from Eagle to Nashik Node (870, 830)
-        .fromTo(studioDrop1Nashik,
-          { x: 870, y: 770, opacity: 1, scale: 0.8 },
-          { x: 870, y: 830, opacity: 1, scale: 1.3, duration: 0.7, ease: "power2.in" },
-          2.5
-        )
-        // t = 3.2s: Nashik impact
-        .add(() => {
-          triggerCameraShake(3.5);
-          gsap.to(studioDrop1Nashik, { opacity: 0, scale: 2.2, duration: 0.4 });
-          if (ctx) {
-            for (let i = 0; i < 24; i++) {
-              particles.push({
-                type: 'amrita',
-                x: canvasW * 0.453,
-                y: canvasH * 0.768,
-                vx: (Math.random() - 0.5) * 6.5,
-                vy: -(Math.random() * 5.5 + 2.0),
-                radius: Math.random() * 4.5 + 2.0,
-                alpha: 1.0,
-                decay: 0.02,
-                color: '255, 215, 0'
-              });
-            }
-          }
-        }, 3.2)
-        // Hover at Nashik
-        .to(studioTravellingEagle, { y: 760, rotation: 2, duration: 1.0, ease: "sine.inOut" }, 3.2)
-
-        // t = 4.2s -> 6.2s: Fly to Ujjain (790, 600)
-        .to(studioTravellingEagle, { x: 790, y: 600, rotation: -10, duration: 2.0, ease: "power1.inOut" }, 4.2)
-
-        // t = 6.2s: Arrival at Ujjain
-        .add(() => {
-          setCityActiveState('ujjain');
-          if (currentMode === 'garuda') {
-            captionBadge.textContent = '२. उज्जैन • अमृत थेंब २ (क्षिप्रा)';
-            subtitleEn.textContent = 'Drop 2: Ujjain (Kshipra) • The second drop sanctifies Ramghat on the sacred banks of river Kshipra in Ujjain!';
-            subtitleMr.textContent = '२. उज्जैन • महाकालाच्या नगरीत पवित्र क्षिप्रा नदीच्या रामघाटावर अमृताचा दुसरा थेंब स्थिरावला.';
-          }
-        }, 6.2)
-
-        // t = 6.2s -> 6.9s: Drop 2 falls from Eagle to Ujjain Node (790, 660)
-        .fromTo(studioDrop2Ujjain,
-          { x: 790, y: 600, opacity: 1, scale: 0.8 },
-          { x: 790, y: 660, opacity: 1, scale: 1.3, duration: 0.7, ease: "power2.in" },
-          6.2
-        )
-        // t = 6.9s: Ujjain impact
-        .add(() => {
-          triggerCameraShake(3.0);
-          gsap.to(studioDrop2Ujjain, { opacity: 0, scale: 2.2, duration: 0.4 });
-          if (ctx) {
-            for (let i = 0; i < 20; i++) {
-              particles.push({
-                type: 'amrita',
-                x: canvasW * 0.411,
-                y: canvasH * 0.611,
-                vx: (Math.random() - 0.5) * 6.0,
-                vy: -(Math.random() * 5.0 + 2.0),
-                radius: Math.random() * 4.0 + 2.0,
-                alpha: 1.0,
-                decay: 0.02,
-                color: '255, 215, 0'
-              });
-            }
-          }
-        }, 6.9)
-        // Hover at Ujjain
-        .to(studioTravellingEagle, { y: 592, rotation: 3, duration: 1.0, ease: "sine.inOut" }, 6.9)
-
-        // t = 7.9s -> 10.2s: Fly east across India to Prayagraj (1510, 830)
-        .to(studioTravellingEagle, { x: 1510, y: 830, rotation: 8, duration: 2.3, ease: "power1.inOut" }, 7.9)
-
-        // t = 10.2s: Arrival at Prayagraj
-        .add(() => {
-          setCityActiveState('prayagraj');
-          if (currentMode === 'garuda') {
-            captionBadge.textContent = '३. प्रयागराज • अमृत थेंब ३ (त्रिवेणी संगम)';
-            subtitleEn.textContent = 'Drop 3: Prayagraj (Sangam) • The third drop touches Triveni Sangam, uniting the sacred holy rivers Ganga, Yamuna & Saraswati!';
-            subtitleMr.textContent = '३. प्रयागराज • गंगा, यमुना आणि गुप्त सरस्वतीच्या पावन त्रिवेणी संगमावर तिसरा अमृत थेंब अर्पण झाला.';
-          }
-        }, 10.2)
-
-        // t = 10.2s -> 10.9s: Drop 3 falls to Prayagraj Node (1510, 890)
-        .fromTo(studioDrop3Prayagraj,
-          { x: 1510, y: 830, opacity: 1, scale: 0.8 },
-          { x: 1510, y: 890, opacity: 1, scale: 1.3, duration: 0.7, ease: "power2.in" },
-          10.2
-        )
-        // t = 10.9s: Prayagraj impact
-        .add(() => {
-          triggerCameraShake(3.0);
-          gsap.to(studioDrop3Prayagraj, { opacity: 0, scale: 2.2, duration: 0.4 });
-          if (ctx) {
-            for (let i = 0; i < 20; i++) {
-              particles.push({
-                type: 'amrita',
-                x: canvasW * 0.786,
-                y: canvasH * 0.824,
-                vx: (Math.random() - 0.5) * 6.0,
-                vy: -(Math.random() * 5.0 + 2.0),
-                radius: Math.random() * 4.0 + 2.0,
-                alpha: 1.0,
-                decay: 0.02,
-                color: '255, 215, 0'
-              });
-            }
-          }
-        }, 10.9)
-        // Hover at Prayagraj
-        .to(studioTravellingEagle, { y: 822, rotation: -2, duration: 1.0, ease: "sine.inOut" }, 10.9)
-
-        // t = 11.9s -> 13.7s: Fly north towards Himalayas to Haridwar (1360, 700)
-        .to(studioTravellingEagle, { x: 1360, y: 700, rotation: -6, duration: 1.8, ease: "power1.inOut" }, 11.9)
-
-        // t = 13.7s: Arrival at Haridwar
-        .add(() => {
-          setCityActiveState('haridwar');
-          if (currentMode === 'garuda') {
-            captionBadge.textContent = '४. हरिद्वार • अमृत थेंब ४ (हर की पौडी)';
-            subtitleEn.textContent = 'Drop 4: Haridwar (Ganga) • The fourth drop falls at Har Ki Pauri Brahma Kund as Ganga descends from the Himalayas!';
-            subtitleMr.textContent = '४. हरिद्वार • हिमालयाच्या पायथ्याशी गंगाद्वारे हर की पौडी ब्रह्मकुंडावर चौथा अमृत थेंब प्रकटला!';
-          }
-        }, 13.7)
-
-        // t = 13.7s -> 14.4s: Drop 4 falls to Haridwar Node (1360, 760)
-        .fromTo(studioDrop4Haridwar,
-          { x: 1360, y: 700, opacity: 1, scale: 0.8 },
-          { x: 1360, y: 760, opacity: 1, scale: 1.3, duration: 0.7, ease: "power2.in" },
-          13.7
-        )
-        // t = 14.4s: Haridwar impact
-        .add(() => {
-          triggerCameraShake(3.2);
-          gsap.to(studioDrop4Haridwar, { opacity: 0, scale: 2.2, duration: 0.4 });
-          if (ctx) {
-            for (let i = 0; i < 20; i++) {
-              particles.push({
-                type: 'amrita',
-                x: canvasW * 0.708,
-                y: canvasH * 0.703,
-                vx: (Math.random() - 0.5) * 6.0,
-                vy: -(Math.random() * 5.0 + 2.0),
-                radius: Math.random() * 4.0 + 2.0,
-                alpha: 1.0,
-                decay: 0.02,
-                color: '255, 215, 0'
-              });
-            }
-          }
-        }, 14.4)
-        // Hover at Haridwar
-        .to(studioTravellingEagle, { y: 692, rotation: 1, duration: 0.8, ease: "sine.inOut" }, 14.4)
-
-        // t = 15.2s -> 16.0s: Grand Finale - All 4 cities radiant
-        .add(() => {
-          setCityActiveState('all');
-          if (currentMode === 'garuda') {
-            captionBadge.textContent = '✨ चारही महाकुंभ नगरे अमर झाली';
-            subtitleEn.textContent = 'Sacred Celestial Quadrilateral • Nashik, Ujjain, Prayagraj & Haridwar blessed with eternal immortality!';
-            subtitleMr.textContent = 'सनातन कुंभ परंपरा • चारही पवित्र कुंभनगरे अमर झाली: नाशिक, उज्जैन, प्रयागराज व हरिद्वार!';
-          }
-        }, 15.2)
-        .to(studioTravellingEagle, { x: 1140, y: 620, scale: 1.08, rotation: 0, duration: 0.8, ease: "sine.inOut" }, 15.2);
-
       // Default Active Timeline: Unified Master Cel
       activeTimeline = tlUnified;
 
@@ -1827,47 +1410,8 @@
         btnTabMaster.classList.toggle('active', mode === 'master');
         btnTabRatnas.classList.toggle('active', mode === 'ratnas');
         btnTabSvgAll.classList.toggle('active', mode === 'svg14');
-        if (btnTabGaruda) btnTabGaruda.classList.toggle('active', mode === 'garuda');
 
-        // Toggle Garuda Layer & Controls
-        if (mode !== 'garuda') {
-          if (studioGarudaGroup) {
-            studioGarudaGroup.style.display = 'none';
-            studioGarudaGroup.style.opacity = '0';
-          }
-          if (garudaNavGroup) garudaNavGroup.style.display = 'none';
-          if (tlGaruda) tlGaruda.pause();
-          if (btnHeaderGaruda) btnHeaderGaruda.textContent = '🦅 पुढील दृश्य: गरुड उड्डाण →';
-        }
-
-        if (mode === 'garuda') {
-          // Hide other layers
-          ratnaEmergenceStage.classList.add('hidden');
-          ratnaNavGroup.style.display = 'none';
-          all14RatnasSvgGroup.style.display = 'none';
-          all14RatnasSvgGroup.style.opacity = '0';
-          harmonicRigGroup.style.display = 'none';
-          unifiedMasterGroup.style.display = 'none';
-          clearTimeout(ratnaCycleTimer);
-          if (ratnaTween) ratnaTween.kill();
-          if (ratnaProgressTween) ratnaProgressTween.kill();
-          tlRig.pause();
-          tlUnified.pause();
-
-          // Show Garuda Flight scene
-          studioGarudaGroup.style.display = 'block';
-          gsap.to(studioGarudaGroup, { opacity: 1, duration: 0.5 });
-          if (garudaNavGroup) garudaNavGroup.style.display = 'flex';
-          timeTotal.textContent = '16.0s';
-          activeTimeline = tlGaruda;
-          if (isPlaying) tlGaruda.play();
-          if (btnHeaderGaruda) btnHeaderGaruda.textContent = '🌊 समुद्रमंथन देखाव्याकडे परत ←';
-
-          captionBadge.textContent = '🦅 गरुड अमृत उड्डाण • प्रस्थान: क्षीरसागर';
-          subtitleEn.textContent = 'Flight of Garuda • Lord Garuda takes flight with the golden Amrita Kumbh from the churning Kshira Sagara!';
-          subtitleMr.textContent = 'गरुड अमृत उड्डाण • क्षीरसागराच्या महामंथनातून दिव्य अमृत कुंभ घेऊन भगवान गरुड आकाशात झेपावले!';
-
-        } else if (mode === 'svg14') {
+        if (mode === 'svg14') {
           // Show All 14 Ratnas in SVG directly on top of manthan_bg_corrected
           ratnaEmergenceStage.classList.add('hidden');
           ratnaNavGroup.style.display = 'none';
@@ -1986,66 +1530,6 @@
       btnTabMaster.addEventListener('click', () => setMode('master'));
       btnTabRatnas.addEventListener('click', () => setMode('ratnas'));
       btnTabSvgAll.addEventListener('click', () => setMode('svg14'));
-      if (btnTabGaruda) btnTabGaruda.addEventListener('click', () => setMode('garuda'));
-      if (btnHeaderGaruda) btnHeaderGaruda.addEventListener('click', () => {
-        setMode(currentMode === 'garuda' ? 'master' : 'garuda');
-      });
-
-      // City Jump Buttons in Garuda Mode
-      if (btnGarudaCity1) btnGarudaCity1.addEventListener('click', () => {
-        setMode('garuda');
-        tlGaruda.seek(2.5);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-      if (btnGarudaCity2) btnGarudaCity2.addEventListener('click', () => {
-        setMode('garuda');
-        tlGaruda.seek(6.2);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-      if (btnGarudaCity3) btnGarudaCity3.addEventListener('click', () => {
-        setMode('garuda');
-        tlGaruda.seek(10.2);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-      if (btnGarudaCity4) btnGarudaCity4.addEventListener('click', () => {
-        setMode('garuda');
-        tlGaruda.seek(13.7);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-
-      // Click on SVG City Nodes to jump to their waypoint
-      if (studioNodeNashik) studioNodeNashik.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setMode('garuda');
-        tlGaruda.seek(2.5);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-      if (studioNodeUjjain) studioNodeUjjain.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setMode('garuda');
-        tlGaruda.seek(6.2);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-      if (studioNodePrayagraj) studioNodePrayagraj.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setMode('garuda');
-        tlGaruda.seek(10.2);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
-      if (studioNodeHaridwar) studioNodeHaridwar.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setMode('garuda');
-        tlGaruda.seek(13.7);
-        if (isPlaying) tlGaruda.play();
-        updateScrubber();
-      });
 
       // Click on any SVG Ratna node
       document.querySelectorAll('.svg-ratna-node').forEach(node => {
@@ -2391,7 +1875,6 @@
         const s = speeds[speedIdx];
         tlRig.timeScale(s);
         tlUnified.timeScale(s);
-        if (tlGaruda) tlGaruda.timeScale(s);
         speedText.textContent = `${s.toFixed(1)}x`;
       });
 
@@ -2462,23 +1945,6 @@
       window.addEventListener('click', resetUiTimer);
       window.addEventListener('touchstart', resetUiTimer);
       resetUiTimer();
-
-      // 11. Initial Mode from URL Query Parameter (?mode=garuda | svg14 | ratnas | rig)
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const initialMode = urlParams.get('mode');
-        if (initialMode === 'garuda') {
-          setMode('garuda');
-        } else if (initialMode === 'svg14') {
-          setMode('svg14');
-        } else if (initialMode === 'ratnas') {
-          setMode('ratnas');
-        } else if (initialMode === 'rig') {
-          setMode('rig');
-        }
-      } catch (err) {
-        console.warn('URL param parse error:', err);
-      }
 
     })();
   </script>
