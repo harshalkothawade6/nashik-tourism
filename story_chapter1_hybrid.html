@@ -511,12 +511,23 @@
       pointer-events: auto;
       cursor: pointer;
       transform-origin: center;
-      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease;
+      transition: filter 0.25s ease;
     }
 
     .s2-overview-node:hover {
-      transform: scale(1.18);
-      filter: drop-shadow(0 0 20px #FFC233);
+      filter: drop-shadow(0 0 24px rgba(255, 194, 51, 0.95));
+    }
+    .s2-overview-node:hover > circle:not(.s2-halo-pulse) {
+      stroke: #FFFFFF;
+      stroke-width: 3.5px;
+    }
+    .s2-overview-node:hover g rect {
+      fill: rgba(255, 194, 51, 0.98);
+      stroke: #FFFFFF;
+    }
+    .s2-overview-node:hover g text {
+      fill: #060C1C;
+      font-weight: 800;
     }
 
     @keyframes s2SpinCw {
@@ -956,19 +967,37 @@
     .s3-city-node {
       pointer-events: auto;
       cursor: pointer;
-      transform-origin: center;
-      transform-box: fill-box;
-      transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: filter 0.25s ease;
     }
 
     .s3-city-node:hover {
-      filter: drop-shadow(0 0 25px #FFD700);
-      transform: scale(1.12);
+      filter: drop-shadow(0 0 28px #FFD700);
+    }
+    .s3-city-node:hover > circle:not(.s3-ripple):not(.s3-halo) {
+      stroke: #FFFFFF;
+      stroke-width: 4px;
+    }
+    .s3-city-node:hover .s3-city-badge rect {
+      fill: rgba(255, 194, 51, 0.98);
+      stroke: #FFFFFF;
+      stroke-width: 2px;
+    }
+    .s3-city-node:hover .s3-city-badge text {
+      fill: #060C1C;
+      font-weight: 800;
     }
 
     .s3-city-node.active {
       filter: drop-shadow(0 0 35px #FFC233);
-      transform: scale(1.15);
+    }
+    .s3-city-node.active .s3-city-badge rect {
+      fill: rgba(255, 194, 51, 0.96);
+      stroke: #FFFFFF;
+      stroke-width: 2px;
+    }
+    .s3-city-node.active .s3-city-badge text {
+      fill: #060C1C;
+      font-weight: 800;
     }
 
     @keyframes s3RippleWave {
@@ -1915,6 +1944,9 @@
           <button class="btn-dock-s3" id="btnS3ShowAllDrops" style="background: rgba(255, 194, 51, 0.25); border-color: var(--gold-primary);" title="Show All 4 Drops & Golden Beacons">
             🌐 चारही अमृत तीर्थे
           </button>
+          <a href="samudra_manthan_scene.html?mode=garuda" class="btn-dock-s3" style="background: linear-gradient(135deg, rgba(255, 107, 43, 0.45), rgba(212, 143, 10, 0.35)); border-color: var(--gold-primary); color: #FFF; box-shadow: 0 0 12px rgba(255, 107, 43, 0.4);" title="Open Studio Scene: Eagle Travelling & Dropping Amrita">
+            🦅 स्टुडिओ गरुड उड्डाण देखावा →
+          </a>
           <a href="index.html" class="btn-dock-s3" title="Return to Portal">
             🏛️ मुख्य पोर्टल
           </a>
@@ -2442,8 +2474,9 @@
             const found = ratnaItemLookup[id];
             if (!found) return;
 
-            // Highlight clicked node with a pulse
-            gsap.fromTo(node, { scale: 1.35 }, { scale: 1, duration: 0.45, ease: "elastic.out(1, 0.4)" });
+            // Highlight clicked node with a pulse on its circle
+            const halo = node.querySelector('.s2-halo-pulse') || node.querySelector('circle');
+            if (halo) gsap.fromTo(halo, { strokeWidth: 8, stroke: '#FFF' }, { strokeWidth: 2.5, stroke: '#FFC233', duration: 0.6, ease: 'power2.out' });
 
             // Populate Card A with clicked ratna
             cardANumber.innerHTML = `<span>${found.item.icon}</span><span>${found.item.number}</span>`;
@@ -2804,7 +2837,8 @@
             const isTarget = node.getAttribute('data-city') === cityKey;
             node.classList.toggle('active', isTarget);
             if (isTarget) {
-              gsap.fromTo(node, { scale: 1.4 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+              const circle = node.querySelector('circle:not(.s3-ripple):not(.s3-halo)');
+              if (circle) gsap.fromTo(circle, { stroke: '#FFF', strokeWidth: 5 }, { stroke: '#FFC233', strokeWidth: 3, duration: 0.5, ease: 'power2.out' });
             }
           });
         }
@@ -2845,7 +2879,8 @@
         if (s3CityNodes) {
           s3CityNodes.forEach(node => {
             node.classList.add('active');
-            gsap.fromTo(node, { scale: 1.25 }, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.5)" });
+            const circle = node.querySelector('circle:not(.s3-ripple):not(.s3-halo)');
+            if (circle) gsap.fromTo(circle, { stroke: '#FFF', strokeWidth: 5 }, { stroke: '#FFC233', strokeWidth: 3, duration: 0.6, ease: 'power2.out' });
           });
         }
 
