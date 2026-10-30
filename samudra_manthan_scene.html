@@ -669,6 +669,127 @@
       0% { transform: scale(0.94); opacity: 0.65; }
       100% { transform: scale(1.08); opacity: 0.95; }
     }
+
+    /* ======================================================== */
+    /* SCENE 2: CELESTIAL FLIGHT OF GARUDA (1992 ANIME CINEMA)  */
+    /* ======================================================== */
+    .garuda-cinema-stage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 20;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+    .garuda-cinema-stage.hidden {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .garuda-video-el {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .garuda-overlay-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 22;
+    }
+
+    /* Expanding Golden Aura Dome */
+    .garuda-dome {
+      transform-origin: center bottom;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .garuda-dome.active {
+      opacity: 0.95;
+      animation: garudaDomePulse 3s ease-in-out infinite alternate;
+    }
+    @keyframes garudaDomePulse {
+      0% { transform: scale(0.97); opacity: 0.85; filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.6)); }
+      100% { transform: scale(1.03); opacity: 1; filter: drop-shadow(0 0 32px rgba(255, 215, 0, 0.95)); }
+    }
+
+    /* Vertical Celestial Pillar of Light */
+    .garuda-light-beam {
+      opacity: 0;
+      transform-origin: center bottom;
+      transition: opacity 0.6s ease;
+    }
+    .garuda-light-beam.active {
+      opacity: 0.9;
+      animation: garudaBeamGlow 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes garudaBeamGlow {
+      0% { opacity: 0.75; transform: scaleX(0.92); }
+      100% { opacity: 1; transform: scaleX(1.08); filter: drop-shadow(0 0 24px rgba(255, 215, 0, 0.8)); }
+    }
+
+    /* Interactive City Waypoint Marker */
+    .garuda-waypoint {
+      pointer-events: auto;
+      cursor: pointer;
+      transition: filter 0.25s ease;
+    }
+    .garuda-waypoint:hover {
+      filter: drop-shadow(0 0 28px #FFD700);
+    }
+    .garuda-waypoint:hover .garuda-waypoint-badge rect {
+      fill: rgba(255, 194, 51, 0.98);
+      stroke: #FFFFFF;
+    }
+    .garuda-waypoint:hover .garuda-waypoint-badge text {
+      fill: #060C1C;
+      font-weight: 800;
+    }
+    .garuda-waypoint.active {
+      filter: drop-shadow(0 0 35px #FFC233);
+    }
+    .garuda-waypoint.active .garuda-waypoint-badge rect {
+      fill: rgba(255, 194, 51, 0.96);
+      stroke: #FFFFFF;
+      stroke-width: 2px;
+    }
+    .garuda-waypoint.active .garuda-waypoint-badge text {
+      fill: #060C1C;
+      font-weight: 800;
+    }
+
+    /* Floating Sacred Lore Card */
+    .garuda-lore-card {
+      position: absolute;
+      bottom: 84px;
+      left: 36px;
+      width: 440px;
+      max-width: calc(100vw - 72px);
+      background: rgba(6, 12, 28, 0.92);
+      border: 1.5px solid rgba(255, 194, 51, 0.6);
+      border-radius: 18px;
+      padding: 18px 22px;
+      z-index: 30;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+    }
+    .garuda-lore-card.hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -985,6 +1106,129 @@
       <!-- 1992 35mm Cel Film Scanlines & Vignette -->
       <div class="cinema-vignette"></div>
       <div class="scanline-overlay"></div>
+
+      <!-- ================= SCENE 2: FLIGHT OF GARUDA (1992 ANIME CEL CINEMA) ================= -->
+      <div class="garuda-cinema-stage hidden" id="garudaCinemaStage">
+        <!-- Authentic 1992 Japanese Anime Cel Video Clip -->
+        <video id="garudaVideo" class="garuda-video-el" src="assets/videos/garuda_flight_10s_20s.mp4" playsinline preload="auto"></video>
+
+        <!-- Interactive SVG Overlay with 4 Holy Cities, Expanding Domes & Light Pillars -->
+        <svg class="garuda-overlay-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="garudaDomeGrad" cx="50%" cy="100%" r="100%">
+              <stop offset="0%" stop-color="#FFFDF0" stop-opacity="0.95"/>
+              <stop offset="35%" stop-color="#FFD700" stop-opacity="0.75"/>
+              <stop offset="70%" stop-color="#FFA500" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#FF6B2B" stop-opacity="0"/>
+            </radialGradient>
+            
+            <linearGradient id="beamGradGold" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#FFD700" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#FFC233" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#FFFDF0" stop-opacity="0"/>
+            </linearGradient>
+
+            <linearGradient id="beamGradPink" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#E0AAFF" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#C77DFF" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+            </linearGradient>
+
+            <linearGradient id="beamGradCyan" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#90E0EF" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#00B4D8" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- 4 Expanding Domes (Active during Landscape Drop sequence ~3.2s - 7.5s) -->
+          <g id="garudaDomesGroup">
+            <!-- Nashik (Ramkund) Expanding Golden Dome -->
+            <g id="domeNashik" class="garuda-dome" transform="translate(960, 750)">
+              <ellipse cx="0" cy="0" rx="200" ry="120" fill="url(#garudaDomeGrad)"/>
+              <path d="M -190 0 A 190 115 0 0 1 190 0" fill="none" stroke="#FFF" stroke-width="3" opacity="0.9"/>
+            </g>
+            <!-- Ujjain (Ramghat) Dome -->
+            <g id="domeUjjain" class="garuda-dome" transform="translate(440, 370)">
+              <ellipse cx="0" cy="0" rx="90" ry="55" fill="url(#garudaDomeGrad)"/>
+              <path d="M -85 0 A 85 50 0 0 1 85 0" fill="none" stroke="#FFF" stroke-width="2" opacity="0.85"/>
+            </g>
+            <!-- Prayagraj (Sangam) Dome -->
+            <g id="domePrayagraj" class="garuda-dome" transform="translate(1070, 240)">
+              <ellipse cx="0" cy="0" rx="75" ry="45" fill="url(#garudaDomeGrad)"/>
+              <path d="M -70 0 A 70 42 0 0 1 70 0" fill="none" stroke="#FFF" stroke-width="2" opacity="0.85"/>
+            </g>
+            <!-- Haridwar (Ganga) Dome -->
+            <g id="domeHaridwar" class="garuda-dome" transform="translate(720, 275)">
+              <ellipse cx="0" cy="0" rx="70" ry="42" fill="url(#garudaDomeGrad)"/>
+              <path d="M -65 0 A 65 38 0 0 1 65 0" fill="none" stroke="#FFF" stroke-width="2" opacity="0.85"/>
+            </g>
+          </g>
+
+          <!-- 4 Vertical Celestial Pillars of Light (Active during Sunset sequence ~7.5s - 10.0s) -->
+          <g id="garudaBeamsGroup">
+            <!-- Center Foreground: Nashik Solar Beam -->
+            <polygon id="beamNashik" class="garuda-light-beam" points="930,900 970,900 955,300 945,300" fill="url(#beamGradGold)"/>
+            <!-- Left: Ujjain Celestial Violet Beam -->
+            <polygon id="beamUjjain" class="garuda-light-beam" points="460,860 495,860 482,340 472,340" fill="url(#beamGradPink)"/>
+            <!-- Mid-Left: Prayagraj Cyan / Sangam Beam -->
+            <polygon id="beamPrayagraj" class="garuda-light-beam" points="605,650 635,650 624,350 616,350" fill="url(#beamGradCyan)"/>
+            <!-- Right: Haridwar Amber / Himalayan Beam -->
+            <polygon id="beamHaridwar" class="garuda-light-beam" points="1235,740 1265,740 1254,360 1246,360" fill="url(#beamGradGold)"/>
+          </g>
+
+          <!-- Interactive Waypoint Badges -->
+          <g id="garudaWaypointsGroup">
+            <!-- Waypoint 1: Nashik (Ramkund) -->
+            <g id="waypointNashik" class="garuda-waypoint active" data-city="nashik" transform="translate(960, 720)">
+              <circle r="22" fill="rgba(6,12,28,0.92)" stroke="#FFD700" stroke-width="2.5"/>
+              <text text-anchor="middle" y="7" font-size="18">🚩</text>
+              <g class="garuda-waypoint-badge" transform="translate(0, 36)">
+                <rect x="-105" y="-14" width="210" height="28" rx="14" fill="rgba(6,12,28,0.94)" stroke="#FFD700" stroke-width="1.8"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-family="'Yatra One', cursive" font-size="12" font-weight="700">१. नाशिक • रामकुंड (गोदावरी)</text>
+              </g>
+            </g>
+            <!-- Waypoint 2: Ujjain -->
+            <g id="waypointUjjain" class="garuda-waypoint" data-city="ujjain" transform="translate(440, 340)">
+              <circle r="18" fill="rgba(6,12,28,0.92)" stroke="#FFC233" stroke-width="2"/>
+              <text text-anchor="middle" y="6" font-size="15">🔱</text>
+              <g class="garuda-waypoint-badge" transform="translate(0, 30)">
+                <rect x="-95" y="-13" width="190" height="26" rx="13" fill="rgba(6,12,28,0.94)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-family="'Yatra One', cursive" font-size="11.5" font-weight="700">२. उज्जैन • रामघाट (क्षिप्रा)</text>
+              </g>
+            </g>
+            <!-- Waypoint 3: Prayagraj -->
+            <g id="waypointPrayagraj" class="garuda-waypoint" data-city="prayagraj" transform="translate(1070, 215)">
+              <circle r="18" fill="rgba(6,12,28,0.92)" stroke="#FFC233" stroke-width="2"/>
+              <text text-anchor="middle" y="6" font-size="15">🕉️</text>
+              <g class="garuda-waypoint-badge" transform="translate(0, 30)">
+                <rect x="-95" y="-13" width="190" height="26" rx="13" fill="rgba(6,12,28,0.94)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-family="'Yatra One', cursive" font-size="11.5" font-weight="700">३. प्रयागराज • त्रिवेणी संगम</text>
+              </g>
+            </g>
+            <!-- Waypoint 4: Haridwar -->
+            <g id="waypointHaridwar" class="garuda-waypoint" data-city="haridwar" transform="translate(720, 250)">
+              <circle r="18" fill="rgba(6,12,28,0.92)" stroke="#FFC233" stroke-width="2"/>
+              <text text-anchor="middle" y="6" font-size="15">🏔️</text>
+              <g class="garuda-waypoint-badge" transform="translate(0, 30)">
+                <rect x="-95" y="-13" width="190" height="26" rx="13" fill="rgba(6,12,28,0.94)" stroke="#FFC233" stroke-width="1.5"/>
+                <text text-anchor="middle" y="4" fill="#FFF" font-family="'Yatra One', cursive" font-size="11.5" font-weight="700">४. हरिद्वार • हर की पौडी (गंगा)</text>
+              </g>
+            </g>
+          </g>
+        </svg>
+
+        <!-- Floating Lore Card for Active Holy Tirtha -->
+        <div class="garuda-lore-card" id="garudaLoreCard">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:11px; font-weight:700; color:#FFD27D; letter-spacing:1px;" id="garudaCardTirthaNum">तीर्थ १ • SACRED TIRTHA 1</span>
+            <span style="font-size:11px; background:rgba(255,194,51,0.2); border:1px solid rgba(255,194,51,0.4); padding:2px 8px; border-radius:10px; color:#FFF;" id="garudaCardRiver">गोदावरी (दक्षिण गंगा)</span>
+          </div>
+          <h3 style="font-family:'Yatra One', cursive; font-size:18px; color:#FFF; margin-bottom:2px;" id="garudaCardTitle">नाशिक • रामकुंड (पंचवटी)</h3>
+          <p style="font-size:13px; color:#CBD5E1; line-height:1.45; margin-bottom:6px;" id="garudaCardDesc">अमृताचा पहिला दिव्य थेंब नाशिकच्या पावन गोदावरी तीरावरील रामकुंडात पडला. येथे दर १२ वर्षांनी सिंहस्थ कुंभमेळा भरतो.</p>
+          <div style="font-size:12px; color:#FFC233; font-weight:600;" id="garudaCardKumbh">सिंहस्थ कुंभपर्व • गुरु सिंह राशीत प्रवेश करतो तेव्हा महास्नान.</div>
+        </div>
+      </div>
     </div>
 
     <!-- AUTO-FADING UI (Header, Subtitle Card, and Glassmorphic Dock) -->
@@ -998,6 +1242,9 @@
         </div>
 
         <div class="header-actions">
+          <button class="btn-header" id="btnHeaderGarudaToggle" style="background: linear-gradient(135deg, rgba(255, 107, 43, 0.45), rgba(212, 143, 10, 0.35)); border-color: #FFC233; color: #FFF; box-shadow: 0 0 14px rgba(255, 107, 43, 0.5);" title="Switch to Scene 2: Celestial Flight of Garuda & Amrita Drops">
+            🦅 पुढील दृश्य: गरुड उड्डाण →
+          </button>
           <button class="btn-header" id="btnHeaderRatnasToggle" style="background: linear-gradient(135deg, rgba(255, 194, 51, 0.35), rgba(255, 107, 43, 0.35)); border-color: #FFC233; color: #FFF; box-shadow: 0 0 12px rgba(255, 194, 51, 0.4);" title="Start 14 Ratnas 3s Pop-Out Showcase">
             ✨ १४ रत्ने प्रकटीकरण (३s)
           </button>
@@ -1037,7 +1284,7 @@
         </div>
 
         <!-- Mode Toggle Segmented Switch -->
-        <div class="mode-switch-container" title="Choose Motion Mode: Compare Multiplane Rig vs. Unified Master Cel vs. 14 Ratnas">
+        <div class="mode-switch-container" title="Choose Motion Mode: Compare Multiplane Rig vs. Unified Master Cel vs. 14 Ratnas vs. Garuda Flight">
           <button class="btn-mode-tab" id="btnTabRig" title="Harmonic Multiplane Rig: Smooth zero-tear multiplane kinematics">
             🎭 बहुस्तरीय मंथन
           </button>
@@ -1049,6 +1296,28 @@
           </button>
           <button class="btn-mode-tab" id="btnTabSvgAll" title="All 14 Ratnas in SVG: View all 14 treasures simultaneously in SVG directly on the master churning scene">
             🌐 सर्व १४ रत्ने (SVG)
+          </button>
+          <button class="btn-mode-tab" id="btnTabGaruda" title="Scene 2: Authentic 1992 Cel Animation of Garuda's Flight & 4 Holy Drops">
+            🦅 गरुड अमृत उड्डाण
+          </button>
+        </div>
+
+        <!-- Garuda Drop Cities Navigation Group (Shown in Garuda Flight Mode) -->
+        <div class="deck-group" id="garudaNavGroup" style="display: none;">
+          <button class="btn-dock active" id="btnGarudaCity1" title="१. नाशिक • रामकुंड (गोदावरी)">
+            १. नाशिक 🚩
+          </button>
+          <button class="btn-dock" id="btnGarudaCity2" title="२. उज्जैन • रामघाट (क्षिप्रा)">
+            २. उज्जैन 🔱
+          </button>
+          <button class="btn-dock" id="btnGarudaCity3" title="३. प्रयागराज • संगम (गंगा-यमुना)">
+            ३. प्रयागराज 🕉️
+          </button>
+          <button class="btn-dock" id="btnGarudaCity4" title="४. हरिद्वार • हर की पौडी (गंगा)">
+            ४. हरिद्वार 🏔️
+          </button>
+          <button class="btn-dock" id="btnGarudaAllCities" title="✨ चारही पवित्र तीर्थे (All 4 Domes & Light Pillars)">
+            ✨ सर्व तीर्थे 🌐
           </button>
         </div>
 
@@ -1091,8 +1360,8 @@
   <script>
     (function() {
       'use strict';
-
-      // 1. Element References
+      try {
+        window.__MANTHAN_INIT_STARTED = true;
       const uiLayer = document.getElementById('uiLayer');
       const cameraShakeRig = document.getElementById('cameraShakeRig');
       const viewportRig = document.getElementById('viewportRig');
@@ -1121,6 +1390,110 @@
       const captionBadge = document.getElementById('captionBadge');
       const subtitleEn = document.getElementById('subtitleEn');
       const subtitleMr = document.getElementById('subtitleMr');
+
+      // Scene 2: Garuda Cinema & Sacred Tirthas Elements
+      const garudaCinemaStage = document.getElementById('garudaCinemaStage');
+      const garudaVideo = document.getElementById('garudaVideo');
+      const btnHeaderGarudaToggle = document.getElementById('btnHeaderGarudaToggle');
+      const btnTabGaruda = document.getElementById('btnTabGaruda');
+      const garudaNavGroup = document.getElementById('garudaNavGroup');
+      const btnGarudaCity1 = document.getElementById('btnGarudaCity1');
+      const btnGarudaCity2 = document.getElementById('btnGarudaCity2');
+      const btnGarudaCity3 = document.getElementById('btnGarudaCity3');
+      const btnGarudaCity4 = document.getElementById('btnGarudaCity4');
+      const btnGarudaAllCities = document.getElementById('btnGarudaAllCities');
+
+      const domeNashik = document.getElementById('domeNashik');
+      const domeUjjain = document.getElementById('domeUjjain');
+      const domePrayagraj = document.getElementById('domePrayagraj');
+      const domeHaridwar = document.getElementById('domeHaridwar');
+      const allDomes = [domeNashik, domeUjjain, domePrayagraj, domeHaridwar];
+
+      const beamNashik = document.getElementById('beamNashik');
+      const beamUjjain = document.getElementById('beamUjjain');
+      const beamPrayagraj = document.getElementById('beamPrayagraj');
+      const beamHaridwar = document.getElementById('beamHaridwar');
+      const allBeams = [beamNashik, beamUjjain, beamPrayagraj, beamHaridwar];
+
+      const waypointNashik = document.getElementById('waypointNashik');
+      const waypointUjjain = document.getElementById('waypointUjjain');
+      const waypointPrayagraj = document.getElementById('waypointPrayagraj');
+      const waypointHaridwar = document.getElementById('waypointHaridwar');
+      const allWaypoints = [waypointNashik, waypointUjjain, waypointPrayagraj, waypointHaridwar];
+
+      const garudaLoreCard = document.getElementById('garudaLoreCard');
+      const garudaCardTirthaNum = document.getElementById('garudaCardTirthaNum');
+      const garudaCardRiver = document.getElementById('garudaCardRiver');
+      const garudaCardTitle = document.getElementById('garudaCardTitle');
+      const garudaCardDesc = document.getElementById('garudaCardDesc');
+      const garudaCardKumbh = document.getElementById('garudaCardKumbh');
+
+      const garudaCitiesData = {
+        nashik: {
+          num: "तीर्थ १ • SACRED TIRTHA 1",
+          river: "गोदावरी (दक्षिण गंगा)",
+          title: "नाशिक • रामकुंड (पंचवटी)",
+          desc: "अमृताचा पहिला दिव्य थेंब नाशिकच्या पावन गोदावरी तीरावरील रामकुंडात पडला. यामुळे गोदावरी अमृतवाहिनी बनली आणि येथे दर १२ वर्षांनी सिंहस्थ कुंभपर्व साजरे होते.",
+          kumbh: "सिंहस्थ कुंभपर्व • गुरु सिंह राशीत प्रवेश करतो तेव्हा महास्नान."
+        },
+        ujjain: {
+          num: "तीर्थ २ • SACRED TIRTHA 2",
+          river: "क्षिप्रा नदी (मोक्षदायिनी)",
+          title: "उज्जैन • रामघाट (महाकाल)",
+          desc: "अमृताचा दुसरा थेंब अवंतिका नगरीत क्षिप्रा नदीच्या रामघाटावर पडला. महाकालाच्या सान्निध्यात साधू-संत आणि कोट्यवधी भाविक स्नान करून मोक्ष प्राप्त करतात.",
+          kumbh: "उज्जैन सिंहस्थ • गुरु सिंह राशीत व सूर्य मेष राशीत असताना पावन पर्व."
+        },
+        prayagraj: {
+          num: "तीर्थ ३ • SACRED TIRTHA 3",
+          river: "त्रिवेणी संगम (गंगा-यमुना-सरस्वती)",
+          title: "प्रयागराज • त्रिवेणी संगम",
+          desc: "गंगा, यमुना आणि अदृश्य सरस्वतीच्या पवित्र संगमावर अमृताचा तिसरा थेंब सांडला. हे स्थान सर्व तीर्थांचा राजा 'तीर्थराज' मानले जाते.",
+          kumbh: "महाकुंभमेळा • जगातील सर्वात मोठा आध्यात्मिक मेळावा याच संगमावर भरतो."
+        },
+        haridwar: {
+          num: "तीर्थ ४ • SACRED TIRTHA 4",
+          river: "गंगा नदी (Himalayan Descent)",
+          title: "हरिद्वार • हर की पौडी (ब्रह्मकुंड)",
+          desc: "हिमालयाच्या कुशीतून मैदानी भागात प्रवेश करणाऱ्या गंगेच्या पात्रात 'हर की पौडी' ब्रह्मकुंडावर चौथा अमृत थेंब पडला.",
+          kumbh: "हरिद्वार कुंभमेळा • गुरु कुंभ राशीत आणि सूर्य मेष राशीत असताना महास्नान."
+        }
+      };
+
+      let isShowingAllTirthas = false;
+
+      function showGarudaCityLore(cityKey) {
+        isShowingAllTirthas = false;
+        const d = garudaCitiesData[cityKey];
+        if (!d) return;
+        garudaCardTirthaNum.textContent = d.num;
+        garudaCardRiver.textContent = d.river;
+        garudaCardTitle.textContent = d.title;
+        garudaCardDesc.textContent = d.desc;
+        garudaCardKumbh.textContent = d.kumbh;
+        garudaLoreCard.classList.remove('hidden');
+
+        allWaypoints.forEach(wp => {
+          wp.classList.toggle('active', wp.getAttribute('data-city') === cityKey);
+        });
+
+        if (btnGarudaCity1) btnGarudaCity1.classList.toggle('active', cityKey === 'nashik');
+        if (btnGarudaCity2) btnGarudaCity2.classList.toggle('active', cityKey === 'ujjain');
+        if (btnGarudaCity3) btnGarudaCity3.classList.toggle('active', cityKey === 'prayagraj');
+        if (btnGarudaCity4) btnGarudaCity4.classList.toggle('active', cityKey === 'haridwar');
+      }
+
+      function showAllGarudaCitiesLore() {
+        isShowingAllTirthas = true;
+        garudaCardTirthaNum.textContent = "चारही महाकुंभ तीर्थे • ALL 4 TIRTHAS";
+        garudaCardRiver.textContent = "गोदावरी • क्षिप्रा • संगम • गंगा";
+        garudaCardTitle.textContent = "सनातन कुंभ परंपरा • चारही तीर्थे अमर झाली";
+        garudaCardDesc.textContent = "भगवान गरुडाने आणलेल्या अमृताच्या चार थेंबांनी भारतभूमीवरील चारही नद्यांना अमरत्वाचे पावित्र्य दिले. नाशिक, उज्जैन, प्रयागराज व हरिद्वार येथे अनादिकालापासून कुंभमेळा अविरत सुरू आहे.";
+        garudaCardKumbh.textContent = "नाशिक (सिंहस्थ) • उज्जैन (सिंहस्थ) • प्रयागराज (महाकुंभ) • हरिद्वार (महाकुंभ)";
+        garudaLoreCard.classList.remove('hidden');
+        allWaypoints.forEach(wp => wp.classList.add('active'));
+        allDomes.forEach(dm => { if (dm) dm.classList.add('active'); });
+        allBeams.forEach(bm => { if (bm) bm.classList.add('active'); });
+      }
 
       // Controls Elements
       const btnPlayPause = document.getElementById('btnPlayPause');
@@ -1404,14 +1777,61 @@
       function setMode(mode) {
         if (mode === currentMode) return;
         currentMode = mode;
+        window.currentMode = mode;
 
         // Reset Tab Classes
         btnTabRig.classList.toggle('active', mode === 'rig');
         btnTabMaster.classList.toggle('active', mode === 'master');
         btnTabRatnas.classList.toggle('active', mode === 'ratnas');
         btnTabSvgAll.classList.toggle('active', mode === 'svg14');
+        if (btnTabGaruda) btnTabGaruda.classList.toggle('active', mode === 'garuda');
 
-        if (mode === 'svg14') {
+        if (mode === 'garuda') {
+          // SCENE 2: AUTHENTIC 1992 JAPANESE CEL GARUDA CINEMA & 4 HOLY DROPS
+          gsap.to(all14RatnasSvgGroup, { opacity: 0, duration: 0.2, onComplete: () => { all14RatnasSvgGroup.style.display = 'none'; } });
+          ratnaEmergenceStage.classList.add('hidden');
+          ratnaNavGroup.style.display = 'none';
+          clearTimeout(ratnaCycleTimer);
+          if (ratnaTween) ratnaTween.kill();
+          if (ratnaProgressTween) ratnaProgressTween.kill();
+
+          // Pause manthan timelines
+          tlRig.pause();
+          tlUnified.pause();
+          harmonicRigGroup.style.display = 'none';
+          unifiedMasterGroup.style.display = 'none';
+
+          // Show Garuda Cinema Stage & Navigation
+          isShowingAllTirthas = false;
+          garudaCinemaStage.classList.remove('hidden');
+          garudaCinemaStage.style.display = 'block';
+          if (garudaNavGroup) garudaNavGroup.style.display = 'flex';
+
+          activeTimeline = null;
+          timeTotal.textContent = '10.0s';
+          if (btnHeaderGarudaToggle) btnHeaderGarudaToggle.textContent = '🌊 समुद्रमंथन देखाव्याकडे परत ←';
+
+          // Start Video Playback
+          if (garudaVideo) {
+            garudaVideo.currentTime = 0;
+            if (isPlaying) {
+              garudaVideo.play().catch(e => console.log('Garuda video auto-play prevented:', e));
+            }
+          }
+
+          // Initial Subtitles for Phase 1
+          captionBadge.textContent = '🦅 १. अमृत कुंभ कलश झुकाव (Urn Tilt)';
+          subtitleEn.textContent = 'Close-up of Lord Garuda soaring with celestial radiance; the divine Amrita Kumbh tilts forward, pouring golden droplets into the heavens.';
+          subtitleMr.textContent = 'भगवान गरुड अमृत कुंभासह आकाशात झेपावतात; दिव्य अमृत कलश पुढे झुकतो आणि सोनेरी अमृतबिंदू आकाशातून खाली ओघळतात.';
+
+        } else if (mode === 'svg14') {
+          // Hide Garuda stage
+          garudaCinemaStage.classList.add('hidden');
+          garudaCinemaStage.style.display = 'none';
+          if (garudaNavGroup) garudaNavGroup.style.display = 'none';
+          if (garudaVideo) garudaVideo.pause();
+          if (btnHeaderGarudaToggle) btnHeaderGarudaToggle.textContent = '🦅 पुढील दृश्य: गरुड उड्डाण →';
+
           // Show All 14 Ratnas in SVG directly on top of manthan_bg_corrected
           ratnaEmergenceStage.classList.add('hidden');
           ratnaNavGroup.style.display = 'none';
@@ -1438,6 +1858,13 @@
           subtitleMr.textContent = 'सर्व १४ रत्ने SVG देखावा • अस्सल समुद्रमंथन चित्रावर (manthan_bg_corrected) सर्व १४ रत्ने कोणत्याही फरकाशिवाय थेट SVG मध्ये प्रकटीत!';
 
         } else if (mode === 'ratnas') {
+          // Hide Garuda stage
+          garudaCinemaStage.classList.add('hidden');
+          garudaCinemaStage.style.display = 'none';
+          if (garudaNavGroup) garudaNavGroup.style.display = 'none';
+          if (garudaVideo) garudaVideo.pause();
+          if (btnHeaderGarudaToggle) btnHeaderGarudaToggle.textContent = '🦅 पुढील दृश्य: गरुड उड्डाण →';
+
           // Hide SVG all group
           gsap.to(all14RatnasSvgGroup, { opacity: 0, duration: 0.3, onComplete: () => { all14RatnasSvgGroup.style.display = 'none'; } });
 
@@ -1465,6 +1892,13 @@
           subtitleMr.textContent = '१४ दिव्य रत्ने प्रकटीकरण • समुद्रमंथनाच्या आवर्तातून दर ३ सेकंदांनी १-१ दिव्य रत्न फेसाळ लाटांमधून बाहेर उसळते!';
 
         } else if (mode === 'rig') {
+          // Hide Garuda stage
+          garudaCinemaStage.classList.add('hidden');
+          garudaCinemaStage.style.display = 'none';
+          if (garudaNavGroup) garudaNavGroup.style.display = 'none';
+          if (garudaVideo) garudaVideo.pause();
+          if (btnHeaderGarudaToggle) btnHeaderGarudaToggle.textContent = '🦅 पुढील दृश्य: गरुड उड्डाण →';
+
           // Hide Ratnas overlay & SVG all group
           gsap.to(all14RatnasSvgGroup, { opacity: 0, duration: 0.3, onComplete: () => { all14RatnasSvgGroup.style.display = 'none'; } });
           ratnaEmergenceStage.classList.add('hidden');
@@ -1496,6 +1930,13 @@
 
         } else {
           // Master Cel Mode
+          // Hide Garuda stage
+          garudaCinemaStage.classList.add('hidden');
+          garudaCinemaStage.style.display = 'none';
+          if (garudaNavGroup) garudaNavGroup.style.display = 'none';
+          if (garudaVideo) garudaVideo.pause();
+          if (btnHeaderGarudaToggle) btnHeaderGarudaToggle.textContent = '🦅 पुढील दृश्य: गरुड उड्डाण →';
+
           gsap.to(all14RatnasSvgGroup, { opacity: 0, duration: 0.3, onComplete: () => { all14RatnasSvgGroup.style.display = 'none'; } });
           ratnaEmergenceStage.classList.add('hidden');
           ratnaNavGroup.style.display = 'none';
@@ -1526,10 +1967,87 @@
         }
       }
 
+      window.setMode = setMode;
+
       btnTabRig.addEventListener('click', () => setMode('rig'));
       btnTabMaster.addEventListener('click', () => setMode('master'));
       btnTabRatnas.addEventListener('click', () => setMode('ratnas'));
       btnTabSvgAll.addEventListener('click', () => setMode('svg14'));
+      if (btnTabGaruda) btnTabGaruda.addEventListener('click', () => setMode('garuda'));
+      if (btnHeaderGarudaToggle) {
+        btnHeaderGarudaToggle.addEventListener('click', () => {
+          setMode(currentMode === 'garuda' ? 'master' : 'garuda');
+        });
+      }
+
+      // City jump buttons in bottom dock
+      if (btnGarudaCity1) btnGarudaCity1.addEventListener('click', () => { showGarudaCityLore('nashik'); if (garudaVideo) garudaVideo.currentTime = 3.5; });
+      if (btnGarudaCity2) btnGarudaCity2.addEventListener('click', () => { showGarudaCityLore('ujjain'); if (garudaVideo) garudaVideo.currentTime = 4.8; });
+      if (btnGarudaCity3) btnGarudaCity3.addEventListener('click', () => { showGarudaCityLore('prayagraj'); if (garudaVideo) garudaVideo.currentTime = 6.0; });
+      if (btnGarudaCity4) btnGarudaCity4.addEventListener('click', () => { showGarudaCityLore('haridwar'); if (garudaVideo) garudaVideo.currentTime = 7.2; });
+      if (btnGarudaAllCities) btnGarudaAllCities.addEventListener('click', () => { showAllGarudaCitiesLore(); if (garudaVideo) garudaVideo.currentTime = 8.5; });
+
+      // Click on interactive SVG City Waypoints
+      if (waypointNashik) waypointNashik.addEventListener('click', (e) => { e.stopPropagation(); showGarudaCityLore('nashik'); if (garudaVideo) garudaVideo.currentTime = 3.5; });
+      if (waypointUjjain) waypointUjjain.addEventListener('click', (e) => { e.stopPropagation(); showGarudaCityLore('ujjain'); if (garudaVideo) garudaVideo.currentTime = 4.8; });
+      if (waypointPrayagraj) waypointPrayagraj.addEventListener('click', (e) => { e.stopPropagation(); showGarudaCityLore('prayagraj'); if (garudaVideo) garudaVideo.currentTime = 6.0; });
+      if (waypointHaridwar) waypointHaridwar.addEventListener('click', (e) => { e.stopPropagation(); showGarudaCityLore('haridwar'); if (garudaVideo) garudaVideo.currentTime = 7.2; });
+
+      // Synchronize Garuda Video with Subtitles, Scrubber, Expanding Domes & Light Pillars
+      if (garudaVideo) {
+        garudaVideo.addEventListener('timeupdate', () => {
+          if (currentMode !== 'garuda') return;
+          const cur = garudaVideo.currentTime;
+          const dur = garudaVideo.duration || 10.0;
+          const p = Math.min(1, Math.max(0, cur / dur));
+          scrubberFill.style.width = `${p * 100}%`;
+          scrubberPin.style.left = `${p * 100}%`;
+          timeCurrent.textContent = `${cur.toFixed(1)}s`;
+
+          // If user specifically requested All Tirthas view, keep all domes & beams active
+          if (isShowingAllTirthas) {
+            allDomes.forEach(d => { if (d) d.classList.add('active'); });
+            allBeams.forEach(b => { if (b) b.classList.add('active'); });
+            return;
+          }
+
+          // Phase 1 (0.0s - 3.2s): Garuda close-up & Urn tilt
+          if (cur < 3.2) {
+            captionBadge.textContent = '🦅 १. अमृत कुंभ कलश झुकाव (Urn Tilt)';
+            subtitleEn.textContent = 'Close-up of Lord Garuda soaring with celestial radiance; the divine Amrita Kumbh tilts forward, pouring golden droplets into the heavens.';
+            subtitleMr.textContent = 'भगवान गरुड अमृत कुंभासह आकाशात झेपावतात; दिव्य अमृत कलश पुढे झुकतो आणि सोनेरी अमृतबिंदू आकाशातून खाली ओघळतात.';
+            allDomes.forEach(d => { if (d) d.classList.remove('active'); });
+            allBeams.forEach(b => { if (b) b.classList.remove('active'); });
+            if (garudaLoreCard) garudaLoreCard.classList.add('hidden');
+          }
+          // Phase 2 (3.2s - 7.5s): Aerial landscape, Ramkund drop impact, expanding golden aura domes
+          else if (cur < 7.5) {
+            captionBadge.textContent = '🚩 २. अमृत थेंब सिंचन व सुवर्ण तेजोवलय (Expanding Domes)';
+            subtitleEn.textContent = 'Aerial view of the sacred riverbanks: drops fall into Ramkund (Nashik), Ujjain, Prayagraj & Haridwar, igniting expanding golden domes of divine aura.';
+            subtitleMr.textContent = 'पावन नद्यांचे विहंगम दृश्य: नाशिकच्या रामकुंडात आणि इतर ३ तीर्थांवर अमृतबिंदू पडतात व विशाल सुवर्ण तेजोवलये (Energy Domes) प्रज्वलित होतात.';
+            allDomes.forEach(d => { if (d) d.classList.add('active'); });
+            allBeams.forEach(b => { if (b) b.classList.add('active'); });
+            if (garudaLoreCard && garudaLoreCard.classList.contains('hidden')) {
+              showGarudaCityLore('nashik');
+            }
+          }
+          // Phase 3 (7.5s - 10.0s): Behind wings towards sunset, celestial light pillars ascend
+          else {
+            captionBadge.textContent = '✨ ३. अथांग क्षितिज व दिव्य प्रकाशस्तंभ (Celestial Light Pillars)';
+            subtitleEn.textContent = 'Garuda glides into the sunset horizon; radiant vertical pillars of celestial light ascend straight into the clouds from all 4 immortal Kumbh Tirthas.';
+            subtitleMr.textContent = 'गरुड अथांग सोनेरी क्षितिजाकडे मार्गक्रमण करतो; चारही अमर तीर्थांमधून अवकाशाकडे झेपावणारे दिव्य प्रकाशस्तंभ संपूर्ण भारतभूमीला तेजोमय करतात.';
+            allDomes.forEach(d => { if (d) d.classList.add('active'); });
+            allBeams.forEach(b => { if (b) b.classList.add('active'); });
+          }
+        });
+
+        garudaVideo.addEventListener('ended', () => {
+          if (currentMode === 'garuda') {
+            garudaVideo.currentTime = 0;
+            garudaVideo.play().catch(e => console.log('Video loop play prevented:', e));
+          }
+        });
+      }
 
       // Click on any SVG Ratna node
       document.querySelectorAll('.svg-ratna-node').forEach(node => {
@@ -1808,11 +2326,22 @@
       // Interactive Scrubbing Click / Drag
       let isDragging = false;
       function scrub(e) {
-        if (!activeTimeline) return;
         const rect = scrubberTrack.getBoundingClientRect();
         const clientX = e.clientX || (e.touches && e.touches[0].clientX);
         const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
         const progress = x / rect.width;
+
+        if (currentMode === 'garuda') {
+          if (garudaVideo && garudaVideo.duration) {
+            garudaVideo.currentTime = progress * garudaVideo.duration;
+          }
+          scrubberFill.style.width = `${progress * 100}%`;
+          scrubberPin.style.left = `${progress * 100}%`;
+          timeCurrent.textContent = `${(progress * ((garudaVideo && garudaVideo.duration) || 10)).toFixed(1)}s`;
+          return;
+        }
+
+        if (!activeTimeline) return;
         activeTimeline.progress(progress);
         updateScrubber();
       }
@@ -1832,6 +2361,21 @@
 
       // 9. Dock Controls
       btnPlayPause.addEventListener('click', () => {
+        if (currentMode === 'garuda') {
+          if (isPlaying) {
+            if (garudaVideo) garudaVideo.pause();
+            isPlaying = false;
+            playPauseIcon.textContent = '▶';
+            playPauseText.textContent = 'सुरू करा';
+          } else {
+            if (garudaVideo) garudaVideo.play().catch(e => console.log('Garuda play error:', e));
+            isPlaying = true;
+            playPauseIcon.textContent = '⏸';
+            playPauseText.textContent = 'थांबवा';
+          }
+          return;
+        }
+
         if (isPlaying) {
           activeTimeline.pause();
           if (ratnaTween) ratnaTween.pause();
@@ -1858,6 +2402,17 @@
       });
 
       btnReplay.addEventListener('click', () => {
+        if (currentMode === 'garuda') {
+          if (garudaVideo) {
+            garudaVideo.currentTime = 0;
+            garudaVideo.play().catch(e => console.log('Garuda replay error:', e));
+          }
+          isPlaying = true;
+          playPauseIcon.textContent = '⏸';
+          playPauseText.textContent = 'थांबवा';
+          return;
+        }
+
         if (currentMode === 'ratnas') {
           showRatna(0, isPlaying);
         } else {
@@ -1931,7 +2486,25 @@
         }
       });
 
-      // 10. Auto-Fading UI (Fade after 3.5s inactivity)
+      // 10. URL Query Parameter Support (?mode=garuda or ?scene=2)
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const modeParam = urlParams.get('mode');
+        const sceneParam = urlParams.get('scene');
+        if (modeParam === 'garuda' || sceneParam === '2') {
+          setTimeout(() => setMode('garuda'), 50);
+        } else if (modeParam === 'ratnas') {
+          setTimeout(() => setMode('ratnas'), 50);
+        } else if (modeParam === 'rig') {
+          setTimeout(() => setMode('rig'), 50);
+        } else if (modeParam === 'svg14') {
+          setTimeout(() => setMode('svg14'), 50);
+        }
+      } catch (err) {
+        console.warn('URL parameter parsing:', err);
+      }
+
+      // 11. Auto-Fading UI (Fade after 3.5s inactivity)
       let uiTimer;
       function resetUiTimer() {
         uiLayer.classList.remove('is-dimmed');
@@ -1946,6 +2519,13 @@
       window.addEventListener('touchstart', resetUiTimer);
       resetUiTimer();
 
+      window.__MANTHAN_READY = true;
+      window.setMode = setMode;
+      window.currentMode = currentMode;
+    } catch (scriptInitErr) {
+      window.__MANTHAN_ERR = scriptInitErr.toString() + "\n" + (scriptInitErr.stack || "");
+      console.error("Critical error during Samudra Manthan script init:", scriptInitErr);
+    }
     })();
   </script>
 </body>

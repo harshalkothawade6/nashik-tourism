@@ -25,4 +25,5 @@ yarn-error.log*
 .system_generated/
 tests/screenshots/
 .chrome_*
+assets/videos/eagle_reference.mp4
 

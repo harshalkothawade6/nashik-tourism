@@ -521,7 +521,24 @@ async def run_tests(base_url, screenshots_dir, headless=True):
 
             await set_viewport(ws, 1920, 1080)
             await send_cmd(ws, "Page.navigate", {"url": f"{base_url}/samudra_manthan_scene.html"})
-            await asyncio.sleep(2.0)
+            
+            # Robust wait for page, DOM readiness and script execution
+            for _ in range(40):
+                url = await eval_js(ws, "window.location.href")
+                script_ready = await eval_js(ws, "Boolean(window.__MANTHAN_READY)")
+                script_err = await eval_js(ws, "window.__MANTHAN_ERR")
+                if script_err:
+                    print(f"❌ Script error in samudra_manthan_scene: {script_err}")
+                    issues_found.append(script_err)
+                    break
+                if "samudra_manthan_scene.html" in (url or "") and script_ready:
+                    break
+                await asyncio.sleep(0.3)
+            await asyncio.sleep(0.5)
+
+            init_started = await eval_js(ws, "Boolean(window.__MANTHAN_INIT_STARTED)")
+            is_ready = await eval_js(ws, "Boolean(window.__MANTHAN_READY)")
+            print(f"✓ Page Status: init_started={init_started}, ready={is_ready}")
 
             if runtime_exceptions:
                 print(f"⚠️ Initial Runtime Exceptions on samudra_manthan_scene: {runtime_exceptions}")
@@ -531,27 +548,82 @@ async def run_tests(base_url, screenshots_dir, headless=True):
                 print("✓ Clean Console: 0 JavaScript exceptions on samudra_manthan_scene")
 
             # Test Tab: SVG All 14
-            await eval_js(ws, "document.getElementById('btnTabSvgAll')?.click()")
+            await eval_js(ws, "document.getElementById('btnTabSvgAll')?.click() || (window.setMode && window.setMode('svg14'))")
             await asyncio.sleep(0.8)
             svg_all_mode = await eval_js(ws, "document.getElementById('all14RatnasSvgGroup')?.style.display")
             print(f"✓ Switched to All 14 Ratnas SVG: display={svg_all_mode}")
             await take_screenshot(ws, "test_manthan_scene_svg14_desktop.png", screenshots_dir)
 
             # Test Tab: 1-by-1 3.0s Emergence Mode
-            await eval_js(ws, "document.getElementById('btnTabRatnas')?.click()")
+            await eval_js(ws, "document.getElementById('btnTabRatnas')?.click() || (window.setMode && window.setMode('ratnas'))")
             await asyncio.sleep(1.0)
-            curr_ratna_name = await eval_js(ws, "document.getElementById('currentRatnaNameMr')?.textContent")
-            curr_ratna_img = await eval_js(ws, "document.getElementById('currentRatnaImg')?.src")
+            curr_ratna_name = await eval_js(ws, "document.getElementById('ratnaTitleMr')?.textContent || document.getElementById('currentRatnaNameMr')?.textContent")
+            curr_ratna_img = await eval_js(ws, "document.getElementById('ratnaCutoutImg')?.src || document.getElementById('currentRatnaImg')?.src")
             print(f"✓ 3.0s Emergence Cycle active: Current Ratna='{curr_ratna_name}' | Cutout='{curr_ratna_img}'")
 
             await take_screenshot(ws, "test_manthan_scene_emergence_3s.png", screenshots_dir)
+
+            # Test Tab: Scene 2 - Garuda Cinema & 4 Holy Tirthas Mode
+            print("\n--- Testing Scene 2: Garuda Cinema (1992 Cel Video & 4 Tirthas) ---")
+            debug_info = await eval_js(ws, """(() => {
+                const btn = document.getElementById('btnTabGaruda');
+                const stage = document.getElementById('garudaCinemaStage');
+                const beforeMode = window.currentMode;
+                const beforeHidden = stage ? stage.classList.contains('hidden') : 'no_stage';
+                if (window.setMode) {
+                    window.setMode('garuda');
+                } else if (btn) {
+                    btn.click();
+                }
+                const afterMode = window.currentMode;
+                const afterHidden = stage ? stage.classList.contains('hidden') : 'no_stage';
+                return {
+                    btnExists: Boolean(btn),
+                    hasSetMode: typeof window.setMode,
+                    beforeMode,
+                    afterMode,
+                    beforeHidden,
+                    afterHidden,
+                    stageDisplay: stage ? stage.style.display : null
+                };
+            })()""")
+            print(f"Debug Garuda switch: {debug_info}")
+            await asyncio.sleep(1.2)
+
+            garuda_stage_hidden = await eval_js(ws, "document.getElementById('garudaCinemaStage')?.classList.contains('hidden')")
+            print(f"✓ Garuda Cinema Stage Active: hidden={garuda_stage_hidden}")
+            assert not garuda_stage_hidden, "Expected garudaCinemaStage to be visible"
+
+            video_src = await eval_js(ws, "document.getElementById('garudaVideo')?.getAttribute('src')")
+            print(f"✓ Garuda Video Source: {video_src}")
+            assert "garuda_flight_10s_20s.mp4" in video_src, f"Unexpected video src: {video_src}"
+
+            # Test City 1: Nashik Jump
+            await eval_js(ws, "document.getElementById('btnGarudaCity1')?.click()")
+            await asyncio.sleep(0.6)
+            g_city_title = await eval_js(ws, "document.getElementById('garudaCardTitle')?.textContent")
+            g_river = await eval_js(ws, "document.getElementById('garudaCardRiver')?.textContent")
+            print(f"✓ Garuda Lore Card (Nashik): Title='{g_city_title}', River='{g_river}'")
+            assert "नाशिक" in g_city_title, f"Expected नाशिक in title, got: {g_city_title}"
+            assert "गोदावरी" in g_river, f"Expected गोदावरी in river, got: {g_river}"
+
+            # Test All Cities / Domes / Light Pillars
+            await eval_js(ws, "document.getElementById('btnGarudaAllCities')?.click()")
+            await asyncio.sleep(0.6)
+            active_domes = await eval_js(ws, "document.querySelectorAll('.garuda-dome.active').length")
+            active_beams = await eval_js(ws, "document.querySelectorAll('.garuda-light-beam.active').length")
+            print(f"✓ All Sacred Tirthas Active: Domes={active_domes}/4, Light Beams={active_beams}/4")
+            assert active_domes == 4, f"Expected 4 active domes, got {active_domes}"
+            assert active_beams == 4, f"Expected 4 active beams, got {active_beams}"
+
+            await take_screenshot(ws, "test_manthan_scene_garuda_cinema.png", screenshots_dir)
 
             # Test Mobile
             await set_viewport(ws, 390, 844, is_mobile=True)
             await asyncio.sleep(0.5)
             await take_screenshot(ws, "test_manthan_scene_mobile_390.png", screenshots_dir)
 
-            test_results.append("SUITE 4: samudra_manthan_scene.html PASSED (Harmonic Rig, Master Cel, 14 SVG, 3s Cycle, Mobile)")
+            test_results.append("SUITE 4: samudra_manthan_scene.html PASSED (Harmonic Rig, Master Cel, 14 SVG, 3s Cycle, Garuda Cinema 1992 Cel, Mobile)")
 
             event_task.cancel()
 
